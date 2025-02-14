@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('registrationForm');
+    const form = document.getElementById('login-form');
     console.log(form);
 
     form.addEventListener('submit', async function (event) {
