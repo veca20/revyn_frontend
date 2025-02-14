@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cart.css">
+    <meta name="keywords" content="energiaital, Revyn, fórum">
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Revyn</title>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="banner">
+        <nav>
+            <div class="hamburger-menu">
+                &#9776; <!-- Hamburger ikon -->
+            </div>
+            <ul>
+                <li><a href="../html/home.html">SHOP</a></li>
+                <li><a href="../html/AboutRevyn.html">ABOUT REVYN</a></li>
+                <li><a href="../html/buy.html">WHERE TO BUY</a></li>
+                <li><a href="../html/veryfyyourrevyn.html">VERIFY YOUR REVYN</a></li>
+            </ul>
+        </nav>
+        <h1>REVYN</h1>
+        <div class="icons">
+            <a href="login.html"><i class="fa-solid fa-user"></i></a>
+            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+    </div>
+
+    <!-- Checkout Page -->
+    <div class="checkout-container">
+        <div class="form-section">
+            <h2>Contact</h2>
+            <input type="text" placeholder="Your contact information">
+
+            <h2>Delivery</h2>
+            <input type="text" placeholder="First name">
+            <input type="text" placeholder="Last name">
+            <input type="text" placeholder="Address">
+            <input type="text" placeholder="Phone number">
+
+            <h2>Payment</h2>
+            <input type="text" placeholder="Card number">
+            <input type="text" placeholder="Expiration date">
+            <input type="text" placeholder="Security code">
+            <input type="text" placeholder="Name on card">
+
+            <button class="pay-now">Pay Now</button>
+        </div>
+
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <!-- Dynamically filled product section -->
+            <div id="product-list"></div>
+            <input type="text" id="gift-card" placeholder="Gift card code">
+            <button id="apply-gift-card">Apply</button>
+
+            <h3 id="total-price">Total: $0.00</h3>
+        </div>
+    </div>
+    <p id="discount-message">Kupon aktiválva</p>
+
+    <script src="../js/cart .js"></script>
+</body>
+
+</html>

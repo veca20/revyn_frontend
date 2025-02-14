@@ -1,0 +1,281 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    color: black;
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-image: linear-gradient(to right, #080908, #00FF00);
+    overflow: auto;
+}
+
+/* Header */
+.banner {
+    background-color: #00FF00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    flex-wrap: nowrap;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 36px;
+    position: absolute;
+    /* Változtatás: relative-ről absolute-re */
+    text-align: center;
+    margin: 0;
+    flex: 1;
+    z-index: 2;
+    left: 50%;
+    /* Új sor */
+    transform: translateX(-50%);
+    /* Új sor */
+    order: 2;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+    order: 3;
+}
+
+.icons a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+/* Hamburger Menü */
+.hamburger-menu {
+    display: none;
+    /* Változtatás: inline-block-ról none-ra */
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+    order: 1;
+}
+
+.hamburger-menu div {
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+/* keresés */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: black; 
+}
+
+.search-box {
+    display: none;
+    padding: 2px;
+    font-size: 16px;
+    border-radius: 5px;
+    border-color: #00FF00;
+}
+
+.search-box.show {
+    display: inline-block;
+}
+
+/* Hamburger ikon */
+.hamburger-menu {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Profil Szerkesztése */
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00FF00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00CC00;
+}
+
+.profile-pic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-pic-container input[type="file"] {
+    display: none;
+}
+
+.profile-pic-container label {
+    background-color: #00FF00;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-pic-container label:hover {
+    background-color: #00CC00;
+}
+
+@media only screen and (max-width: 768px) {
+    .banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+        position: relative;
+    }
+
+    .hamburger-menu {
+        display: block;
+        /* Mobil nézetben jelenjen meg */
+        font-size: 30px;
+        color: black;
+        cursor: pointer;
+        position: relative;
+        order: 1;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #00FF00;
+        width: 100%;
+        padding: 10px;
+        gap: 10px;
+        z-index: 2;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card {
+        flex: 1 0 100%;
+        margin: 10px 0;
+        height: auto;
+    }
+
+    .card-body,
+    .card-footer {
+        height: auto;
+    }
+
+    .pic-div {
+        width: 100%;
+        padding-top: 100%;
+        overflow: hidden;
+    }
+
+    .banner {
+        background-color: #00FF00;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .banner h1 {
+        font-size: 30px;
+        text-align: center;
+        z-index: 2;
+        position: absolute;
+        /* Mobil nézetben is legyen középre igazítva */
+        left: 50%;
+        /* Új sor */
+        transform: translateX(-50%);
+        /* Új sor */
+    }
+
+    .icons {
+        order: 3;
+        justify-content: flex-end;
+        width: 100%;
+    }
+}

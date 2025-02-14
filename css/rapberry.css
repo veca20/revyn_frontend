@@ -1,0 +1,277 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    color: black;
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to right, #080908, #1B3C74);
+    margin: 0;
+    overflow: auto;
+}
+
+/* Header */
+.banner {
+    background-color: #00FF00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    flex-wrap: nowrap;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 36px;
+    position: absolute; /* Változtatás: relative-ről absolute-re */
+    text-align: center;
+    margin: 0;
+    flex: 1;
+    z-index: 2;
+    left: 50%; /* Új sor */
+    transform: translateX(-50%); /* Új sor */
+    order: 2;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+    order: 3;
+}
+
+.icons a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+/* Hamburger Menü */
+.hamburger-menu {
+    display: none; /* Változtatás: inline-block-ról none-ra */
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+    order: 1;
+}
+
+.hamburger-menu div {
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    padding: 40px 0;
+    position: relative;
+    min-height: 150px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    font-family: 'Arial', sans-serif;
+}
+
+.footer-link:hover {
+    color: gray;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+/* kártya */
+.product-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    margin: 20px auto; /* Kártyák közötti távolság */
+}
+
+.product-card img {
+     max-width: 100%; /* Kisebb méretű kép */ 
+    height: auto; /* Az arányok megtartása */ 
+    border-radius: 10px; }
+
+.product-card h2 {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.product-card .price {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.quantity button {
+    background-color: #00FF00;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.quantity input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+}
+
+.add-to-cart {
+    background-color: #1B3C74;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.features {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+    text-align: left;
+}
+
+.features li {
+    background-color: #b5becc;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+/* Mobilnézethez reszponzív módosítások */
+@media only screen and (max-width: 768px) {
+    .banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+        position: relative;
+    }
+
+    .hamburger-menu {
+        display: block; /* Mobil nézetben jelenjen meg */
+        font-size: 30px;
+        color: black;
+        cursor: pointer;
+        position: relative;
+        order: 1;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #00FF00;
+        width: 100%;
+        padding: 10px;
+        gap: 10px;
+        z-index: 2;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card {
+        flex: 1 0 100%;
+        margin: 10px 0;
+        height: auto;
+    }
+
+    .card-body,
+    .card-footer {
+        height: auto;
+    }
+
+    .pic-div {
+        width: 100%;
+        padding-top: 100%;
+        overflow: hidden;
+    }
+
+    .banner {
+        background-color: #00FF00;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .banner h1 {
+        font-size: 30px;
+        text-align: center;
+        z-index: 2;
+        position: absolute; /* Mobil nézetben is legyen középre igazítva */
+        left: 50%; /* Új sor */
+        transform: translateX(-50%); /* Új sor */
+    }
+
+    .icons {
+        order: 3;
+        justify-content: flex-end;
+        width: 100%;
+    }
+}

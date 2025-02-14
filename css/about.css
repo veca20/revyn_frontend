@@ -1,0 +1,201 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    color: black;
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    overflow: auto;
+}
+
+/* Header styles */
+.banner {
+    background-color: #00FF00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 1;
+    height: 60px; /* Fixed header height */
+}
+
+h1 {
+    font-size: 24px; /* Smaller font size */
+    text-align: center;
+    margin: 0;
+    order: 2;
+    flex: 1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Centering title */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    order: 1;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+    order: 3;
+}
+
+.icons a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+/* Text container */
+.text-container p {
+    display: block;
+    text-align: left;
+}
+
+/* Hamburger menu */
+.hamburger-menu {
+    display: none;
+}
+
+/* Footer styles */
+.footer {
+    margin-top: auto;
+    background-color: black;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    font-family: 'Arial', sans-serif;
+}
+
+.footer-link:hover {
+    color: gray;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+/* Mobile view adjustments */
+@media only screen and (max-width: 768px) {
+    .countries {
+        grid-template-columns: repeat(1, 1fr); /* Single column layout for mobile */
+    }
+
+    .banner {
+        padding: 10px 30px;
+    }
+
+    .hamburger-menu {
+        display: block; /* Display hamburger in mobile */
+        font-size: 30px;
+        color: black;
+        cursor: pointer;
+        position: relative;
+        order: 1;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #00FF00;
+        width: 100%;
+        padding: 10px;
+        gap: 10px;
+        z-index: 2;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card {
+        flex: 1 0 100%;
+        margin: 10px 0;
+        height: auto;
+    }
+
+    .card-body, .card-footer {
+        height: auto;
+    }
+
+    .pic-div {
+        width: 100%;
+        padding-top: 100%;
+        overflow: hidden;
+    }
+
+    .banner h1 {
+        font-size: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .icons {
+        order: 3;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .footer-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .text-container {
+        width: 100%;
+    }
+
+    .text-container p {
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/profilszerkezstes.css">
+    <meta name="keywords" content="energiaital, Revyn, fórum">
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Revyn</title>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="banner">
+        <nav>
+            <div class="hamburger-menu" >
+                &#9776; <!-- Hamburger ikon -->
+            </div>
+            <ul>
+                <li><a href="../html/home.html">SHOP</a></li>
+                <li><a href="../html/AboutRevyn.html">ABOUT REVYN</a></li>
+                <li><a href="../html/buy.html">WHERE TO BUY</a></li>
+                <li><a href="../html/veryfyyourrevyn.html">VERIFY YOUR REVYN</a></li>
+            </ul>
+        </nav>
+        <h1>REVYN</h1>
+        <div class="icons">
+            <a href="login.html"><i class="fa-solid fa-user"></i></a>
+            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+           
+        </div>
+    </div>
+<!-- ÉS AKKOR EZ CSAK AKKOR ELÉRHETÖ HA VALAKI BE VAN JELENTKEZVE     -->
+    <!-- Profil Szerkesztése -->
+    <div class="container">
+        
+        <form id="profileForm">
+            <div class="profile-pic-container">
+                <img id="profile-pic" src="../img/profile.jpg" alt="Profilkép">
+                <input type="file" id="profile-pic-upload" name="profile-pic-upload" accept="image/*">
+            </div>
+            <label for="username">User name:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Save</button>
+        </form>
+    </div>
+    
+    <script src="../js/profilszerkesztes.js"></script>
+</body>
+
+</html>
