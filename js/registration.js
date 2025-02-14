@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('registrationForm');
+    console.log(form);
 
     form.addEventListener('submit', async function (event) {
         event.preventDefault(); // Az alapértelmezett űrlapküldést meggátoljuk
