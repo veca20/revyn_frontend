@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
 async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
+    console.log(document.getElementById('email'));
+console.log(document.getElementById('psw'));
+console.log(document.getElementById('btnLogin'));
+
+
     const email = document.getElementById('email').value.trim();
     const psw = document.getElementById('psw').value.trim();
 
