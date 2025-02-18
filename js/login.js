@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM teljesen betöltődött!');
+
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
@@ -10,26 +12,39 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Hamburger vagy navMenu nem található.');
     }
 
-    const btnLogin = document.querySelector('#btnLogin'); // ID alapján kiválasztás
+    // Biztos, hogy betöltődnek az elemek
+    setTimeout(() => {
+        const btnLogin = document.getElementById('btnLogin');
+        console.log('btnLogin:', btnLogin);
 
-    if (btnLogin) {
-        btnLogin.addEventListener('click', login);
-    } else {
-        console.error('btnLogin nem található!');
-    }
+        if (btnLogin) {
+            btnLogin.addEventListener('click', login);
+        } else {
+            console.error('HIBA: Nem található btnLogin az oldalon!');
+        }
+    }, 500); // Késleltetés fél másodpercet, hogy a DOM biztosan betöltődjön
 });
 
 // Bejelentkezési funkció
 async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
-    console.log(document.getElementById('email'));
-console.log(document.getElementById('psw'));
-console.log(document.getElementById('btnLogin'));
+    // Ellenőrizzük, hogy az elemek léteznek-e
+    const emailInput = document.getElementById('email');
+    const pswInput = document.getElementById('psw');
 
+    console.log('emailInput:', emailInput);
+    console.log('pswInput:', pswInput);
+    console.log('btnLogin:', document.getElementById('btnLogin'));
 
-    const email = document.getElementById('email').value.trim();
-    const psw = document.getElementById('psw').value.trim();
+    if (!emailInput || !pswInput) {
+        console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
+        alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
+        return;
+    }
+
+    const email = emailInput.value.trim();
+    const psw = pswInput.value.trim();
 
     if (!email || !psw) {
         alert('Kérlek, töltsd ki az összes mezőt.');
@@ -58,7 +73,7 @@ console.log(document.getElementById('btnLogin'));
 
         if (data.message) {
             alert(data.message);
-            window.location.href = 'index.html'; // Sikeres bejelentkezés után navigáció
+            window.location.href = 'index.html';
         } else {
             alert('Ismeretlen hiba történt.');
         }
