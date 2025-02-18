@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const result = await response.json();
             console.log('Szerver válasza:', result); // Naplózás a debughoz
-
+            console.log(response);
             if (response.ok) {
                 alert('Sikeres regisztráció!');
                 form.reset();
