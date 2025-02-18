@@ -33,11 +33,9 @@ async function login(event) {
     const email = document.getElementsByClassName('email');
     const psw =document.getElementsByClassName('password');;
 
-    console.log('emailInput:', emailInput);
-    console.log('pswInput:', pswInput);
-    console.log('btnLogin:', document.getElementById('btnLogin'));
+    
 
-    if (!emailInput || !pswInput) {
+    if (!email || !psw) {
         console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
         alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
         return;
