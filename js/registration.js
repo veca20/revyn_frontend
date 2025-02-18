@@ -11,6 +11,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Hamburger vagy navMenu elem nem található');
     }
 });
+// regisztáció
+document.addEventListener('DOMContentLoaded', function () {
+    const btnReg = document.querySelector('.btnReg');
+
+    if (btnReg) {
+        btnReg.addEventListener('click', function (event) {
+            event.preventDefault(); // Megakadályozza az űrlap elküldését
+            window.location.href = 'index.html'; // Átirányítás az index.html-re
+        });
+    } else {
+        console.error('btnReg gomb nem található');
+    }
+});
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementsByClassName('login-form')[0];
