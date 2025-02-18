@@ -2,31 +2,37 @@ document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
-    hamburger.addEventListener('click', function () {
-        navMenu.classList.toggle('show');
-    });
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function () {
+            navMenu.classList.toggle('show');
+        });
+    } else {
+        console.error('Hamburger vagy navMenu nem található.');
+    }
 
-    const btnLogin = document.getElementById('btnLogin');
+    const btnLogin = document.querySelector('#btnLogin'); // ID alapján kiválasztás
 
-    // Ellenőrizze, hogy a login gomb létezik-e, mielőtt eseményt ad hozzá
     if (btnLogin) {
         btnLogin.addEventListener('click', login);
+    } else {
+        console.error('btnLogin nem található!');
     }
 });
 
 // Bejelentkezési funkció
-async function login() {
+async function login(event) {
+    event.preventDefault(); // Megakadályozza az űrlap elküldését
+
     const email = document.getElementById('email').value.trim();
     const psw = document.getElementById('psw').value.trim();
 
-    // Üres mezők ellenőrzése
     if (!email || !psw) {
         alert('Kérlek, töltsd ki az összes mezőt.');
         return;
     }
 
     try {
-        const res = await fetch('http://192.168.10.13:3000/api/login', {
+        const res = await fetch('https://nodejs314.dszcbaross.edu.hu/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,20 +42,18 @@ async function login() {
         });
 
         if (!res.ok) {
-            // Nem sikeres válasz esetén szövegként olvassuk be
             const errorText = await res.text();
             console.error('Hiba történt:', errorText);
             alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
             return;
         }
 
-        // Próbáljuk meg JSON formátumban olvasni a választ
         const data = await res.json();
         console.log('Bejelentkezés sikeres:', data);
 
         if (data.message) {
             alert(data.message);
-            window.location.href = '../html/home.html'; // Átirányítás a főoldalra
+            window.location.href = 'index.html'; // Sikeres bejelentkezés után navigáció
         } else {
             alert('Ismeretlen hiba történt.');
         }
@@ -57,5 +61,4 @@ async function login() {
         console.error('Hiba a bejelentkezés során:', error);
         alert('Nem sikerült csatlakozni a szerverhez. Próbáld újra később.');
     }
-    
 }
