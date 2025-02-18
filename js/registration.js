@@ -17,13 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (btnReg) {
         btnReg.addEventListener('click', function (event) {
-            event.preventDefault(); // Megakadályozza az űrlap elküldését
-            window.location.href = 'index.html'; // Átirányítás az index.html-re
+            event.preventDefault(); // Megakadályozza az alapértelmezett űrlapküldést
+            console.log('Regisztrációs gombra kattintottak!'); // Ellenőrzés a konzolon
+            window.location.href = 'index.html'; // Átirányítás
         });
     } else {
-        console.error('btnReg gomb nem található');
+        console.error('btnReg gomb nem található!');
     }
 });
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
