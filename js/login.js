@@ -30,7 +30,8 @@ async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
     // Ellenőrizzük, hogy az elemek léteznek-e
-    const email = document.getElementsByClassName('email')[0]; // Az első email mező
+    const email = document.getElementsByClassName('email')[0];
+
     const psw = document.getElementsByClassName('password')[0]; // Az első password mező
 
     if (!email || !psw) {
