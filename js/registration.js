@@ -19,8 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', async function (event) {
         event.preventDefault(); // Az alapértelmezett űrlapküldést meggátoljuk
 
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
+       const firstname = document.getElementById('firstname').value;
+       const lastname = document.getElementById('lastname').value;
+       const email = document.getElementById('email').value;
+       const psw = document.getElementById('psw').value;
 
         try {
             const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/register', {
@@ -28,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({ firstname, lastname, email, psw })
             });
 
             const result = await response.json();
