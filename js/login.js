@@ -30,10 +30,8 @@ async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
     // Ellenőrizzük, hogy az elemek léteznek-e
-    const email = document.getElementsByClassName('email');
-    const psw =document.getElementsByClassName('password');;
-
-    
+    const email = document.getElementsByClassName('email')[0]; // Az első email mező
+    const psw = document.getElementsByClassName('password')[0]; // Az első password mező
 
     if (!email || !psw) {
         console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
@@ -41,8 +39,11 @@ async function login(event) {
         return;
     }
 
+    // Az értékek lekérése
+    const emailValue = email.value;
+    const pswValue = psw.value;
 
-    if (!email || !psw) {
+    if (!emailValue || !pswValue) {
         alert('Kérlek, töltsd ki az összes mezőt.');
         return;
     }
@@ -53,7 +54,7 @@ async function login(event) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, psw }),
+            body: JSON.stringify({ email: emailValue, psw: pswValue }),
             credentials: 'include',
         });
 
