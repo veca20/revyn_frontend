@@ -30,8 +30,8 @@ async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
     // Ellenőrizzük, hogy az elemek léteznek-e
-    const emailInput = document.getElementById('email');
-    const pswInput = document.getElementById('psw');
+    const email = document.getElementsByClassName('email');
+    const psw =document.getElementsByClassName('password');;
 
     console.log('emailInput:', emailInput);
     console.log('pswInput:', pswInput);
@@ -43,8 +43,6 @@ async function login(event) {
         return;
     }
 
-    const email = emailInput.value.trim();
-    const psw = pswInput.value.trim();
 
     if (!email || !psw) {
         alert('Kérlek, töltsd ki az összes mezőt.');
