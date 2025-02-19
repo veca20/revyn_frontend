@@ -1,34 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const hamburger = document.querySelector('.hamburger-menu');
-    const navMenu = document.querySelector('nav ul');
-
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function () {
-            navMenu.classList.toggle('show');
-        });
-    } else {
-        console.error('Hamburger vagy navMenu elem nem található');
-    }
-});
-
-// regisztáció
-document.addEventListener('DOMContentLoaded', function () {
-    const btnReg = document.querySelector('.btnReg');
-
-    if (btnReg) {
-        btnReg.addEventListener('click', function (event) {
-            event.preventDefault(); // Megakadályozza az alapértelmezett űrlapküldést
-            console.log('Regisztrációs gombra kattintottak!'); // Ellenőrzés a konzolon
-            // Ha ide akarod navigálni az oldalt, akkor csak a regisztrációs adatokat küld el a szerverre
-        });
-    } else {
-        console.error('btnReg gomb nem található!');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementsByClassName('login-form')[0];
-    console.log(form);
 
     form.addEventListener('submit', async function (event) {
         event.preventDefault(); // Az alapértelmezett űrlapküldést meggátoljuk
@@ -39,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const psw = document.getElementById('psw').value;
 
         try {
-            const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/register', {
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
