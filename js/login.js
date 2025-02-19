@@ -74,7 +74,7 @@ async function login(event) {
                 console.log('Bejelentkezés sikeres:', data);
                 if (data && data.message) {
                     alert(data.message);
-                    window.location.href = 'index.html';
+                    // window.location.href = 'index.html';
                 } else {
                     alert('Ismeretlen hiba történt.');
                 }
