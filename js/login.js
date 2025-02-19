@@ -65,6 +65,7 @@ async function login(event) {
         console.log(res);
         console.log(document.cookie);
         const data = await res.json();
+        console.log(document.cookie);
         if (!res.ok) {
             const errorText = res.text();
             console.error('Hiba történt:', errorText);
@@ -73,7 +74,9 @@ async function login(event) {
         }
         console.log('Bejelentkezés sikeres:', data);
         if (data && data.message) {
+            console.log(document.cookie);
             alert(data.message);
+            console.log(document.cookie);
             // window.location.href = 'index.html';
         } else {
             alert('Ismeretlen hiba történt.');
