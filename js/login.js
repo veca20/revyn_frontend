@@ -68,7 +68,8 @@ async function login(event) {
                     alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
                     return;
                 }
-                return res.json();
+
+                //return res.json();
             })
             .then((data) => {
                 console.log('Bejelentkezés sikeres:', data);
