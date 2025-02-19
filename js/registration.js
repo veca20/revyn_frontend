@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const psw = document.getElementById('psw').value;
 
         try {
-            const response = await fetch('https:/https://spectacular-blini-0de975.netlify.app/registration', {
+            const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,28 +47,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({ firstname, lastname, email, psw })
             });
 
-            // Válasz naplózása
+            // Konzolba kiírás
+            console.log('Szerver válasza:', response);
             const result = await response.json();
-            console.log('Szerver válasza:', result); // Naplózás a debughoz
-            console.log('Szerver válasz státusza:', response.status); // HTTP státusz naplózása
+            console.log('Szerver válasz JSON:', result);
 
             // Ellenőrizd a válasz státuszát
-            if (response.ok) {
+            if (!response.ok) {
+                console.log('Hiba a válaszban:', response.status);
+                return alert(`Hiba történt! HTTP státusz: ${response.status}`);
+            }
+
+            // Ha van hibaüzenet
+            if (result.errors) {
+                console.error('Szerver hibaüzenetek:', result.errors);
+                alert('Hiba történt a regisztráció során.');
+            } else {
+                console.log('Sikeres regisztráció:', result);
                 alert('Sikeres regisztráció!');
                 form.reset();
-                window.location.href = 'index.html'; // Átirányítás sikeres regisztráció után
-            } else {
-                // Ha van hibaüzenet
-                const errors = result.errors;
-                if (Array.isArray(errors)) {
-                    alert(`Hiba: ${errors.map(err => err.error).join(', ')}`);
-                } else {
-                    alert('Ismeretlen hiba történt! Ellenőrizd az adatokat, és próbáld újra.');
-                }
+                window.location.href = 'index.html'; // Átirányítás siker után
             }
         } catch (error) {
             console.error('Hálózati hiba:', error);
-            alert('Hálózati hiba történt! Győződj meg arról, hogy a szerver fut, és próbáld újra.');
+            alert('Hálózati hiba történt! Próbáld újra.');
         }
     });
 });
