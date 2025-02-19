@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
-    
+
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
         });
     } else {
@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', async function (event) {
         event.preventDefault(); // Az alapértelmezett űrlapküldést meggátoljuk
 
-       const firstname = document.getElementById('firstname').value;
-       const lastname = document.getElementById('lastname').value;
-       const email = document.getElementById('email').value;
-       const psw = document.getElementById('psw').value;
+        const firstname = document.getElementById('firstname').value;
+        const lastname = document.getElementById('lastname').value;
+        const email = document.getElementById('email').value;
+        const psw = document.getElementById('psw').value;
 
         try {
             const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/register', {
