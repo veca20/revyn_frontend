@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
-
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
@@ -11,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Hamburger vagy navMenu elem nem található');
     }
 });
+
 // regisztáció
 document.addEventListener('DOMContentLoaded', function () {
     const btnReg = document.querySelector('.btnReg');
@@ -19,14 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
         btnReg.addEventListener('click', function (event) {
             event.preventDefault(); // Megakadályozza az alapértelmezett űrlapküldést
             console.log('Regisztrációs gombra kattintottak!'); // Ellenőrzés a konzolon
-            window.location.href = 'index.html'; // Átirányítás
+            // Ha ide akarod navigálni az oldalt, akkor csak a regisztrációs adatokat küld el a szerverre
         });
     } else {
         console.error('btnReg gomb nem található!');
     }
 });
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementsByClassName('login-form')[0];
@@ -49,14 +47,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({ firstname, lastname, email, psw })
             });
 
+            // Válasz naplózása
             const result = await response.json();
             console.log('Szerver válasza:', result); // Naplózás a debughoz
-            console.log(response);
+            console.log('Szerver válasz státusza:', response.status); // HTTP státusz naplózása
+
+            // Ellenőrizd a válasz státuszát
             if (response.ok) {
                 alert('Sikeres regisztráció!');
                 form.reset();
+                window.location.href = 'index.html'; // Átirányítás sikeres regisztráció után
             } else {
-                // Ellenőrizd, hogy van-e "errors" mező, és az tömb-e
+                // Ha van hibaüzenet
                 const errors = result.errors;
                 if (Array.isArray(errors)) {
                     alert(`Hiba: ${errors.map(err => err.error).join(', ')}`);
