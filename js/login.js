@@ -30,53 +30,58 @@ async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
     // Ellenőrizzük, hogy az elemek léteznek-e
-    const email = document.getElementsByClassName('email')[0];
+    setTimeout(() => {
+        const email = document.querySelector('.email');
+        const psw = document.querySelector('.password');
 
-    const psw = document.getElementsByClassName('password')[0]; // Az első password mező
+        console.log('Email mező:', email);
+        console.log('Jelszó mező:', psw);
 
-    if (!email || !psw) {
-        console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
-        alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
-        return;
-    }
-
-    // Az értékek lekérése
-    const emailValue = email.value;
-    const pswValue = psw.value;
-
-    if (!emailValue || !pswValue) {
-        alert('Kérlek, töltsd ki az összes mezőt.');
-        return;
-    }
-
-    try {
-        const res = await fetch('https://nodejs314.dszcbaross.edu.hu/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: emailValue, psw: pswValue }),
-            credentials: 'include',
-        });
-
-        if (!res.ok) {
-            const errorText = await res.text();
-            console.error('Hiba történt:', errorText);
-            alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
+        if (!email || !psw) {
+            console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
+            alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
             return;
         }
 
-        const data = await res.json();
-        console.log('Bejelentkezés sikeres:', data);
+        // Az értékek lekérése
+        const emailValue = email.value;
+        const pswValue = psw.value;
 
-        if (data.message) {
-            alert(data.message);
-            window.location.href = 'index.html';
-        } else {
-            alert('Ismeretlen hiba történt.');
+        if (!emailValue || !pswValue) {
+            alert('Kérlek, töltsd ki az összes mezőt.');
+            return;
         }
-    } catch (error) {
-        console.error('Hiba a bejelentkezés során:', error);
-        alert('Nem sikerült csatlakozni a szerverhez. Próbáld újra később.');
-    }
+
+        try {
+            fetch('https://nodejs314.dszcbaross.edu.hu/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: emailValue, psw: pswValue }),
+                credentials: 'include',
+            })
+            .then(async (res) => {
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    console.error('Hiba történt:', errorText);
+                    alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
+                    return;
+                }
+                return res.json();
+            })
+            .then((data) => {
+                console.log('Bejelentkezés sikeres:', data);
+                if (data && data.message) {
+                    alert(data.message);
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Ismeretlen hiba történt.');
+                }
+            });
+        } catch (error) {
+            console.error('Hiba a bejelentkezés során:', error);
+            alert('Nem sikerült csatlakozni a szerverhez. Próbáld újra később.');
+        }
+    }, 500); // Fél másodperces késleltetés a biztonság kedvéért
 }
