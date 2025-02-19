@@ -63,6 +63,7 @@ async function login(event) {
         })
 
         console.log(res);
+        console.log(document.cookie);
         const data = await res.json();
         if (!res.ok) {
             const errorText = res.text();
