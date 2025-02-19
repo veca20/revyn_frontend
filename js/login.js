@@ -30,37 +30,37 @@ async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
     // Ellenőrizzük, hogy az elemek léteznek-e
-    setTimeout(() => {
-        const email = document.querySelector('.email');
-        const psw = document.querySelector('.password');
+    //setTimeout(() => {
+    const email = document.querySelector('.email');
+    const psw = document.querySelector('.password');
 
-        console.log('Email mező:', email);
-        console.log('Jelszó mező:', psw);
+    console.log('Email mező:', email);
+    console.log('Jelszó mező:', psw);
 
-        if (!email || !psw) {
-            console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
-            alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
-            return;
-        }
+    if (!email || !psw) {
+        console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
+        alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
+        return;
+    }
 
-        // Az értékek lekérése
-        const emailValue = email.value;
-        const pswValue = psw.value;
+    // Az értékek lekérése
+    const emailValue = email.value;
+    const pswValue = psw.value;
 
-        if (!emailValue || !pswValue) {
-            alert('Kérlek, töltsd ki az összes mezőt.');
-            return;
-        }
+    if (!emailValue || !pswValue) {
+        alert('Kérlek, töltsd ki az összes mezőt.');
+        return;
+    }
 
-        try {
-            fetch('https://nodejs314.dszcbaross.edu.hu/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: emailValue, psw: pswValue }),
-                credentials: 'include',
-            })
+    try {
+        fetch('https://nodejs314.dszcbaross.edu.hu/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: emailValue, psw: pswValue }),
+            credentials: 'include',
+        })
             .then(res => {
                 if (!res.ok) {
                     const errorText = res.text();
@@ -79,9 +79,9 @@ async function login(event) {
                     alert('Ismeretlen hiba történt.');
                 }
             });
-        } catch (error) {
-            console.error('Hiba a bejelentkezés során:', error);
-            alert('Nem sikerült csatlakozni a szerverhez. Próbáld újra később.');
-        }
-    }, 500); // Fél másodperces késleltetés a biztonság kedvéért
+    } catch (error) {
+        console.error('Hiba a bejelentkezés során:', error);
+        alert('Nem sikerült csatlakozni a szerverhez. Próbáld újra később.');
+    }
+    //}, 500); // Fél másodperces késleltetés a biztonság kedvéért
 }
