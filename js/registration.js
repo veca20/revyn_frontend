@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const psw = document.getElementById('psw').value;
 
         try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
