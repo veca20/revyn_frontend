@@ -53,7 +53,7 @@ async function login(event) {
     }
 
     try {
-        fetch('https://nodejs314.dszcbaross.edu.hu/api/login', {
+        const res = await fetch('https://nodejs314.dszcbaross.edu.hu/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -61,26 +61,24 @@ async function login(event) {
             body: JSON.stringify({ email: emailValue, psw: pswValue }),
             credentials: 'include',
         })
-            .then(res => {
-                if (!res.ok) {
-                    const errorText = res.text();
-                    console.error('Hiba történt:', errorText);
-                    alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
-                    return;
-                }
 
-                //return res.json();
-            })
-            .then((data) => {
-                console.log('Bejelentkezés sikeres:', data);
-                if (data && data.message) {
-                    alert(data.message);
-                    // window.location.href = 'index.html';
-                } else {
-                    alert('Ismeretlen hiba történt.');
-                }
-            });
-    } catch (error) {
+        console.log(res);
+        const data = await res.json();
+        if (!res.ok) {
+            const errorText = res.text();
+            console.error('Hiba történt:', errorText);
+            alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
+            return;
+        }
+        console.log('Bejelentkezés sikeres:', data);
+        if (data && data.message) {
+            alert(data.message);
+            // window.location.href = 'index.html';
+        } else {
+            alert('Ismeretlen hiba történt.');
+        }
+    }
+    catch (error) {
         console.error('Hiba a bejelentkezés során:', error);
         alert('Nem sikerült csatlakozni a szerverhez. Próbáld újra később.');
     }
