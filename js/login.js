@@ -61,9 +61,9 @@ async function login(event) {
                 body: JSON.stringify({ email: emailValue, psw: pswValue }),
                 credentials: 'include',
             })
-            .then(async (res) => {
+            .then(res => {
                 if (!res.ok) {
-                    const errorText = await res.text();
+                    const errorText = res.text();
                     console.error('Hiba történt:', errorText);
                     alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
                     return;
