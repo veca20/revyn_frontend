@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
+    // Hamburger menü működtetése
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
@@ -12,17 +13,15 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Hamburger vagy navMenu nem található.');
     }
 
-    // Biztos, hogy betöltődnek az elemek
-    setTimeout(() => {
-        const btnLogin = document.getElementById('btnLogin');
-        console.log('btnLogin:', btnLogin);
+    // Bejelentkezési gomb működtetése
+    const btnLogin = document.getElementById('btnLogin');
+    console.log('btnLogin:', btnLogin);
 
-        if (btnLogin) {
-            btnLogin.addEventListener('click', login);
-        } else {
-            console.error('HIBA: Nem található btnLogin az oldalon!');
-        }
-    }, 500); // Késleltetés fél másodpercet, hogy a DOM biztosan betöltődjön
+    if (btnLogin) {
+        btnLogin.addEventListener('click', login);
+    } else {
+        console.error('HIBA: Nem található btnLogin az oldalon!');
+    }
 });
 
 // Bejelentkezési funkció
@@ -30,7 +29,6 @@ async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
     // Ellenőrizzük, hogy az elemek léteznek-e
-    //setTimeout(() => {
     const email = document.querySelector('.email');
     const psw = document.querySelector('.password');
 
@@ -59,32 +57,34 @@ async function login(event) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email: emailValue, psw: pswValue }),
-            credentials: 'include',
-        })
+            credentials: 'include', // Cookie-k továbbítása
+        });
 
-        console.log(res);
-        console.log(document.cookie);
+        console.log(res); // A válasz státusza
+        console.log('Cookie-k a kérés előtt:', document.cookie); // Cookie-k a kérés előtt
+
         const data = await res.json();
-        console.log(document.cookie);
+        console.log('Cookie-k a válasz után:', document.cookie); // Cookie-k a válasz után
+
+        // Ha a válasz nem sikeres
         if (!res.ok) {
-            const errorText = res.text();
+            const errorText = await res.text();
             console.error('Hiba történt:', errorText);
             alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
             return;
         }
+
         console.log('Bejelentkezés sikeres:', data);
         if (data && data.message) {
-            console.log(document.cookie);
             alert(data.message);
-            console.log(document.cookie);
+            console.log('Cookie-k sikeres bejelentkezés után:', document.cookie);
+            // Ha szeretnél irányítani egy másik oldalra, használd a következőt:
             // window.location.href = 'index.html';
         } else {
             alert('Ismeretlen hiba történt.');
         }
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Hiba a bejelentkezés során:', error);
         alert('Nem sikerült csatlakozni a szerverhez. Próbáld újra később.');
     }
-    //}, 500); // Fél másodperces késleltetés a biztonság kedvéért
 }
