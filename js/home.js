@@ -1,15 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Hamburger menü toggle
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
+            
+            // Ha még mindig nem működik, próbáld meg ezt is:
+            if (navMenu.style.display === 'none' || !navMenu.style.display) {
+                navMenu.style.display = 'flex';
+            } else {
+                navMenu.style.display = 'none';
+            }
         });
     } else {
         console.error('Hamburger vagy navMenu elem nem található');
     }
+});
+
 
     // KOSÁR KEZELÉSE
     const cartIcon = document.querySelector('.cart-icon');
@@ -109,5 +117,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Kosár frissítése és renderelése
-    updateCart();
-});
+
