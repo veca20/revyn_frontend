@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+
     // KOSÁR KEZELÉSE
     const cartIcon = document.querySelector('.cart-icon');
     const cartDropdown = document.getElementById('cart-dropdown');
