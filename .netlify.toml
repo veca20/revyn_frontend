@@ -1,0 +1,4 @@
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Set-Cookie = "auth_token=; Path=/; Secure; HttpOnly; SameSite=None"
