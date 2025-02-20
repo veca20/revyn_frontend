@@ -1,46 +1,58 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementsByClassName('login-form')[0];
+    const fileInput = document.getElementById('profilePic');
+    const preview = document.getElementById('preview');
+
+    fileInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 
     form.addEventListener('submit', async function (event) {
-        event.preventDefault(); // Az alapértelmezett űrlapküldést meggátoljuk
+        event.preventDefault();
 
         const firstname = document.getElementById('firstname').value;
         const lastname = document.getElementById('lastname').value;
         const email = document.getElementById('email').value;
         const psw = document.getElementById('psw').value;
+        const profilePic = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append('firstname', firstname);
+        formData.append('lastname', lastname);
+        formData.append('email', email);
+        formData.append('psw', psw);
+        if (profilePic) {
+            formData.append('profilePic', profilePic);
+        }
 
         try {
             const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/register', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ firstname, lastname, email, psw })
+                body: formData
             });
 
-            // Konzolba kiírás
-            console.log('Szerver válasza:', response);
             const result = await response.json();
-            console.log('Szerver válasz JSON:', result);
-
-            // Ellenőrizd a válasz státuszát
             if (!response.ok) {
-                console.log('Hiba a válaszban:', response.status);
                 return alert(`Hiba történt! HTTP státusz: ${response.status}`);
             }
 
-            // Ha van hibaüzenet
             if (result.errors) {
-                console.error('Szerver hibaüzenetek:', result.errors);
                 alert('Hiba történt a regisztráció során.');
             } else {
-                console.log('Sikeres regisztráció:', result);
                 alert('Sikeres regisztráció!');
                 form.reset();
-                window.location.href = 'index.html'; // Átirányítás siker után
+                preview.style.display = 'none';
+                window.location.href = 'index.html';
             }
         } catch (error) {
-            console.error('Hálózati hiba:', error);
             alert('Hálózati hiba történt! Próbáld újra.');
         }
     });
