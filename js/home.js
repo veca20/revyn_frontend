@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
-            
+
             // Ha még mindig nem működik, próbáld meg ezt is:
             if (navMenu.style.display === 'none' || !navMenu.style.display) {
                 navMenu.style.display = 'flex';
@@ -16,8 +16,25 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error('Hamburger vagy navMenu elem nem található');
     }
-});
 
+    // **ADMIN JOGOSULTSÁGOK KEZELÉSE**
+    const role = localStorage.getItem('role');
+    if (role === 'admin') {
+        // Admin jogosultságokkal elérhető funkciók (pl. termékek kezelése)
+        const adminPanelLink = document.querySelector('.admin-panel-link');
+        if (adminPanelLink) {
+            adminPanelLink.style.display = 'block'; // Admin panel link megjelenítése
+        }
+        
+        // Ha admin, átirányítjuk a 'addproduct.html' oldalra
+        window.location.href = 'addproduct.html';  // Átirányítás addproduct.html-re
+    } else if (role === 'user') {
+        // Normál felhasználók esetén
+        const adminPanelLink = document.querySelector('.admin-panel-link');
+        if (adminPanelLink) {
+            adminPanelLink.style.display = 'none'; // Ha nem admin, elrejtjük az admin panel linket
+        }
+    }
 
     // KOSÁR KEZELÉSE
     const cartIcon = document.querySelector('.cart-icon');
@@ -115,40 +132,41 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCart();
         }
     });
-// termékek hozzáadaása
+
+    // termékek hozzáadása
 
     document.addEventListener('DOMContentLoaded', async function () {
         const productList = document.getElementById('product-list');
-    
+
         async function fetchProducts() {
             try {
-                const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/products'); // Módosítsd az API végpontodra
+                const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/products');
                 const products = await response.json();
-    
-                productList.innerHTML = ''; // Ürítsük ki az esetleges régi tartalmat
+
+                productList.innerHTML = '';
                 products.forEach(product => {
                     const productDiv = document.createElement('div');
                     productDiv.classList.add('product-card');
                     productDiv.innerHTML = `
-                        <img src="${product_image}" alt="${product_name}">
-                        <h3>${product_name}</h3>
-                        <p>$${product_price.toFixed(2)}</p>
-                        <button class="btnAddToCart" data-name="${product_name}" data-price="${product_price}" data-image="${product_image}">Kosárba</button>
+                        <img src="${product.product_image}" alt="${product.product_name}">
+                        <h3>${product.product_name}</h3>
+                        <p>$${product.product_price.toFixed(2)}</p>
+                        <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price}" data-image="${product.product_image}">Kosárba</button>
                     `;
                     productList.appendChild(productDiv);
                 });
-    
+
                 // Gombok újra hozzárendelése
                 const addToCartButtons = document.querySelectorAll('.btnAddToCart');
                 addToCartButtons.forEach(button => {
                     button.addEventListener('click', addToCart);
                 });
-    
+
             } catch (error) {
                 console.error('Hiba a termékek lekérésekor:', error);
             }
         }
-    
+
         fetchProducts();
     });
-    
+});
