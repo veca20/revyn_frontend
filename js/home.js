@@ -5,13 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
-
-            // Ha még mindig nem működik, próbáld meg ezt is:
-            if (navMenu.style.display === 'none' || !navMenu.style.display) {
-                navMenu.style.display = 'flex';
-            } else {
-                navMenu.style.display = 'none';
-            }
         });
     } else {
         console.error('Hamburger vagy navMenu elem nem található');
@@ -25,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (adminPanelLink) {
             adminPanelLink.style.display = 'block'; // Admin panel link megjelenítése
         }
-        
+
         // Ha admin, átirányítjuk a 'addproduct.html' oldalra
         window.location.href = 'addproduct.html';  // Átirányítás addproduct.html-re
     } else if (role === 'user') {
@@ -134,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // termékek hozzáadása
-
     document.addEventListener('DOMContentLoaded', async function () {
         const productList = document.getElementById('product-list');
 
@@ -164,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             } catch (error) {
                 console.error('Hiba a termékek lekérésekor:', error);
+                alert("Hiba történt a termékek betöltésekor. Kérlek próbáld újra.");
             }
         }
 
