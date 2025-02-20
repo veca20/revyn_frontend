@@ -103,13 +103,14 @@ nav ul li a {
 }
 
 .card {
-    flex: 1 1 20%; 
-    background-color: white;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-    height: auto;
+    flex: 1 1 calc(25% - 20px); /* 4 oszlopos elrendezés */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+    transform: scale(1.05);
 }
 
 .card img {
@@ -169,6 +170,11 @@ nav ul li a {
 .card-footer button:hover {
     background-color: #00cc00;
 }
+button:hover {
+    background-color: #00cc00;
+    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4);
+}
+
 
 /* Footer */
 .footer {
@@ -353,3 +359,10 @@ button:disabled {
         line-height: 1.6;
     }
 }
+
+@media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+    }
+}
+

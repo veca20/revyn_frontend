@@ -115,6 +115,40 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCart();
         }
     });
+// termékek hozzáadaása
 
-    // Kosár frissítése és renderelése
-
+    document.addEventListener('DOMContentLoaded', async function () {
+        const productList = document.getElementById('product-list');
+    
+        async function fetchProducts() {
+            try {
+                const response = await fetch('https://nodejs314.dszcbaross.edu.hu/api/products'); // Módosítsd az API végpontodra
+                const products = await response.json();
+    
+                productList.innerHTML = ''; // Ürítsük ki az esetleges régi tartalmat
+                products.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product-card');
+                    productDiv.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>$${product.price.toFixed(2)}</p>
+                        <button class="btnAddToCart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Kosárba</button>
+                    `;
+                    productList.appendChild(productDiv);
+                });
+    
+                // Gombok újra hozzárendelése
+                const addToCartButtons = document.querySelectorAll('.btnAddToCart');
+                addToCartButtons.forEach(button => {
+                    button.addEventListener('click', addToCart);
+                });
+    
+            } catch (error) {
+                console.error('Hiba a termékek lekérésekor:', error);
+            }
+        }
+    
+        fetchProducts();
+    });
+    
