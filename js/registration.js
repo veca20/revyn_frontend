@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementsByClassName('login-form')[0];
-    const fileInput = document.getElementById('profilePic');
+    const fileInput = document.getElementById('profile_picture');
     const preview = document.getElementById('preview');
 
     fileInput.addEventListener('change', function (event) {
@@ -22,15 +22,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const lastname = document.getElementById('lastname').value;
         const email = document.getElementById('email').value;
         const psw = document.getElementById('psw').value;
-        const profilePic = fileInput.files[0];
+        const profile_picture = fileInput.files[0];
 
         const formData = new FormData();
         formData.append('firstname', firstname);
         formData.append('lastname', lastname);
         formData.append('email', email);
         formData.append('psw', psw);
-        if (profilePic) {
-            formData.append('profilePic', profilePic);
+        if (profile_picture) {
+            formData.append('profile_picture', profile_picture);
         }
 
         try {
