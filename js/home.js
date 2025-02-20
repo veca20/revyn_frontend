@@ -130,10 +130,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     const productDiv = document.createElement('div');
                     productDiv.classList.add('product-card');
                     productDiv.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}">
-                        <h3>${product.name}</h3>
-                        <p>$${product.price.toFixed(2)}</p>
-                        <button class="btnAddToCart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Kosárba</button>
+                        <img src="${product_image}" alt="${product_name}">
+                        <h3>${product_name}</h3>
+                        <p>$${product_price.toFixed(2)}</p>
+                        <button class="btnAddToCart" data-name="${product_name}" data-price="${product_price}" data-image="${product_image}">Kosárba</button>
                     `;
                     productList.appendChild(productDiv);
                 });
