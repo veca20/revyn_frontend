@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Hamburger vagy navMenu elem nem található');
     }
 
-
-
     // KOSÁR KEZELÉSE
     const cartIcon = document.querySelector('.cart-icon');
     const cartDropdown = document.getElementById('cart-dropdown');
