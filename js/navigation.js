@@ -1,47 +1,46 @@
+const hamburger = document.querySelector('.hamburger-menu');
+const navMenu = document.querySelector('nav ul');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', function () {
+        navMenu.classList.toggle('show');
+    });
+} else {
+    console.error('Hamburger vagy navMenu elem nem található');
+}
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const links = document.querySelectorAll(".nav-link");
     const contentContainer = document.getElementById("content");
-    const hamburger = document.querySelector('.hamburger-menu');
-    const navMenu = document.querySelector('nav ul');
-
-    // 📌 Hamburger menü működése
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function () {
-            navMenu.classList.toggle('show');
-        });
-    } else {
-        console.error('Hamburger vagy navMenu elem nem található');
-    }
 
     if (!contentContainer) {
         console.error("Nincs content tároló a DOM-ban.");
         return;
     }
 
-    // 📌 Dinamikus oldalbetöltés az összes linkhez
     links.forEach(link => {
         link.addEventListener("click", function (event) {
             event.preventDefault();
-            const page = this.getAttribute("data-page"); // Melyik oldal?
+            const page = this.getAttribute("data-page");
+
+            
             loadPage(page);
         });
     });
 
     function loadPage(page) {
-        history.pushState({ page }, "", `${page}.html`); // 📌 Frissíti az URL-t
-
-        fetch(`html/${page}.html`) // 📌 HTML fájl betöltése
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Oldal nem található!");
-                }
-                return response.text();
-            })
+        fetch(`html/${page}.html`)
+            .then(response => response.text())
             .then(html => {
                 contentContainer.innerHTML = html;
+
+                // Töröljük az előző oldal scriptjeit
                 removeOldScripts();
 
-                // 📌 Ha van hozzá JS fájl, betöltjük
+                // Megnézzük, hogy van-e hozzá tartozó JS fájl, és ha igen, betöltjük
                 let scriptPath = `js/${page}.js`;
                 loadScript(scriptPath);
             })
@@ -52,12 +51,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadScript(scriptPath) {
-        fetch(scriptPath, { method: "HEAD" }) // 📌 Ellenőrizzük, hogy létezik-e a JS fájl
+        fetch(scriptPath, { method: "HEAD" }) // Ellenőrizzük, hogy létezik-e a fájl
             .then(response => {
                 if (response.ok) {
                     let script = document.createElement("script");
                     script.src = scriptPath;
-                    script.classList.add("dynamic-script");
+                    script.classList.add("dynamic-script"); // Megjelöljük, hogy törölhető legyen
                     document.body.appendChild(script);
                 }
             })
@@ -71,14 +70,4 @@ document.addEventListener("DOMContentLoaded", function () {
             script.remove();
         });
     }
-
-    // 📌 Ha az oldal újratöltődik, betöltjük az URL szerinti oldalt
-    window.addEventListener("popstate", function (event) {
-        if (event.state && event.state.page) {
-            loadPage(event.state.page);
-        }
-    });
-
-    // 📌 Alapértelmezett oldal betöltése (pl. home)
-    loadPage("home");
 });
