@@ -28,8 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function loadPage(page) {
-        fetch(`html/${page}.html`) // 📌 HTML fájl betöltése a megfelelő mappából
-            .then(response => response.text())
+        history.pushState({ page }, "", `${page}.html`); // 📌 Frissíti az URL-t
+
+        fetch(`html/${page}.html`) // 📌 HTML fájl betöltése
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Oldal nem található!");
+                }
+                return response.text();
+            })
             .then(html => {
                 contentContainer.innerHTML = html;
                 removeOldScripts();
@@ -72,4 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // 📌 Alapértelmezett oldal betöltése (pl. home)
+    loadPage("home");
 });

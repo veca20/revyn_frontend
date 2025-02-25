@@ -24,17 +24,16 @@
                 <li><a href="#" class="nav-link" data-page="home">SHOP</a></li>
                 <li><a href="#" class="nav-link" data-page="about">ABOUT REVYN</a></li>
                 <li><a href="#" class="nav-link" data-page="buy">WHERE TO BUY</a></li>
-                <li><a href="#" class="nav-link" data-page="veryfy">VERIFY YOUR REVYN</a>
-                </li>
+                <li><a href="#" class="nav-link" data-page="verify">VERIFY YOUR REVYN</a></li> <!-- Javított név -->
             </ul>
         </nav>
         <h1>REVYN</h1>
         <div class="icons">
             <a href="login.html"><i class="fa-solid fa-user"></i></a>
             <div class="cart-container">
-                <button class="cart-icon" >
+                <button class="cart-icon">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-count">0</span>  <!-- Kosár száma -->
+                    <span id="cart-count">0</span> <!-- Kosár száma -->
                 </button>
                 <!-- Kosár legördülő menü -->
                 <div id="cart-dropdown" class="cart-dropdown" style="display: none;">
@@ -51,17 +50,8 @@
     <!-- Kártyák -->
     <main class="container">
         <div class="row">
-            <div id="product-list" class="product-grid"></div>
-            <a href="addproduct.html" class="admin-panel-link" style="display:none;">Add Product</a>
-
-
-            <!-- Itt helyezd el a termékeket vagy tartalmakat -->
-
-            
-
-
-
-            
+            <!-- 📌 Ide töltődnek be a dinamikus oldalak -->
+            <div id="content"></div>
         </div>
     </main>
 
@@ -69,7 +59,6 @@
         <div class="footer-container">
             <a href="AboutRevyn.html" class="footer-link">ABOUT REVYN</a>
             <a href="index.html" class="footer-link">ENERGYDRINK</a>
-
             <div class="text-container">
                 <p>NEWSLETTER</p>
                 <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
@@ -78,11 +67,8 @@
     </footer>
 
     <script src="js/home.js"></script>
-<script src="js/navigation.js"></script>
-<script src="js/cart.js"></script>
-
-    
+    <script src="js/navigation.js"></script>
+    <script src="js/cart.js"></script>
 
 </body>
-
 </html>
