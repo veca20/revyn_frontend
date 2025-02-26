@@ -9,19 +9,21 @@ if (hamburger && navMenu) {
     console.error('Hamburger vagy navMenu elem nem található');
 }
 
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
-    // Az alapértelmezett oldal most már index.html
     let defaultPage = "index";
-
-    // Funkció az oldalak betöltésére
+    
     function loadPage(page) {
-        let pageToLoad = page ? page : defaultPage; // Ha nincs oldal megadva, akkor index.html-t tölt be
-        let filePath = `/revyn_frontend/${pageToLoad}.html`; // home.html helyett index.html
+        let pageToLoad = page ? page : defaultPage;
+        let filePath = `/revyn_frontend/${pageToLoad}.html`;
 
-        console.log(`Betöltés: ${filePath}`); // Debug üzenet a konzolba
+        // Ha az aktuális oldal már betöltődött, ne töltsük be újra!
+        let currentContent = document.getElementById("content").getAttribute("data-loaded-page");
+        if (currentContent === pageToLoad) {
+            console.log(`Az oldal már betöltődött: ${pageToLoad}`);
+            return;
+        }
+
+        console.log(`Betöltés: ${filePath}`);
 
         fetch(filePath)
             .then(response => {
@@ -31,12 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.text();
             })
             .then(html => {
-                document.getElementById("content").innerHTML = html; // Frissíti az oldal tartalmát
+                let contentDiv = document.getElementById("content");
+                contentDiv.innerHTML = html;
+                contentDiv.setAttribute("data-loaded-page", pageToLoad); // Frissítjük az aktuális oldalt
             })
             .catch(error => console.error("Hiba történt:", error));
     }
 
-    // Figyel a navigációs linkekre
+    // Navigációs linkek kezelése
     document.querySelectorAll("nav a").forEach(link => {
         link.addEventListener("click", function (event) {
             event.preventDefault();
@@ -45,6 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Az alapértelmezett oldal betöltése az első indításkor
-    loadPage();
+    // **Csak akkor töltsük be az alapértelmezett oldalt, ha még nincs betöltve**
+    if (!document.getElementById("content").hasAttribute("data-loaded-page")) {
+        loadPage();
+    }
 });
