@@ -1,6 +1,13 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     console.log('DOMContentLoaded event fired'); // Debugging célra
 
+    const res = await fetch('/api/products', {
+        method: 'GET',
+        credentials: 'include'
+    });
+
+    const products = await res.json();
+    console.log(products);
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
@@ -116,13 +123,16 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCart();
         }
     });
+});
 
+
+/*
     // Load page function
     let defaultPage = "index";
     
     function loadPage(page) {
         let pageToLoad = page ? page : defaultPage;
-        let filePath = `/revyn_frontend/${pageToLoad}.html`;
+        let filePath = `/${pageToLoad}.html`;
 
         let currentContent = document.getElementById("content").getAttribute("data-loaded-page");
         if (currentContent === pageToLoad) {
@@ -159,3 +169,4 @@ document.addEventListener('DOMContentLoaded', function () {
         loadPage();
     }
 });
+*/
