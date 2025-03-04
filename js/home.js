@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const products = await res.json();
     console.log(products);
+
+    displayProducts(products);
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
@@ -170,3 +172,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 */
+
+function displayProducts(products) {
+    console.log(`1_ ${products}`);
+}
