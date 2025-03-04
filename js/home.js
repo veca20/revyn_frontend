@@ -137,7 +137,10 @@ function displayProducts(products) {
         return;
     }
     
-    container.innerHTML = ''; // Töröljük az előző termékeket
+     // Kosárba adás gombok kezelése
+     document.querySelectorAll('.btnAddToCart').forEach(button => {
+        button.addEventListener('click', addToCart);
+    });
 
     products.forEach(product => {
         const productElement = document.createElement('div');
@@ -148,14 +151,11 @@ function displayProducts(products) {
             <h3>${product.name}</h3>
             <p>${product.description}</p>
             <p class="price">$${product.price.toFixed(2)}</p>
-            <button class="btnAddToCart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Kosárba</button>
+            <button class="btnAddToCart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
         `;
 
         container.appendChild(productElement);
     });
 
-    // Kosárba adás gombok kezelése
-    document.querySelectorAll('.btnAddToCart').forEach(button => {
-        button.addEventListener('click', addToCart);
-    });
+   
 }
