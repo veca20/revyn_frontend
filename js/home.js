@@ -131,22 +131,25 @@ function displayProducts(products) {
         return;
     }
 
-    container.innerHTML = ''; 
+    container.innerHTML = ''; // Ürítjük az előző tartalmat
 
     products.forEach(product => {
-        console.log(product); 
+        console.log(product); // Ellenőrzés a konzolban
 
-        
-        const price = product.product_price ? product.product_price.toFixed(2) : 'N/A';
+        // Ellenőrizzük, hogy az API küld-e képet
+        const imageUrl = product.product_image ? product.product_image : 'img/default.jpg';
+
+        // Ellenőrizzük, hogy az API küld-e árat
+        const price = product.product_price ? `$${product.product_price.toFixed(2)}` : 'N/A';
 
         const productElement = document.createElement('div');
         productElement.classList.add('product');
 
         productElement.innerHTML = `
-            <img src="${product.product_image}" alt="${product.product_name}" class="product-image">
+            <img src="${imageUrl}" alt="${product.product_name}" class="product-image">
             <h3>${product.product_name}</h3>
-            <p class="price">$${price}</p>
-            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
+            <p class="price">${price}</p>
+            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${imageUrl}">ADD TO CART</button>
         `;
 
         container.appendChild(productElement);
@@ -157,3 +160,4 @@ function displayProducts(products) {
         button.addEventListener('click', addToCart);
     });
 }
+
