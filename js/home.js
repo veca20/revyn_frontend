@@ -131,23 +131,23 @@ function displayProducts(products) {
         return;
     }
 
-    container.innerHTML = ''; // Ürítsük ki a tartalmat, mielőtt újra hozzáadnánk a termékeket
+    container.innerHTML = ''; // Ürítjük az előző tartalmat
 
     products.forEach(product => {
         const productElement = document.createElement('div');
         productElement.classList.add('product');
 
         productElement.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <h3>${product.name}</h3>
-            <p class="price">$${product.price.toFixed(2)}</p>
-            <button class="btnAddToCart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
+            <img src="${product.product_image}" alt="${product.product_name}" class="product-image">
+            <h3>${product.product_name}</h3>
+            <p class="price">$${product.product_price.toFixed(2)}</p>
+            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price}" data-image="${product.product_image}">ADD TO CART</button>
         `;
 
         container.appendChild(productElement);
     });
 
-    // 🔹 Kosárba adás gombok kezelése
+    // Kosárba adás gombok kezelése
     document.querySelectorAll('.btnAddToCart').forEach(button => {
         button.addEventListener('click', addToCart);
     });
