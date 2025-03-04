@@ -149,7 +149,7 @@ function displayProducts(products) {
             <img src="${imageUrl}" alt="${product.product_name}" class="product-image">
             <h3>${product.product_name}</h3>
             <p class="price">${price}</p>
-            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${image}">ADD TO CART</button>
+            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product_image}">ADD TO CART</button>
         `;
 
         container.appendChild(productElement);
