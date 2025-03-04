@@ -51,7 +51,7 @@ async function login(event) {
     }
 
     try {
-        const res = await fetch('/api/login', {
+        const res = await fetch('https://nodejs314.dszcbaross.edu.hu/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
