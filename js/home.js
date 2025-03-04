@@ -147,11 +147,11 @@ function displayProducts(products) {
         productElement.classList.add('product');
 
         productElement.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <p class="price">$${product.price.toFixed(2)}</p>
-            <button class="btnAddToCart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
+            <img src="${product_image}" alt="${product_name}" class="product-image">
+            <h3>${product_name}</h3>
+           
+            <p class="price">$${price.toFixed(2)}</p>
+            <button class="btnAddToCart" data-name="${product_name}" data-price="${product_price}" data-image="${product_image}">ADD TO CART</button>
         `;
 
         container.appendChild(productElement);
