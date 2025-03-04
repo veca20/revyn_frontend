@@ -128,51 +128,34 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 
-/*
-    // Load page function
-    let defaultPage = "index";
-    
-    function loadPage(page) {
-        let pageToLoad = page ? page : defaultPage;
-        let filePath = `/${pageToLoad}.html`;
 
-        let currentContent = document.getElementById("content").getAttribute("data-loaded-page");
-        if (currentContent === pageToLoad) {
-            console.log(`Az oldal már betöltődött: ${pageToLoad}`);
-            return;
-        }
-
-        console.log(`Betöltés: ${filePath}`);
-
-        fetch(filePath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Hiba: ${response.status} - Az oldal nem található: ${filePath}`);
-                }
-                return response.text();
-            })
-            .then(html => {
-                let contentDiv = document.getElementById("content");
-                contentDiv.innerHTML = html;
-                contentDiv.setAttribute("data-loaded-page", pageToLoad);
-            })
-            .catch(error => console.error("Hiba történt:", error));
-    }
-
-    document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-            let page = this.getAttribute("data-page");
-            loadPage(page);
-        });
-    });
-
-    if (!document.getElementById("content").hasAttribute("data-loaded-page")) {
-        loadPage();
-    }
-});
-*/
 
 function displayProducts(products) {
-    console.log(`1_ ${products}`);
+    const container = document.getElementById('products-container');
+    if (!container) {
+        console.error('A termékeket tartalmazó elem nem található.');
+        return;
+    }
+    
+    container.innerHTML = ''; // Töröljük az előző termékeket
+
+    products.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+
+        productElement.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <p class="price">$${product.price.toFixed(2)}</p>
+            <button class="btnAddToCart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Kosárba</button>
+        `;
+
+        container.appendChild(productElement);
+    });
+
+    // Kosárba adás gombok kezelése
+    document.querySelectorAll('.btnAddToCart').forEach(button => {
+        button.addEventListener('click', addToCart);
+    });
 }
