@@ -137,7 +137,8 @@ function displayProducts(products) {
         console.log(product); 
 
         
-        const price = product.product_price ? product.product_price.toFixed(2) : 'N/A';
+        
+        
 
         const productElement = document.createElement('div');
         productElement.classList.add('product');
