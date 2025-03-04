@@ -147,7 +147,7 @@ function displayProducts(products) {
         productElement.classList.add('product');
 
         productElement.innerHTML = `
-            <img src="${product_image}" alt="${product_name}" class="product-image">
+            <img src="${product_image}" alt="${product_name}" class="product_image">
             <h3>${product_name}</h3>
            
             <p class="price">$${price.toFixed(2)}</p>
