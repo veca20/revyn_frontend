@@ -79,7 +79,7 @@ async function login(event) {
             alert(data.message);
             console.log('Cookie-k sikeres bejelentkezés után:', document.cookie);
             // Ha szeretnél irányítani egy másik oldalra, használd a következőt:
-          //window.location.href = 'index.html';
+          window.location.href = 'index.html';
         } else {
             alert('Ismeretlen hiba történt.');
         }
