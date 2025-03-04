@@ -140,7 +140,7 @@ function displayProducts(products) {
         productElement.innerHTML = `
             <img src="${product.product_image}" alt="${product.product_name}" class="product-image">
             <h3>${product.product_name}</h3>
-            <p class="price">$${product.product_price.toFixed(2)}</p>
+            <p class="price">$${product.product_price}</p>
             <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price}" data-image="${product.product_image}">ADD TO CART</button>
         `;
 
