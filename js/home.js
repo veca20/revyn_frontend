@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     console.log(products);
 
     displayProducts(products);
+
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
@@ -43,7 +44,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     const checkoutButton = document.getElementById('checkoutButton');
     const cartCount = document.getElementById('cart-count');
     const cartItemsList = document.getElementById('cart-items-list');
-    const addToCartButtons = document.querySelectorAll('.btnAddToCart');
 
     let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -88,10 +88,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateCart();
     }
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', addToCart);
-    });
-
     if (cartIcon && cartDropdown) {
         cartIcon.addEventListener('click', function () {
             cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
@@ -127,35 +123,32 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 });
 
-
-
-
+// 🔹 TERMÉKEK MEGJELENÍTÉSE
 function displayProducts(products) {
     const container = document.getElementById('products-container');
     if (!container) {
         console.error('A termékeket tartalmazó elem nem található.');
         return;
     }
-    
-     // Kosárba adás gombok kezelése
-     document.querySelectorAll('.btnAddToCart').forEach(button => {
-        button.addEventListener('click', addToCart);
-    });
+
+    container.innerHTML = ''; // Ürítsük ki a tartalmat, mielőtt újra hozzáadnánk a termékeket
 
     products.forEach(product => {
         const productElement = document.createElement('div');
         productElement.classList.add('product');
 
         productElement.innerHTML = `
-            <img src="${product_image}" alt="${product_name}" class="product_image">
-            <h3>${product_name}</h3>
-           
-            <p class="price">$${price.toFixed(2)}</p>
-            <button class="btnAddToCart" data-name="${product_name}" data-price="${product_price}" data-image="${product_image}">ADD TO CART</button>
+            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <h3>${product.name}</h3>
+            <p class="price">$${product.price.toFixed(2)}</p>
+            <button class="btnAddToCart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">ADD TO CART</button>
         `;
 
         container.appendChild(productElement);
     });
 
-   
+    // 🔹 Kosárba adás gombok kezelése
+    document.querySelectorAll('.btnAddToCart').forEach(button => {
+        button.addEventListener('click', addToCart);
+    });
 }
