@@ -131,17 +131,22 @@ function displayProducts(products) {
         return;
     }
 
-    container.innerHTML = ''; // Ürítjük az előző tartalmat
+    container.innerHTML = ''; 
 
     products.forEach(product => {
+        console.log(product); 
+
+        
+        const price = product.product_price ? product.product_price.toFixed(2) : 'N/A';
+
         const productElement = document.createElement('div');
         productElement.classList.add('product');
 
         productElement.innerHTML = `
             <img src="${product.product_image}" alt="${product.product_name}" class="product-image">
             <h3>${product.product_name}</h3>
-            <p class="price">$${product.product_price}</p>
-            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price}" data-image="${product.product_image}">ADD TO CART</button>
+            <p class="price">$${price}</p>
+            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
         `;
 
         container.appendChild(productElement);
