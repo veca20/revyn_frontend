@@ -59,18 +59,19 @@ document.addEventListener('DOMContentLoaded', async function () {
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
         const productImage = button.getAttribute('data-image');  // Termékhez tartozó kép
-    
+        
         const existingItem = cartItems.find(item => item.name === productName);
-   
+    
         if (existingItem) {
             existingItem.quantity++; 
         } else {
-            cartItems.push({ name: product_name, price: product_price, image: product_image, quantity: 1 });
+            cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
         }
-   
+    
         alert(`${productName} hozzáadva a kosárhoz!`);
         updateCart(); // Kosár frissítése
     };
+    
    
     // 🔹 **Termékek megjelenítése**
     function displayProducts(products) {
