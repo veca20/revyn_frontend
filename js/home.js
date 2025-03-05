@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         const button = event.target;
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
-        const productImage = button.getAttribute('data-image');  // Termékhez tartozó kép
+        const productImage = `https://revyn.netlify.app/uploads/${product_image}`;
+        
         
         const existingItem = cartItems.find(item => item.name === productName);
     
