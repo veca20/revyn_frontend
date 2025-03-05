@@ -88,10 +88,10 @@ nav ul li a {
 
 /* Kártyák elrendezése */
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 20px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-evenly !important;
+    gap: 20px !important;
     padding: 20px;
 }
 
@@ -103,11 +103,10 @@ nav ul li a {
 }
 
 .card {
-    background: white !important; /* Fehér háttér kényszerítve */
+    flex: 1 1 calc(25% - 20px) !important;
+    background: white !important;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-    flex: 1 1 calc(25% - 20px); /* 4 oszlopos elrendezés */
     margin: 10px 0;
     padding: 10px;
 }
