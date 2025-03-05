@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         localStorage.setItem('cart', JSON.stringify(cartItems)); // Kosár mentése
     }
 
+    // 🔹 **Először definiáljuk az addToCart függvényt**
     function addToCart(event) {
         const button = event.target;
         const productName = button.getAttribute('data-name');
@@ -59,8 +60,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateCart();
     }
 
+    // 🔹 **Ezután hívjuk meg a displayProducts-et**
     displayProducts(products);
-    updateCart(); // 🔹 Fontos: Betöltéskor frissítsük a kosarat is
+    updateCart(); // Betöltéskor frissítjük a kosarat is
 
     // 🔹 Kosár működtetése
     document.addEventListener('click', function(event) {
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 });
 
+// 🔹 **A displayProducts meghívása után az eseményfigyelők is rendesen működni fognak**
 function displayProducts(products) {
     const container = document.getElementById('products-container');
     if (!container) {
@@ -118,6 +121,7 @@ function displayProducts(products) {
         container.appendChild(productElement);
     });
 
+    // 🔹 **Itt már biztosan létezik az addToCart függvény, így nem lesz hiba**
     document.querySelectorAll('.btnAddToCart').forEach(button => {
         button.addEventListener('click', addToCart);
     });
