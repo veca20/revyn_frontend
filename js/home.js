@@ -84,16 +84,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         container.innerHTML = '';
 
         products.forEach(product => {
-            let imageUrl = product.product_image;
-            if (!imageUrl.startsWith('http')) {
-                imageUrl = `https://revyn.netlify.app/${imageUrl}`;
-            }
-
             const productElement = document.createElement('div');
             productElement.classList.add('product');
 
             productElement.innerHTML = `
-                <img src="${imageUrl}" alt="${product.product_name}" class="product-image">
+                <img src="uploads/${imageUrl}" alt="${product.product_name}" class="product-image">
                 <h3>${product.product_name}</h3>
                 <p class="price">$${product.product_price || 0}</p>
                 <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${imageUrl}">ADD TO CART</button>
