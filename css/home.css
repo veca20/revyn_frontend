@@ -111,12 +111,14 @@ nav ul li a {
 }
 
 .card {
-    flex: 1 1 calc(25% - 20px) !important;
-    background: white !important;
+    flex: 1 1 calc(25% - 20px); /* 4 kártya egy sorban, kis margóval */
+    background-color: white;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    margin: 10px 0;
-    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    box-sizing: border-box;
 }
 
     .card:hover {
@@ -127,6 +129,7 @@ nav ul li a {
 .card img {
     width: 100%;
     height: auto;
+    border-radius: 5px;
 }
 .card:hover {
     transform: scale(1.05);
