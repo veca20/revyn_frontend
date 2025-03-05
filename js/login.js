@@ -81,7 +81,7 @@ async function login(event) {
 
             // Ha admin, irányítsuk az admin felületre
             if (data.user.role === 'admin') {
-                window.location.href = 'admin-dashboard.html';  // Admin felület
+                window.location.href = 'addproduct.html';  // Admin felület
             } else {
                 window.location.href = 'index.html';  // Normál felhasználó felület
             }
