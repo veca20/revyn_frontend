@@ -6,7 +6,7 @@ function toggleMenu() {
 
 // Hamburger menü kapcsoló funkció
 document.querySelector('.hamburger-menu').addEventListener('click', function() {
-    toggleMenu();
+    
 });
 
 // Keresés
