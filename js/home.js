@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     let cartItems = JSON.parse(localStorage.getItem('cart')) || []; // Kosár betöltése
 
+    // 🔹 **Kosár frissítése**
     function updateCart() {
         const cartItemsList = document.getElementById('cart-items-list');
         const cartCount = document.getElementById('cart-count');
@@ -42,8 +43,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         localStorage.setItem('cart', JSON.stringify(cartItems)); // Kosár mentése
     }
 
-    // 🔹 **Először definiáljuk az addToCart függvényt**
-    function addToCart(event) {
+    // 🔹 **Globálisan elérhető addToCart függvény**
+    window.addToCart = function (event) {
         const button = event.target;
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
@@ -58,13 +59,50 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         alert(`${productName} hozzáadva a kosárhoz!`);
         updateCart();
+    };
+
+    // 🔹 **Termékek megjelenítése**
+    function displayProducts(products) {
+        const container = document.getElementById('products-container');
+        if (!container) {
+            console.error('A termékeket tartalmazó elem nem található.');
+            return;
+        }
+
+        container.innerHTML = '';
+
+        products.forEach(product => {
+            console.log(product);
+
+            let imageUrl = product.product_image;
+            if (!imageUrl.startsWith('http')) {
+                imageUrl = `https://revyn.netlify.app/${imageUrl}`;
+            }
+
+            const productElement = document.createElement('div');
+            productElement.classList.add('product');
+
+            productElement.innerHTML = `
+                <img src="${imageUrl}" alt="${product.product_name}" class="product-image">
+                <h3>${product.product_name}</h3>
+                <p class="price">$${product.product_price || 0}</p>
+                <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${imageUrl}">ADD TO CART</button>
+            `;
+
+            container.appendChild(productElement);
+        });
+
+        // 🔹 **Most már a `window.addToCart` elérhető!**
+        document.querySelectorAll('.btnAddToCart').forEach(button => {
+            button.addEventListener('click', addToCart);
+        });
     }
 
-    // 🔹 **Ezután hívjuk meg a displayProducts-et**
+    // 🔹 **Meghívjuk a termékmegjelenítést**
     displayProducts(products);
-    updateCart(); // Betöltéskor frissítjük a kosarat is
+    updateCart();
 
-    // 🔹 Kosár működtetése
+    // 🔹 **Kosár műveletek**
     document.addEventListener('click', function(event) {
         const target = event.target;
 
@@ -89,40 +127,3 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     });
 });
-
-// 🔹 **A displayProducts meghívása után az eseményfigyelők is rendesen működni fognak**
-function displayProducts(products) {
-    const container = document.getElementById('products-container');
-    if (!container) {
-        console.error('A termékeket tartalmazó elem nem található.');
-        return;
-    }
-
-    container.innerHTML = ''; 
-
-    products.forEach(product => {
-        console.log(product);
-
-        let imageUrl = product.product_image;
-        if (!imageUrl.startsWith('http')) {
-            imageUrl = `https://revyn.netlify.app/${imageUrl}`;
-        }
-
-        const productElement = document.createElement('div');
-        productElement.classList.add('product');
-
-        productElement.innerHTML = `
-            <img src="${imageUrl}" alt="${product.product_name}" class="product-image">
-            <h3>${product.product_name}</h3>
-            <p class="price">$${product.product_price || 0}</p>
-            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${imageUrl}">ADD TO CART</button>
-        `;
-
-        container.appendChild(productElement);
-    });
-
-    // 🔹 **Itt már biztosan létezik az addToCart függvény, így nem lesz hiba**
-    document.querySelectorAll('.btnAddToCart').forEach(button => {
-        button.addEventListener('click', addToCart);
-    });
-}
