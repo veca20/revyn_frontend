@@ -9,6 +9,24 @@ document.addEventListener('DOMContentLoaded', async function () {
     const products = await res.json();
     console.log(products);
 
+    // Először definiáljuk az addToCart függvényt
+    function addToCart(event) {
+        const button = event.target;
+        const productName = button.getAttribute('data-name');
+        const productPrice = parseFloat(button.getAttribute('data-price'));
+        const productImage = button.getAttribute('data-image');
+        const existingItem = cartItems.find(item => item.name === productName);
+
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
+        }
+
+        alert(`${productName} hozzáadva a kosárhoz!`);
+        updateCart();
+    }
+
     displayProducts(products);
 
     const hamburger = document.querySelector('.hamburger-menu');
@@ -71,23 +89,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }
 
-    function addToCart(event) {
-        const button = event.target;
-        const productName = button.getAttribute('data-name');
-        const productPrice = parseFloat(button.getAttribute('data-price'));
-        const productImage = button.getAttribute('data-image');
-        const existingItem = cartItems.find(item => item.name === productName);
-
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
-        }
-
-        alert(`${productName} hozzáadva a kosárhoz!`);
-        updateCart();
-    }
-
     if (cartIcon && cartDropdown) {
         cartIcon.addEventListener('click', function () {
             cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
@@ -139,11 +140,14 @@ function displayProducts(products) {
         const productElement = document.createElement('div');
         productElement.classList.add('product');
 
+        // Kép elérési út javítása
+        let imageUrl = product.product_image.startsWith('http') ? product.product_image : `https://revyn.netlify.app/${product.product_image}`;
+
         productElement.innerHTML = `
-            <img src="${product.product_image}" alt="${product.product_name}" class="product-image">
+            <img src="${imageUrl}" alt="${product.product_name}" class="product-image">
             <h3>${product.product_name}</h3>
             <p class="price">$${product.product_price || 0}</p>
-            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
+            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${imageUrl}">ADD TO CART</button>
         `;
 
         container.appendChild(productElement);
