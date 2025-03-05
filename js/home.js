@@ -134,11 +134,7 @@ function displayProducts(products) {
     container.innerHTML = ''; 
 
     products.forEach(product => {
-        console.log(product); 
-
-        
-        
-        
+        console.log(product);
 
         const productElement = document.createElement('div');
         productElement.classList.add('product');
@@ -146,7 +142,7 @@ function displayProducts(products) {
         productElement.innerHTML = `
             <img src="${product.product_image}" alt="${product.product_name}" class="product-image">
             <h3>${product.product_name}</h3>
-            <p class="price">$${price}</p>
+            <p class="price">$${product.product_price || 0}</p>
             <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
         `;
 
