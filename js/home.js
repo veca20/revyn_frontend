@@ -60,13 +60,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
         const productImage = button.getAttribute('data-image');
         
-        // Ellenőrizzük, hogy a termék már benne van-e a kosárban
         const existingItem = cartItems.find(item => item.name === productName);
 
         if (existingItem) {
-            existingItem.quantity++; // Ha benne van, növeljük a mennyiséget
+            existingItem.quantity++; 
         } else {
-            // Ha nem, hozzáadjuk a kosárhoz
+            
             cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
         }
 
@@ -103,7 +102,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             container.appendChild(productElement);
         });
 
-        // 🔹 **Most már a `addToCart` elérhető!**
         document.querySelectorAll('.btnAddToCart').forEach(button => {
             button.addEventListener('click', addToCart);
         });
