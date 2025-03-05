@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Bejelentkezési gomb működtetése
     const btnLogin = document.getElementById('btnLogin');
-    console.log('btnLogin:', btnLogin);
+   
 
     if (btnLogin) {
         btnLogin.addEventListener('click', login);
