@@ -127,12 +127,10 @@ nav ul li a {
 }
 
 .card img {
-    .card img {
-        width: 100%;
-        height: auto;
-        max-width: 200px; /* Maximális szélesség, amit engedünk */
-        border-radius: 5px;
-    }
+    width: 100%;
+    height: 200px; /* Fix magasságot is adhatunk */
+    object-fit: cover; /* A kép kitölti a rendelkezésre álló helyet, megőrzi az arányait */
+    border-radius: 5px;
     
 }
 .card:hover {
