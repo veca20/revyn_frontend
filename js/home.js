@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             productElement.classList.add('product');
 
             productElement.innerHTML = `
-                <img src="uploads/${imageUrl}" alt="${product.product_name}" class="product-image">
+                <img src="uploads/${product.product_image}" alt="${product.product_name}" class="product-image">
                 <h3>${product.product_name}</h3>
                 <p class="price">$${product.product_price || 0}</p>
-                <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${imageUrl}">ADD TO CART</button>
+                <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
             `;
 
             container.appendChild(productElement);
