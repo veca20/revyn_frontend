@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    console.log('DOMContentLoaded event fired');
+    
 
     const res = await fetch('/api/products', {
         method: 'GET',
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     const products = await res.json();
-    console.log(products);
+   
 
     let cartItems = JSON.parse(localStorage.getItem('cart')) || []; // Kosár betöltése
 
