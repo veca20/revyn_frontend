@@ -53,6 +53,27 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     });
 
+    // 🔹 **Termékek hozzáadása a kosárhoz**
+    window.addToCart = function(event) {
+        const button = event.target;
+        const productName = button.getAttribute('data-name');
+        const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
+        const productImage = button.getAttribute('data-image');
+        
+        // Ellenőrizzük, hogy a termék már benne van-e a kosárban
+        const existingItem = cartItems.find(item => item.name === productName);
+
+        if (existingItem) {
+            existingItem.quantity++; // Ha benne van, növeljük a mennyiséget
+        } else {
+            // Ha nem, hozzáadjuk a kosárhoz
+            cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
+        }
+
+        alert(`${productName} hozzáadva a kosárhoz!`);
+        updateCart(); // Kosár frissítése
+    };
+
     // 🔹 **Termékek megjelenítése**
     function displayProducts(products) {
         const container = document.getElementById('products-container');
@@ -64,8 +85,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         container.innerHTML = '';
 
         products.forEach(product => {
-            console.log(product);
-
             let imageUrl = product.product_image;
             if (!imageUrl.startsWith('http')) {
                 imageUrl = `https://revyn.netlify.app/${imageUrl}`;
@@ -84,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             container.appendChild(productElement);
         });
 
-        // 🔹 **Most már a `window.addToCart` elérhető!**
+        // 🔹 **Most már a `addToCart` elérhető!**
         document.querySelectorAll('.btnAddToCart').forEach(button => {
             button.addEventListener('click', addToCart);
         });
