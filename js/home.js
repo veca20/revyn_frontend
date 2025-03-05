@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    console.log('DOMContentLoaded event fired'); // Debugging célra
+    console.log('DOMContentLoaded event fired');
 
     const res = await fetch('/api/products', {
         method: 'GET',
@@ -9,15 +9,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     const products = await res.json();
     console.log(products);
 
-    // 🔹 KOSÁR KEZELÉSHEZ AZ addToCart MEGHATÁROZÁSA
-    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || []; // Kosár betöltése
 
     function updateCart() {
         const cartItemsList = document.getElementById('cart-items-list');
         const cartCount = document.getElementById('cart-count');
         const checkoutButton = document.getElementById('checkoutButton');
 
-        if (!cartItemsList || !cartCount || !checkoutButton) return;
+        if (!cartItemsList || !cartCount || !checkoutButton) {
+            console.error("Kosár elemei nem találhatók.");
+            return;
+        }
 
         cartItemsList.innerHTML = '';
         let totalCount = 0;
@@ -37,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         cartCount.textContent = totalCount;
         checkoutButton.style.display = cartItems.length > 0 ? 'block' : 'none';
-        localStorage.setItem('cart', JSON.stringify(cartItems));
+        localStorage.setItem('cart', JSON.stringify(cartItems)); // Kosár mentése
     }
 
     function addToCart(event) {
@@ -57,44 +59,66 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateCart();
     }
 
-    // 🔹 Most már garantáltan létezik az addToCart függvény, így itt már meghívhatjuk a displayProducts-t
     displayProducts(products);
+    updateCart(); // 🔹 Fontos: Betöltéskor frissítsük a kosarat is
 
-    // 🔹 TERMÉKEK MEGJELENÍTÉSE
-    function displayProducts(products) {
-        const container = document.getElementById('products-container');
-        if (!container) {
-            console.error('A termékeket tartalmazó elem nem található.');
-            return;
+    // 🔹 Kosár működtetése
+    document.addEventListener('click', function(event) {
+        const target = event.target;
+
+        if (target.classList.contains('increase-quantity')) {
+            const index = target.getAttribute('data-index');
+            cartItems[index].quantity++;
+            updateCart();
         }
 
-        container.innerHTML = ''; 
+        if (target.classList.contains('decrease-quantity')) {
+            const index = target.getAttribute('data-index');
+            if (cartItems[index].quantity > 1) {
+                cartItems[index].quantity--;
+                updateCart();
+            }
+        }
 
-        products.forEach(product => {
-            console.log(product);
+        if (target.classList.contains('remove-item')) {
+            const index = target.getAttribute('data-index');
+            cartItems.splice(index, 1);
+            updateCart();
+        }
+    });
+});
 
-            const productElement = document.createElement('div');
-            productElement.classList.add('product');
-
-            // Kép elérési út ellenőrzése és helyes beállítása
-            let imageUrl = product.product_image.startsWith('http') ? product.product_image : `https://revyn.netlify.app/${product.product_image}`;
-
-            productElement.innerHTML = `
-                <img src="${imageUrl}" alt="${product.product_name}" class="product-image">
-                <h3>${product.product_name}</h3>
-                <p class="price">$${product.product_price || 0}</p>
-                <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${imageUrl}">ADD TO CART</button>
-            `;
-
-            container.appendChild(productElement);
-        });
-
-        // 🔹 Kosárba adás gombok eseménykezelője
-        document.querySelectorAll('.btnAddToCart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
+function displayProducts(products) {
+    const container = document.getElementById('products-container');
+    if (!container) {
+        console.error('A termékeket tartalmazó elem nem található.');
+        return;
     }
 
-    updateCart(); // Kosár frissítése a betöltéskor
+    container.innerHTML = ''; 
 
-});
+    products.forEach(product => {
+        console.log(product);
+
+        let imageUrl = product.product_image;
+        if (!imageUrl.startsWith('http')) {
+            imageUrl = `https://revyn.netlify.app/${imageUrl}`;
+        }
+
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+
+        productElement.innerHTML = `
+            <img src="${imageUrl}" alt="${product.product_name}" class="product-image">
+            <h3>${product.product_name}</h3>
+            <p class="price">$${product.product_price || 0}</p>
+            <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${imageUrl}">ADD TO CART</button>
+        `;
+
+        container.appendChild(productElement);
+    });
+
+    document.querySelectorAll('.btnAddToCart').forEach(button => {
+        button.addEventListener('click', addToCart);
+    });
+}
