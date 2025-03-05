@@ -103,7 +103,7 @@ nav ul li a {
 }
 
 .card {
-    background: white;
+    background: white !important; /* Fehér háttér kényszerítve */
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
@@ -111,8 +111,10 @@ nav ul li a {
     margin: 10px 0;
     padding: 10px;
 }
-.card:hover {
-    transform: scale(1.05);
+
+    .card:hover {
+        background-color: white !important; /* Hover esetén is fehér háttér */
+        transform: scale(1.05);
 }
 
 .card img {
