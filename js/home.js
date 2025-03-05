@@ -80,27 +80,30 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error('A termékeket tartalmazó elem nem található.');
             return;
         }
-
-        container.innerHTML = '';
-
+    
+        container.innerHTML = '';  // Ürítés, ha már van tartalom
+    
         products.forEach(product => {
             const productElement = document.createElement('div');
-            productElement.classList.add('product');
-
+            productElement.classList.add('card');  // Kártyákhoz hozzáadjuk a 'card' osztályt
+    
             productElement.innerHTML = `
-                <img src="uploads/${product.product_image}" alt="${product.product_name}" class="product-image">
-                <h3>${product.product_name}</h3>
-                <p class="price">$${product.product_price || 0}</p>
-                <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
+                <div class="card-body">
+                    <img src="uploads/${product.product_image}" alt="${product.product_name}" class="product-image">
+                    <h3>${product.product_name}</h3>
+                    <p class="price">$${product.product_price || 0}</p>
+                    <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
+                </div>
             `;
-
+    
             container.appendChild(productElement);
         });
-
+    
         document.querySelectorAll('.btnAddToCart').forEach(button => {
             button.addEventListener('click', addToCart);
         });
     }
+    
 
     // 🔹 **Kosár műveletek**
     document.addEventListener('click', function(event) {
