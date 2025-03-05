@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        cartItemsList.innerHTML = '';
+        cartItemsList.innerHTML = ''; // Kosár tartalmának ürítése
         let totalCount = 0;
 
         cartItems.forEach((item, index) => {
@@ -43,23 +43,15 @@ document.addEventListener('DOMContentLoaded', async function () {
         localStorage.setItem('cart', JSON.stringify(cartItems)); // Kosár mentése
     }
 
-    // 🔹 **Globálisan elérhető addToCart függvény**
-    window.addToCart = function (event) {
-        const button = event.target;
-        const productName = button.getAttribute('data-name');
-        const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
-        const productImage = button.getAttribute('data-image');
-        const existingItem = cartItems.find(item => item.name === productName);
-
-        if (existingItem) {
-            existingItem.quantity++;
+    // 🔹 **Kosár gombra kattintás: Kosár legördülő menü megjelenítése**
+    document.querySelector('.cart-icon').addEventListener('click', function() {
+        const cartDropdown = document.getElementById('cart-dropdown');
+        if (cartDropdown.style.display === 'none' || cartDropdown.style.display === '') {
+            cartDropdown.style.display = 'block'; // Kosár megjelenítése
         } else {
-            cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
+            cartDropdown.style.display = 'none'; // Kosár elrejtése
         }
-
-        alert(`${productName} hozzáadva a kosárhoz!`);
-        updateCart();
-    };
+    });
 
     // 🔹 **Termékek megjelenítése**
     function displayProducts(products) {
@@ -98,10 +90,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
 
-    // 🔹 **Meghívjuk a termékmegjelenítést**
-    displayProducts(products);
-    updateCart();
-
     // 🔹 **Kosár műveletek**
     document.addEventListener('click', function(event) {
         const target = event.target;
@@ -126,4 +114,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             updateCart();
         }
     });
+
+    // 🔹 **Meghívjuk a termékek megjelenítését és a kosár frissítését**
+    displayProducts(products);
+    updateCart();
 });
