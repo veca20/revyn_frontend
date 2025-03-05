@@ -138,3 +138,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     displayProducts(products);
     updateCart();
 });
+
+
+// Bejelentkezés után:
+localStorage.setItem('isLoggedIn', 'true');
+
+// Kijelentkezéskor:
+localStorage.removeItem('isLoggedIn');
