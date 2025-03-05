@@ -58,11 +58,10 @@ async function login(event) {
         });
 
         console.log(res); // A válasz státusza
-        console.log('Cookie-k a kérés előtt:', document.cookie); // Cookie-k a kérés előtt
+       
 
         const data = await res.json();
-        console.log('Cookie-k a válasz után:', document.cookie); // Cookie-k a válasz után
-
+       
         // Ha a válasz nem sikeres
         if (!res.ok) {
             const errorText = await res.text();
