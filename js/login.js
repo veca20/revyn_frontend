@@ -78,8 +78,13 @@ async function login(event) {
         if (data && data.message) {
             alert(data.message);
             console.log('Cookie-k sikeres bejelentkezés után:', document.cookie);
-            // Ha szeretnél irányítani egy másik oldalra, használd a következőt:
-          window.location.href = 'index.html';
+
+            // Ha admin, irányítsuk az admin felületre
+            if (data.user.role === 'admin') {
+                window.location.href = 'admin-dashboard.html';  // Admin felület
+            } else {
+                window.location.href = 'index.html';  // Normál felhasználó felület
+            }
         } else {
             alert('Ismeretlen hiba történt.');
         }
