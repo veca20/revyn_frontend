@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             totalCount += item.quantity;
             const li = document.createElement('li');
             li.innerHTML = `
-                <img src="uploads/${product.product_image}" alt="${item.name}" style="width: 40px; height: 40px; margin-right: 10px;">
+                <img src="${item.image}" alt="${item.name}" style="width: 40px; height: 40px; margin-right: 10px;">
                 ${item.name} - $${item.price.toFixed(2)} (x${item.quantity})
                 <button class="decrease-quantity" data-index="${index}">➖</button>
                 <button class="increase-quantity" data-index="${index}">➕</button>
