@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOM teljesen betöltődött!');
-
+    
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
@@ -32,8 +31,6 @@ async function login(event) {
     const email = document.querySelector('.email');
     const psw = document.querySelector('.password');
 
-    console.log('Email mező:', email);
-    console.log('Jelszó mező:', psw);
 
     if (!email || !psw) {
         console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
