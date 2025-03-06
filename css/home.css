@@ -129,7 +129,7 @@ nav ul li a {
 .card img {
     max-width: 100%;
     height: auto;
-    object-fit: contain; /* Az egész kép látszódjon, ne vágja le */
+    object-fit: cover; /* Az egész kép látszódjon, ne vágja le */
     border-radius: 5px;
     
 }
