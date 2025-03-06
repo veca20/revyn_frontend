@@ -155,8 +155,18 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 
-// Bejelentkezés után:
-localStorage.setItem('isLoggedIn', 'true');
+document.addEventListener('DOMContentLoaded', function () {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');  // Ellenőrizzük, hogy be van-e jelentkezve
 
-// Kijelentkezéskor:
-localStorage.removeItem('isLoggedIn');
+    const profileEditIcon = document.getElementById('profile-edit-icon');
+
+    if (isLoggedIn === 'true') {  // Ha be van jelentkezve
+        if (profileEditIcon) {
+            profileEditIcon.style.display = 'block';  // Profil szerkesztési ikon megjelenítése
+        }
+    } else {  // Ha nincs bejelentkezve
+        if (profileEditIcon) {
+            profileEditIcon.style.display = 'none';  // Profil szerkesztési ikon elrejtése
+        }
+    }
+});
