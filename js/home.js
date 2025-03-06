@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const productImage = button.getAttribute('data-image'); // 🔹 Helyes kép elérési út!
     
         if (!productImage) {
-            console.error("A termékkép nincs definiálva.");
+            console.error("HIBA: A termékkép nincs definiálva.");
             return;
         }
     
@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         alert(`${productName} hozzáadva a kosárhoz!`);
         updateCart();
     };
+    
     
     
    
