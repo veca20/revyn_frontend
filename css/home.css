@@ -113,7 +113,8 @@ nav ul li a {
 .card {
     flex: 1 1 calc(25% - 20px); /* 4 kártya egy sorban, kis margóval */
     background-color: white;
-    max-width: 200px;
+    max-width: 250px;
+    border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 10px;
     margin: 5px;
