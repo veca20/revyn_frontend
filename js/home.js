@@ -58,12 +58,14 @@ document.addEventListener('DOMContentLoaded', async function () {
         const button = event.target;
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
-        const productImage = button.getAttribute('data-image'); // 🔹 Helyes kép elérési út!
+        let productImage = button.getAttribute('data-image'); 
     
-        if (!productImage) {
-            console.error("HIBA: A termékkép nincs definiálva.");
-            return;
+        if (!productImage || productImage === "uploads/") { // Ha üres, használjunk alapértelmezettet
+            console.warn("A terméknek nincs képe! Alapértelmezett kép lesz beállítva.");
+            productImage = "uploads/default.jpg"; 
         }
+    
+        console.log(`Kosárhoz adás: ${productName}, Ár: ${productPrice}, Kép: ${productImage}`);
     
         const existingItem = cartItems.find(item => item.name === productName);
     
@@ -76,6 +78,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         alert(`${productName} hozzáadva a kosárhoz!`);
         updateCart();
     };
+    
     
     
     
