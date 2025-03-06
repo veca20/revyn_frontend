@@ -101,8 +101,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     
         document.querySelectorAll('.btnAddToCart').forEach(button => {
-            button.addEventListener('click', addToCart);
+            button.addEventListener('click', function(event) {
+                addToCart(event);
+            });
         });
+        
     }
     
 

@@ -127,12 +127,14 @@ nav ul li a {
 }
 
 .card img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover; /* Az egész kép látszódjon, ne vágja le */
+    width: 100%; /* A kép szélessége igazodik a kártyához */
+    height: 150px; /* Fix magasság beállítása */
+    object-fit: contain; /* A teljes kép látszódik torzítás nélkül */
     border-radius: 5px;
-    
+    display: block; /* Eltávolítja az esetleges extra margókat */
+    background-color: white; /* Ha a kép nem tölti ki a helyet, fehér háttér legyen */
 }
+
 .card:hover {
     transform: scale(1.05);
 }
