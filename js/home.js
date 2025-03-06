@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             productImage = "uploads/default.jpg"; 
         }
     
-        console.log(`Kosárhoz adás: ${product_name}, Ár: ${product_price}, Kép: ${product_image}`);
+        console.log(`Kosárhoz adás: ${productName}, Ár: ${productPrice}, Kép: ${productImage}`);
     
         const existingItem = cartItems.find(item => item.name === productName);
     
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         alert(`${productName} hozzáadva a kosárhoz!`);
         updateCart();
     };
+    
 
     
     
