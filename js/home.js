@@ -170,3 +170,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+
+// Bejelentkezés után
+localStorage.setItem('isLoggedIn', 'true');
+
+// Kijelentkezéskor
+localStorage.removeItem('isLoggedIn');
