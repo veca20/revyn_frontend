@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             productImage = "uploads/default.jpg"; 
         }
     
-        console.log(`Kosárhoz adás: ${productName}, Ár: ${productPrice}, Kép: ${productImage}`);
+        console.log(`Kosárhoz adás: ${product_name}, Ár: ${product_price}, Kép: ${product_image}`);
     
         const existingItem = cartItems.find(item => item.name === productName);
     
