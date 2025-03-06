@@ -58,20 +58,25 @@ document.addEventListener('DOMContentLoaded', async function () {
         const button = event.target;
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
-        const productImage = `https://revyn.netlify.app/uploads/${product_image}`;
-        
-        
+        const productImage = button.getAttribute('data-image'); // 🔹 Helyes kép elérési út!
+    
+        if (!productImage) {
+            console.error("A termékkép nincs definiálva.");
+            return;
+        }
+    
         const existingItem = cartItems.find(item => item.name === productName);
     
         if (existingItem) {
-            existingItem.quantity++; 
+            existingItem.quantity++;
         } else {
             cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
         }
     
         alert(`${productName} hozzáadva a kosárhoz!`);
-        updateCart(); // Kosár frissítése
+        updateCart();
     };
+    
     
    
     // 🔹 **Termékek megjelenítése**
