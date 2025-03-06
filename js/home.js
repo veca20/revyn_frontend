@@ -93,10 +93,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <img src="uploads/${product.product_image}" alt="${product.product_name}" class="product-image">
                     <h3>${product.product_name}</h3>
                     <p class="price">$${price || 0}</p>
+                
                     <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
                 </div>
             `;
-    
+            console.log("Termék adatok:", products);
+   
             container.appendChild(productElement);
         });
     
