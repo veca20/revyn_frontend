@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         alert(`${productName} hozzáadva a kosárhoz!`);
         updateCart();
     };
+
     
     
     
