@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
     
     
+    
    
     // 🔹 **Termékek megjelenítése**
     function displayProducts(products) {
