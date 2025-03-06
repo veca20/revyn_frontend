@@ -127,9 +127,9 @@ nav ul li a {
 }
 
 .card img {
-    width: 100%;
-    height: 200px; /* Fix magasságot is adhatunk */
-    object-fit: cover; /* A kép kitölti a rendelkezésre álló helyet, megőrzi az arányait */
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* Az egész kép látszódjon, ne vágja le */
     border-radius: 5px;
     
 }
