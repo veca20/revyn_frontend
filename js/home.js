@@ -88,33 +88,35 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
     
-        container.innerHTML = '';  // Ürítés, ha már van tartalom
+        container.innerHTML = '';  
     
         products.forEach(product => {
             const productElement = document.createElement('div');
-            productElement.classList.add('card');  // Kártyákhoz hozzáadjuk a 'card' osztályt
+            productElement.classList.add('card');
     
             productElement.innerHTML = `
                 <div class="card-body">
                     <img src="uploads/${product.product_image}" alt="${product.product_name}" class="product-image">
                     <h3>${product.product_name}</h3>
-                    <p class="price">$${price || 0}</p>
-                
-                    <button class="btnAddToCart" data-name="${product.product_name}" data-price="${product.product_price || 0}" data-image="${product.product_image}">ADD TO CART</button>
+                    <p class="price">$${product.product_price || 0}</p>
+                    <button class="btnAddToCart" 
+                        data-name="${product.product_name}" 
+                        data-price="${product.product_price || 0}" 
+                        data-image="uploads/${product.product_image}">ADD TO CART</button>
                 </div>
             `;
-            console.log("Termék adatok:", products);
-   
+    
             container.appendChild(productElement);
         });
     
+        // Kosárhoz adás eseménykezelő
         document.querySelectorAll('.btnAddToCart').forEach(button => {
             button.addEventListener('click', function(event) {
                 addToCart(event);
             });
         });
-        
     }
+    
     
 
     // 🔹 **Kosár műveletek**
