@@ -40,8 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const itemElement = document.createElement('div');
                 itemElement.classList.add('cart-item');
                 itemElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px;">
-                    <p>${item.name} - ${item.price} $ - Mennyiség: ${item.quantity}</p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px;">
+                        <p>${item.name} - ${item.price} $ - Mennyiség: ${item.quantity}</p>
+                    </div>
                 `;
                 cartContainer.appendChild(itemElement);
             });
