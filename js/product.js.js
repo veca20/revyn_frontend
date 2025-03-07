@@ -25,16 +25,16 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     try {
-        const response = await fetch(`/api/product/${productId}`); // Backend végpont
+        const response = await fetch(`/api/products/${productId}`); // Backend végpont
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
         
         const product = await response.json();
 
         // Termékadatok megjelenítése
-        document.getElementById('product-name').textContent = product.name;
-        document.getElementById('product-price').textContent = `Ár: $${product.price}`;
-        document.getElementById('product-image').src = `uploads/${product.image}`;
-        document.getElementById('product-description').textContent = product.description;
+        document.getElementById('product_name').textContent = product.name;
+        document.getElementById('product_price').textContent = `Ár: $${product.price}`;
+        document.getElementById('product_image').src = `uploads/${product.image}`;
+        document.getElementById('product-_description').textContent = product.description;
 
         // Kosárhoz adás gomb működése
         document.getElementById('add-to-cart').addEventListener('click', function () {
