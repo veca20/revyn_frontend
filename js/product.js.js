@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const product = await response.json();
         
         // Ellenőrizzük, hogy a termékadatok valóban léteznek-e
-        if (!product || !product.name || !product.price || !product.image || !product.description) {
+        if (!product || !product_name || !product_price || !product_image || !product_description) {
             throw new Error('A termék adatai nem teljesek.');
         }
 
