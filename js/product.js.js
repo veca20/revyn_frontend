@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
 
         const product = await response.json();
-        
+
         // Ellenőrizzük, hogy a termékadatok valóban léteznek-e
-        if (!product || !product_name || !product_price || !product_image || !product_description) {
+        if (!product || !product.name || !product.price || !product.image || !product.description) {
             throw new Error('A termék adatai nem teljesek.');
         }
 
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.getElementById('product_name').textContent = product.name;
         document.getElementById('product_price').textContent = `Ár: $${product.price}`;
         document.getElementById('product_image').src = `uploads/${product.image}`;
-        document.getElementById('product-_description').textContent = product.description;
+        document.getElementById('product_description').textContent = product.description;
 
         // Kosárhoz adás gomb működése
         const addToCartButton = document.getElementById('add-to-cart');
