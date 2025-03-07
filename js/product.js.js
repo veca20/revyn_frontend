@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const product = await response.json();
 
         // Termékadatok megjelenítése
-        document.getElementById('product_name').textContent = product.name;
+        document.getElementById('product_name').textContent = product_name;
         document.getElementById('product_price').textContent = `Ár: $${product.price}`;
         document.getElementById('product_image').src = `uploads/${product.image}`;
 
