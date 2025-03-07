@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const cartContainer = document.getElementById('cart-container');
         const totalPriceElement = document.getElementById('total-price');
         const discountMessage = document.getElementById('discount-message');
+        const orderSummary = document.getElementById('order-summary');
 
         if (cartContainer) {
             cartContainer.innerHTML = cart.length === 0 ? '<p>A kosár üres!</p>' : '';
@@ -55,51 +56,18 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
+        if (orderSummary) {
+            orderSummary.innerHTML = '<h3>Order Summary</h3>';
+            cart.forEach(item => {
+                const summaryItem = document.createElement('p');
+                summaryItem.textContent = `${item.name} - ${item.quantity} x ${item.price} $`;
+                orderSummary.appendChild(summaryItem);
+            });
+        }
+
         let totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         if (totalPriceElement) {
             totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} $`;
-        }
-
-        // Kuponkód kezelése
-        let discounts = {
-            "DISCOUNT10": 10,
-            "SAVE20": 20,
-            "PROMO5": 5
-        };
-
-        function applyDiscount() {
-            const giftCardInput = document.getElementById('gift-card');
-            if (!discountMessage) {
-                console.warn('A discount-message elem nem található a DOM-ban.');
-                return;
-            }
-
-            if (localStorage.getItem('discountApplied')) {
-                discountMessage.textContent = "Egy kupon már alkalmazva van!";
-                alert("Egy kupon már alkalmazva van! Csak egy kupon használható.");
-                return;
-            }
-
-            if (giftCardInput && discounts[giftCardInput.value]) {
-                let appliedDiscount = discounts[giftCardInput.value];
-                localStorage.setItem('discount', appliedDiscount);
-                localStorage.setItem('discountApplied', true);
-
-                totalPrice -= appliedDiscount;
-                totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} $ (kedvezménnyel)`;
-                discountMessage.textContent = `Kupon sikeresen alkalmazva! Kedvezmény: ${appliedDiscount} $`;
-                alert(`Kupon sikeresen alkalmazva! Kedvezmény: ${appliedDiscount} $`);
-            } else {
-                localStorage.removeItem('discount');
-                localStorage.removeItem('discountApplied');
-                discountMessage.textContent = "Érvénytelen kuponkód!";
-                alert("Érvénytelen kuponkód!");
-            }
-        }
-
-        const applyGiftCardButton = document.getElementById('apply-gift-card');
-        if (applyGiftCardButton) {
-            applyGiftCardButton.addEventListener('click', applyDiscount);
         }
     }
 
