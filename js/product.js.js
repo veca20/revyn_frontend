@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (existingItem) {
                 existingItem.quantity++;
             } else {
-                cart.push({ id: product.id, name: product.name, price: product.price, image: `uploads/${product.image}`, quantity: 1 });
+                cart.push({ id: id, name: product_name, price: product_price, image: `uploads/${product_image}`, quantity: 1 });
             }
 
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -57,3 +57,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.getElementById('product-container').innerHTML = "<p>Hiba történt a termék betöltésekor.</p>";
     }
 });
+const productContainer = document.getElementById('product-container');
+if (productContainer) {
+    productContainer.innerHTML = "<p>Hiba történt a termék betöltésekor.</p>";
+} else {
+    console.error('product-container elem nem található');
+}
