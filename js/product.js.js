@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
-    
+
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
         });
     } else {
@@ -27,13 +27,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
         const response = await fetch(`/api/products/${productId}`); // Backend végpont
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
-        
+
         const product = await response.json();
 
         // Termékadatok megjelenítése
         document.getElementById('product_name').textContent = product.name;
         document.getElementById('product_price').textContent = `Ár: $${product.price}`;
         document.getElementById('product_image').src = `uploads/${product.image}`;
+
         document.getElementById('product-_description').textContent = product.description;
 
         // Kosárhoz adás gomb működése
