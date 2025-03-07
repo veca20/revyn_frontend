@@ -1,17 +1,12 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    
-
     const res = await fetch('/api/products', {
         method: 'GET',
         credentials: 'include'
     });
 
     const products = await res.json();
-   
-
     let cartItems = JSON.parse(localStorage.getItem('cart')) || []; // Kosár betöltése
 
-    // 🔹 **Kosár frissítése**
     function updateCart() {
         const cartItemsList = document.getElementById('cart-items-list');
         const cartCount = document.getElementById('cart-count');
@@ -22,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        cartItemsList.innerHTML = ''; // Kosár tartalmának ürítése
+        cartItemsList.innerHTML = ''; 
         let totalCount = 0;
 
         cartItems.forEach((item, index) => {
@@ -40,32 +35,18 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         cartCount.textContent = totalCount;
         checkoutButton.style.display = cartItems.length > 0 ? 'block' : 'none';
-        localStorage.setItem('cart', JSON.stringify(cartItems)); // Kosár mentése
+        localStorage.setItem('cart', JSON.stringify(cartItems)); 
     }
 
-    // 🔹 **Kosár gombra kattintás: Kosár legördülő menü megjelenítése**
-    document.querySelector('.cart-icon').addEventListener('click', function() {
-        const cartDropdown = document.getElementById('cart-dropdown');
-        if (cartDropdown.style.display === 'none' || cartDropdown.style.display === '') {
-            cartDropdown.style.display = 'block'; // Kosár megjelenítése
-        } else {
-            cartDropdown.style.display = 'none'; // Kosár elrejtése
-        }
-    });
-
-    // 🔹 **Termékek hozzáadása a kosárhoz**
     window.addToCart = function(event) {
         const button = event.target;
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
         let productImage = button.getAttribute('data-image'); 
     
-        if (!productImage || productImage === "uploads/") { // Ha üres, használjunk alapértelmezettet
-            console.warn("A terméknek nincs képe! Alapértelmezett kép lesz beállítva.");
+        if (!productImage || productImage === "uploads/") {
             productImage = "uploads/default.jpg"; 
         }
-    
-        console.log(`Kosárhoz adás: ${productName}, Ár: ${productPrice}, Kép: ${productImage}`);
     
         const existingItem = cartItems.find(item => item.name === productName);
     
@@ -79,13 +60,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateCart();
     };
     
-
-    
-    
-    
-    
-   
-    // 🔹 **Termékek megjelenítése**
     function displayProducts(products) {
         const container = document.getElementById('products-container');
         if (!container) {
@@ -101,7 +75,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     
             productElement.innerHTML = `
                 <div class="card-body">
-                    <img src="uploads/${product.product_image}" alt="${product.product_name}" class="product-image">
+                    <a href="product.html?id=${product.product_id}">
+                        <img src="uploads/${product.product_image}" alt="${product.product_name}" class="product-image">
+                    </a>
                     <h3>${product.product_name}</h3>
                     <p class="price">$${product.product_price || 0}</p>
                     <button class="btnAddToCart" 
@@ -114,7 +90,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             container.appendChild(productElement);
         });
     
-        // Kosárhoz adás eseménykezelő
         document.querySelectorAll('.btnAddToCart').forEach(button => {
             button.addEventListener('click', function(event) {
                 addToCart(event);
@@ -122,18 +97,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
     
-    
-
-    // 🔹 **Kosár műveletek**
     document.addEventListener('click', function(event) {
         const target = event.target;
-
         if (target.classList.contains('increase-quantity')) {
             const index = target.getAttribute('data-index');
             cartItems[index].quantity++;
             updateCart();
         }
-
         if (target.classList.contains('decrease-quantity')) {
             const index = target.getAttribute('data-index');
             if (cartItems[index].quantity > 1) {
@@ -141,7 +111,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                 updateCart();
             }
         }
-
         if (target.classList.contains('remove-item')) {
             const index = target.getAttribute('data-index');
             cartItems.splice(index, 1);
@@ -149,31 +118,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     });
 
-    // 🔹 **Meghívjuk a termékek megjelenítését és a kosár frissítését**
     displayProducts(products);
     updateCart();
 });
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');  // Ellenőrizzük, hogy be van-e jelentkezve
-
-    const profileEditIcon = document.getElementById('profile-edit-icon');
-
-    if (isLoggedIn === 'true') {  // Ha be van jelentkezve
-        if (profileEditIcon) {
-            profileEditIcon.style.display = 'block';  // Profil szerkesztési ikon megjelenítése
-        }
-    } else {  // Ha nincs bejelentkezve
-        if (profileEditIcon) {
-            profileEditIcon.style.display = 'none';  // Profil szerkesztési ikon elrejtése
-        }
-    }
-});
-
-
-// Bejelentkezés után
-localStorage.setItem('isLoggedIn', 'true');
-
-// Kijelentkezéskor
-localStorage.removeItem('isLoggedIn');
