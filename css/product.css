@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(to right, #080908, #1B3C74);
+    background-image: linear-gradient(to right, #080908, #00FF00);
     margin: 0;
     overflow: auto;
 }
