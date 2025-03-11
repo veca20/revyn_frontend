@@ -76,7 +76,7 @@ async function login(event) {
             console.log('Cookie-k sikeres bejelentkezés után:', document.cookie);
 
             // Ha admin, irányítsuk az admin felületre
-            if (data.user.role === 'admin') {
+            if (data.user.is_admin == 1) {
                 window.location.href = '../addproduct.html';  // Admin felület
             } else {
                 window.location.href = '../index.html';  // Normál felhasználó felület
