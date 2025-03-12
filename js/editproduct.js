@@ -1,10 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchProducts();
 
+    // Termékek lekérése és megjelenítése
     function fetchProducts() {
         fetch('/api/products')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(products => {
+                console.log('Products fetched:', products); // Hibakeresés
                 const productList = document.querySelector('.product-list');
                 productList.innerHTML = '';
                 products.forEach(product => {
@@ -23,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     `;
                     productList.appendChild(productItem);
                 });
-            });
+            })
+            .catch(error => console.error('Error fetching products:', error));
     }
 
     // Termék szerkesztése
@@ -34,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const productName = productItem.querySelector('h2').textContent;
             const productPrice = productItem.querySelector('p').textContent.replace('$', '');
 
-            // Itt lehetne egy modal vagy form, ahol szerkeszteni lehet a terméket
+            console.log('Editing product:', productId, productName, productPrice); // Hibakeresés
+
             const newName = prompt('Enter new product name:', productName);
             const newPrice = prompt('Enter new product price:', productPrice);
 
@@ -46,11 +55,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: JSON.stringify({ name: newName, price: newPrice })
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    console.log('Update response:', data); // Hibakeresés
                     alert(data.message);
                     fetchProducts();
-                });
+                })
+                .catch(error => console.error('Error updating product:', error));
             }
         }
     });
@@ -59,16 +75,33 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.product-list').addEventListener('click', function(event) {
         if (event.target.classList.contains('delete-btn')) {
             const productId = event.target.getAttribute('data-id');
+
+            console.log('Deleting product:', productId); // Hibakeresés
+
             if (confirm('Are you sure you want to delete this product?')) {
                 fetch(`/api/products/${productId}`, {
                     method: 'DELETE'
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    console.log('Delete response:', data); // Hibakeresés
                     alert(data.message);
                     fetchProducts();
-                });
+                })
+                .catch(error => console.error('Error deleting product:', error));
             }
         }
+    });
+
+    // Hamburger menü kezelése
+    document.querySelector('.hamburger-menu').addEventListener('click', function() {
+        const navUl = document.querySelector('nav ul');
+        console.log('Hamburger menu clicked, nav ul:', navUl); // Hibakeresés
+        navUl.classList.toggle('show');
     });
 });
