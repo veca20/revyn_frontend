@@ -191,6 +191,15 @@ nav ul li a {
     margin-bottom: 5px;
     border-radius: 5px;
 }
+button{
+    padding: 5px;
+    border-radius: 2px;
+    background-color: rgb(0, 0, 0);
+    color: #00FF00;
+    border: none;
+    cursor: pointer;
+}
+
 
 /* Mobilnézethez reszponzív módosítások */
 @media only screen and (max-width: 768px) {
