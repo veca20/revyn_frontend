@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('product-form').addEventListener('submit', function(event) {
         event.preventDefault();
         
-        const name = document.getElementById('product-name').value;
-        const price = document.getElementById('product-price').value;
-        const info = document.getElementById('product-info').value;
+        const name = document.getElementById('product_name').value;
+        const price = document.getElementById('product_price').value;
+        const info = document.getElementById('product_description').value;
         
         fetch('api/products', {
             method: 'POST',
@@ -22,22 +22,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Termékek megjelenítése, ha van "products-list" elem az oldalon
-    if (document.getElementById('products-list')) {
+    if (document.getElementById('product_description')) {
         displayProducts();
+    }
+    
+    // Kijelentkezés gomb eseménykezelő
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            localStorage.removeItem('user'); // Felhasználói adatok törlése
+            sessionStorage.clear(); // Munkamenet törlése
+            window.location.href = 'login.html'; // Átirányítás a bejelentkezési oldalra
+        });
     }
 });
 
 // Termékek listázása MySQL-ből
 function displayProducts() {
-    fetch('/api/products')
+    fetch('api/products')
     .then(response => response.json())
     .then(products => {
-        const productsList = document.getElementById('products-list');
+        const productsList = document.getElementById('product_description');
         productsList.innerHTML = '';
         
         products.forEach(product => {
             const item = document.createElement('div');
-            item.innerHTML = `<strong>${product_name}</strong> - $${product_price} <p>${product_info}</p>`;
+            item.innerHTML = `<strong>${product_name}</strong> - $${product_price} <p>${product_description}</p>`;
             productsList.appendChild(item);
         });
     })
@@ -59,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function displayOrders() {
     const ordersTable = document.querySelector('table tbody');
-    fetch('http://localhost:3000/orders')
+    fetch('api/orders')
     .then(response => response.json())
     .then(orders => {
         ordersTable.innerHTML = '';
