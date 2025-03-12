@@ -1,23 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Űrlap beküldésének kezelése
+    // Űrlap beküldésének kezelése és termék mentése MySQL-be
     document.getElementById('product-form').addEventListener('submit', function(event) {
         event.preventDefault();
         
-        // Termékadatok beolvasása
         const name = document.getElementById('product-name').value;
         const price = document.getElementById('product-price').value;
         const info = document.getElementById('product-info').value;
         
-        // Új termék objektum
-        const product = { name, price, info };
-        
-        // Termékek mentése localStorage-ba
-        let products = JSON.parse(localStorage.getItem('products')) || [];
-        products.push(product);
-        localStorage.setItem('products', JSON.stringify(products));
-        
-        alert('Product added successfully!');
-        document.getElementById('product-form').reset();
+        fetch('http://localhost:3000/add-product', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, price, info, image: "" })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            document.getElementById('product-form').reset();
+            displayProducts(); // Frissítjük a termékek listáját
+        })
+        .catch(error => console.error("Hiba:", error));
     });
     
     // Termékek megjelenítése, ha van "products-list" elem az oldalon
@@ -26,17 +27,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Termékek listázása
+// Termékek listázása MySQL-ből
 function displayProducts() {
-    const productsList = document.getElementById('products-list');
-    const products = JSON.parse(localStorage.getItem('products')) || [];
-    
-    productsList.innerHTML = '';
-    products.forEach((product, index) => {
-        const item = document.createElement('div');
-        item.innerHTML = `<strong>${product.name}</strong> - $${product.price} <p>${product.info}</p>`;
-        productsList.appendChild(item);
-    });
+    fetch('http://localhost:3000/products')
+    .then(response => response.json())
+    .then(products => {
+        const productsList = document.getElementById('products-list');
+        productsList.innerHTML = '';
+        
+        products.forEach(product => {
+            const item = document.createElement('div');
+            item.innerHTML = `<strong>${product_name}</strong> - $${product_price} <p>${product_info}</p>`;
+            productsList.appendChild(item);
+        });
+    })
+    .catch(error => console.error("Hiba a termékek betöltésekor:", error));
 }
 
 // Menü megjelenítése/működtetése
@@ -54,12 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function displayOrders() {
     const ordersTable = document.querySelector('table tbody');
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    
-    ordersTable.innerHTML = '';
-    orders.forEach(order => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${order.name}</td><td>${order.address}</td><td>${order.bill}</td>`;
-        ordersTable.appendChild(row);
-    });
+    fetch('http://localhost:3000/orders')
+    .then(response => response.json())
+    .then(orders => {
+        ordersTable.innerHTML = '';
+        orders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${order.name}</td><td>${order.address}</td><td>${order.bill}</td>`;
+            ordersTable.appendChild(row);
+        });
+    })
+    .catch(error => console.error("Hiba a rendelések betöltésekor:", error));
 }
