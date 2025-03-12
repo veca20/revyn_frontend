@@ -144,8 +144,8 @@ form button:hover {
 
 button{
     padding: 10px;
-    background-color: black;
-    color: white;
+    background-color: rgb(0, 0, 0);
+    color: #00FF00;
     border: none;
     border-radius: 5px;
     cursor: pointer;
