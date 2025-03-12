@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('info', document.getElementById('product_description').value);
         formData.append('image', document.getElementById('product_image').files[0]); // Képfeltöltés
 
-        fetch('api/products', {
+        fetch('api/product', {
             method: 'POST',
             body: formData // Már nem küldünk JSON-t, hanem FormData-t
         })
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Termékek listázása MySQL-ből
 function displayProducts() {
-    fetch('api/products')
+    fetch('api/product')
         .then(response => response.json())
         .then(products => {
             const productsContainer = document.getElementById('products-container');
