@@ -47,7 +47,7 @@ function displayProducts() {
         
         products.forEach(product => {
             const item = document.createElement('div');
-            item.innerHTML = `<strong>${product_name}</strong> - $${product_price} <p>${product_description}</p>`;
+            item.innerHTML = `<strong>${product.name}</strong> - $${product.price} <p>${product.info}</p>`;
             productsList.appendChild(item);
         });
     })
