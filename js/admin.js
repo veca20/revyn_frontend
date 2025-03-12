@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const price = document.getElementById('product-price').value;
         const info = document.getElementById('product-info').value;
         
-        fetch('http://localhost:3000/add-product', {
+        fetch('api/products', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, price, info, image: "" })
