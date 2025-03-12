@@ -142,6 +142,16 @@ form button:hover {
     background-color: rgb(26, 24, 24);
 }
 
+button{
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
 /* Mobile View (Max width: 430px) */
 @media (max-width: 430px) {
     .banner {
