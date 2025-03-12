@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Termékek listázása MySQL-ből
 function displayProducts() {
-    fetch('http://localhost:3000/products')
+    fetch('/api/products')
     .then(response => response.json())
     .then(products => {
         const productsList = document.getElementById('products-list');
