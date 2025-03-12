@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        cartItemsList.innerHTML = ''; 
+        cartItemsList.innerHTML = '';
         let totalCount = 0;
 
         cartItems.forEach((item, index) => {
@@ -35,44 +35,44 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         cartCount.textContent = totalCount;
         checkoutButton.style.display = cartItems.length > 0 ? 'block' : 'none';
-        localStorage.setItem('cart', JSON.stringify(cartItems)); 
+        localStorage.setItem('cart', JSON.stringify(cartItems));
     }
 
-    window.addToCart = function(event) {
+    window.addToCart = function (event) {
         const button = event.target;
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
-        let productImage = button.getAttribute('data-image'); 
-    
+        let productImage = button.getAttribute('data-image');
+
         if (!productImage || productImage === "uploads/") {
-            productImage = "uploads/default.jpg"; 
+            productImage = "uploads/default.jpg";
         }
-    
+
         const existingItem = cartItems.find(item => item.name === productName);
-    
+
         if (existingItem) {
             existingItem.quantity++;
         } else {
             cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
         }
-    
+
         alert(`${productName} hozzáadva a kosárhoz!`);
         updateCart();
     };
-    
+
     function displayProducts(products) {
         const container = document.getElementById('products-container');
         if (!container) {
             console.error('A termékeket tartalmazó elem nem található.');
             return;
         }
-    
-        container.innerHTML = '';  
-    
+
+        container.innerHTML = '';
+
         products.forEach(product => {
             const productElement = document.createElement('div');
             productElement.classList.add('card');
-    
+
             productElement.innerHTML = `
                 <div class="card-body">
                     <a href="product.html?id=${product.product_id}">
@@ -86,37 +86,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                         data-image="uploads/${product.product_image}">ADD TO CART</button>
                 </div>
             `;
-    
+
             container.appendChild(productElement);
         });
-    
+
         document.querySelectorAll('.btnAddToCart').forEach(button => {
-            button.addEventListener('click', function(event) {
+            button.addEventListener('click', function (event) {
                 addToCart(event);
             });
         });
     }
-    
-    document.addEventListener('click', function(event) {
-        const target = event.target;
-        if (target.classList.contains('increase-quantity')) {
-            const index = target.getAttribute('data-index');
-            cartItems[index].quantity++;
-            updateCart();
-        }
-        if (target.classList.contains('decrease-quantity')) {
-            const index = target.getAttribute('data-index');
-            if (cartItems[index].quantity > 1) {
-                cartItems[index].quantity--;
-                updateCart();
-            }
-        }
-        if (target.classList.contains('remove-item')) {
-            const index = target.getAttribute('data-index');
-            cartItems.splice(index, 1);
-            updateCart();
-        }
-    });
 
     displayProducts(products);
     updateCart();
