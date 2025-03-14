@@ -114,37 +114,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const payNowButton = document.querySelector('.pay-now');
     if (payNowButton) {
         payNowButton.addEventListener('click', function () {
-            alert('Fizetés feldolgozása...');
+            const name = document.querySelector('input[placeholder="First name"]').value + ' ' +
+                         document.querySelector('input[placeholder="Last name"]').value;
+            const address = document.querySelector('input[placeholder="Address"]').value;
+            const billInformation = document.querySelector('input[placeholder="Card number"]').value;
+            const cart = getCartItems();
+
+            if (!name || !address || !billInformation || cart.length === 0) {
+                alert('Minden mezőt ki kell tölteni, és a kosár nem lehet üres!');
+                return;
+            }
+
+            const orderData = { name, address, billInformation, items: cart };
+
+            fetch('/api/orders', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Sikeres fizetés! A rendelés mentve lett.');
+                localStorage.removeItem('cart'); // Kosár törlése
+            })
+            .catch(error => console.error('Error saving order:', error));
         });
     } else {
         console.error('"Pay Now" gomb nem található');
-    }
-
-    // Kuponkód alkalmazása
-    const applyCouponButton = document.getElementById('apply-gift-card');
-    if (applyCouponButton) {
-        applyCouponButton.addEventListener('click', function () {
-            const couponInput = document.getElementById('gift-card').value.trim();
-            const totalPriceElement = document.getElementById('total-price');
-            if (!totalPriceElement) return;
-
-            let totalPriceText = totalPriceElement.textContent.match(/\d+\.\d+/);
-            if (!totalPriceText) return;
-
-            let totalPrice = parseFloat(totalPriceText[0]);
-            if (couponInput === 'SAVE20') {
-                let newPrice = totalPrice * 0.8;
-                totalPriceElement.textContent = `Total: $${newPrice.toFixed(2)}`;
-                const discountMessage = document.getElementById('discount-message');
-                if (discountMessage) {
-                    discountMessage.textContent = 'Kupon aktiválva! -20%';
-                    discountMessage.style.display = 'block';
-                }
-            } else {
-                alert('Érvénytelen kuponkód!');
-            }
-        });
-    } else {
-        console.error('"Apply" gomb nem található');
     }
 });

@@ -1,24 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Hamburger menü kezelése
-    document.querySelector('.hamburger-menu').addEventListener('click', function() {
-        document.querySelector('nav ul').classList.toggle('show');
-    });
-
-    // Rendelések lekérése és megjelenítése
-    fetchOrders();
-
     function fetchOrders() {
-        fetch('/api/orders') // A backend endpointja, ahol a rendelések lekérhetők
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+        fetch('/api/orders')
+            .then(response => response.json())
             .then(orders => {
-                console.log('Orders fetched:', orders); // Hibakeresés
-                const tbody = document.querySelector('table tbody');
-                tbody.innerHTML = ''; // Töröljük a korábbi tartalmat
+                const mainContent = document.querySelector('.main-content');
+                mainContent.innerHTML = '<h1>Orders</h1><table><tr><th>Name</th><th>Address</th><th>Billing Info</th></tr></table>';
+                const table = mainContent.querySelector('table');
+
                 orders.forEach(order => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -26,12 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <td>${order.address}</td>
                         <td>${order.billInformation}</td>
                     `;
-                    row.addEventListener('click', function() {
-                        alert(`Order details:\nName: ${order.name}\nAddress: ${order.address}\nBill Information: ${order.billInformation}`);
-                    });
-                    tbody.appendChild(row);
+                    table.appendChild(row);
                 });
             })
             .catch(error => console.error('Error fetching orders:', error));
     }
+
+    fetchOrders();
 });
