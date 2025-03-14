@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (cartContainer) {
             cartContainer.innerHTML = cart.length === 0 ? '<p>A kosár üres!</p>' : '';
-
             cart.forEach((item, index) => {
                 const itemElement = createCartItemElement(item, index);
                 cartContainer.appendChild(itemElement);
@@ -110,4 +109,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateCartCount();
     displayCart();
+
+    // Pay Now gomb működtetése
+    const payNowButton = document.querySelector('.pay-now');
+    if (payNowButton) {
+        payNowButton.addEventListener('click', function () {
+            alert('Fizetés feldolgozása...');
+            // Itt lehet majd a fizetési logikát implementálni
+        });
+    } else {
+        console.error('"Pay Now" gomb nem található');
+    }
+
+    // Kuponkód alkalmazása
+    const applyCouponButton = document.getElementById('apply-gift-card');
+    if (applyCouponButton) {
+        applyCouponButton.addEventListener('click', function () {
+            const couponInput = document.getElementById('gift-card').value.trim();
+            if (couponInput === 'DISCOUNT10') { // Példa kuponkód
+                let totalPriceElement = document.getElementById('total-price');
+                let totalPrice = parseFloat(totalPriceElement.textContent.replace('Total: $', ''));
+                let newPrice = totalPrice * 0.9; // 10% kedvezmény
+                totalPriceElement.textContent = `Total: $${newPrice.toFixed(2)}`;
+                document.getElementById('discount-message').style.display = 'block';
+            } else {
+                alert('Érvénytelen kuponkód!');
+            }
+        });
+    } else {
+        console.error('"Apply" gomb nem található');
+    }
 });
