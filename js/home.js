@@ -100,3 +100,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     displayProducts(products);
     updateCart();
 });
+
+document.querySelector('.cart-icon').addEventListener('click', function() {
+    const cartDropdown = document.getElementById('cart-dropdown');
+    cartDropdown.classList.toggle('active');
+});

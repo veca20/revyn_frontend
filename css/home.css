@@ -253,7 +253,7 @@ button:hover {
 
 /* Kosár legördülő menü */
 .cart-dropdown {
-    display: flex;
+    display: none; /* Alapértelmezetten láthatatlan */
     flex-direction: column;
     justify-content: flex-start;
     position: absolute;
@@ -267,6 +267,9 @@ button:hover {
     gap: 10px;
 }
 
+.cart-dropdown.active {
+    display: flex; /* Láthatóvá válik, ha az "active" osztály hozzáadódik */
+}
 .cart-dropdown ul {
     list-style: none;
     padding: 0;
