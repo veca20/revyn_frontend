@@ -139,7 +139,5 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error saving order:', error));
         });
-    } else {
-        console.error('"Pay Now" gomb nem található');
-    }
+    } 
 });
