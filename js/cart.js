@@ -12,11 +12,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function getCartItems() {
-        return JSON.parse(localStorage.getItem('cart')) || [];
+        try {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        } catch (e) {
+            console.error('Hiba a kosár betöltésekor:', e);
+            return [];
+        }
     }
 
     function saveCartItems(cart) {
-        localStorage.setItem('cart', JSON.stringify(cart));
+        try {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        } catch (e) {
+            console.error('Hiba a kosár mentésekor:', e);
+        }
     }
 
     function updateCartCount() {
@@ -28,30 +37,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function createCartItemElement(item, index) {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('cart-item');
+        itemElement.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px;">
+                <p>${item.name} - ${item.price} $ - Mennyiség: 
+                <button class="decrease-quantity" data-index="${index}">➖</button>
+                ${item.quantity}
+                <button class="increase-quantity" data-index="${index}">➕</button>
+                <button class="remove-item" data-index="${index}">❌</button>
+                </p>
+            </div>
+        `;
+        return itemElement;
+    }
+
     function displayCart() {
         let cart = getCartItems();
         const cartContainer = document.getElementById('cart-container');
         const totalPriceElement = document.getElementById('total-price');
-        const discountMessage = document.getElementById('discount-message');
         const orderSummary = document.getElementById('order-summary');
 
         if (cartContainer) {
             cartContainer.innerHTML = cart.length === 0 ? '<p>A kosár üres!</p>' : '';
 
             cart.forEach((item, index) => {
-                const itemElement = document.createElement('div');
-                itemElement.classList.add('cart-item');
-                itemElement.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px;">
-                        <p>${item.name} - ${item.price} $ - Mennyiség: 
-                        <button class="decrease-quantity" data-index="${index}">➖</button>
-                        ${item.quantity}
-                        <button class="increase-quantity" data-index="${index}">➕</button>
-                        <button class="remove-item" data-index="${index}">❌</button>
-                        </p>
-                    </div>
-                `;
+                const itemElement = createCartItemElement(item, index);
                 cartContainer.appendChild(itemElement);
             });
         }
@@ -71,30 +84,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    document.addEventListener('click', function(event) {
+    function handleCartAction(event) {
         let cart = getCartItems();
         const target = event.target;
+        const index = target.getAttribute('data-index');
+
         if (target.classList.contains('increase-quantity')) {
-            const index = target.getAttribute('data-index');
             cart[index].quantity++;
-            saveCartItems(cart);
-            displayCart();
-        }
-        if (target.classList.contains('decrease-quantity')) {
-            const index = target.getAttribute('data-index');
+        } else if (target.classList.contains('decrease-quantity')) {
             if (cart[index].quantity > 1) {
                 cart[index].quantity--;
-                saveCartItems(cart);
-                displayCart();
+            } else {
+                cart.splice(index, 1);
             }
-        }
-        if (target.classList.contains('remove-item')) {
-            const index = target.getAttribute('data-index');
+        } else if (target.classList.contains('remove-item')) {
             cart.splice(index, 1);
-            saveCartItems(cart);
-            displayCart();
         }
-    });
+
+        saveCartItems(cart);
+        updateCartCount();
+        displayCart();
+    }
+
+    document.addEventListener('click', handleCartAction);
 
     updateCartCount();
     displayCart();
