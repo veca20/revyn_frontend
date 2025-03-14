@@ -114,20 +114,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const payNowButton = document.querySelector('.pay-now');
     if (payNowButton) {
         payNowButton.addEventListener('click', function () {
-            const name = document.querySelector('input[placeholder="First name"]').value + ' ' +
-                         document.querySelector('input[placeholder="Last name"]').value;
-            const address = document.querySelector('input[placeholder="Address"]').value;
-            const billInformation = document.querySelector('input[placeholder="Card number"]').value;
+            const first_name = document.getElementById('first_name').value;
+            const last_name = document.getElementById('last_name').value;
+            const address = document.getElementById('address').value;
+            const phone_number = document.getElementById('phone_number').value;
+            const card_number = document.getElementById('card_number').value;
+            const expiration_date = document.getElementById('expiration_date').value;
+            const name_on_card = document.getElementById('name_on_card').value;
+            const cvc = document.getElementById('cvc').value;
             const cart = getCartItems();
 
-            if (!name || !address || !billInformation || cart.length === 0) {
+            if (!first_name || !last_name || !address || phone_number || card_number || expiration_date || name_on_card ||  !cvc || cart.length === 0) {
                 alert('Minden mezőt ki kell tölteni, és a kosár nem lehet üres!');
                 return;
             }
 
-            const orderData = { name, address, billInformation, items: cart };
+            const orderData = { first_name, last_name, address, phone_number, card_number, expiration_date, name_on_card, cart };
 
-            fetch('/api/order', {
+            fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData)
