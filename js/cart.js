@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         if (totalPriceElement) {
-            totalPriceElement.textContent = `Total: ${totalPrice.toFixed(2)} $`;
+            totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
         }
     }
 
@@ -115,49 +115,36 @@ document.addEventListener('DOMContentLoaded', function () {
     if (payNowButton) {
         payNowButton.addEventListener('click', function () {
             alert('Fizetés feldolgozása...');
-            // Itt lehet majd a fizetési logikát implementálni
         });
     } else {
         console.error('"Pay Now" gomb nem található');
     }
 
     // Kuponkód alkalmazása
-    document.addEventListener('DOMContentLoaded', function () {
-        const applyCouponButton = document.getElementById('apply-gift-card');
-    
-        if (applyCouponButton) {
-            applyCouponButton.addEventListener('click', function () {
-                const couponInput = document.getElementById('gift-card').value.trim();
-                const totalPriceElement = document.getElementById('total-price');
-    
-                if (!totalPriceElement) {
-                    console.error('"Total price" elem nem található!');
-                    return;
+    const applyCouponButton = document.getElementById('apply-gift-card');
+    if (applyCouponButton) {
+        applyCouponButton.addEventListener('click', function () {
+            const couponInput = document.getElementById('gift-card').value.trim();
+            const totalPriceElement = document.getElementById('total-price');
+            if (!totalPriceElement) return;
+
+            let totalPriceText = totalPriceElement.textContent.match(/\d+\.\d+/);
+            if (!totalPriceText) return;
+
+            let totalPrice = parseFloat(totalPriceText[0]);
+            if (couponInput === 'SAVE20') {
+                let newPrice = totalPrice * 0.8;
+                totalPriceElement.textContent = `Total: $${newPrice.toFixed(2)}`;
+                const discountMessage = document.getElementById('discount-message');
+                if (discountMessage) {
+                    discountMessage.textContent = 'Kupon aktiválva! -20%';
+                    discountMessage.style.display = 'block';
                 }
-    
-                let totalPriceText = totalPriceElement.textContent.match(/[\d\.]+/); // Csak a számokat vesszük ki
-                if (!totalPriceText) {
-                    console.error('Nem sikerült beolvasni a teljes árat!');
-                    return;
-                }
-    
-                let totalPrice = parseFloat(totalPriceText[0]); // Átváltjuk számmá
-                
-                if (couponInput === 'SAVE20') { // Példa kuponkód
-                    let newPrice = totalPrice * 0.8; // 20% kedvezmény
-                    totalPriceElement.textContent = `Total: $${newPrice.toFixed(2)}`;
-    
-                    const discountMessage = document.getElementById('discount-message');
-                    if (discountMessage) {
-                        discountMessage.textContent = 'Kupon aktiválva! -20%';
-                        discountMessage.style.display = 'block';
-                    }
-                } else {
-                    alert('Érvénytelen kuponkód!');
-                }
-            });
-        } else {
-            console.error('"Apply" gomb nem található');
-        }
-    });
-    
+            } else {
+                alert('Érvénytelen kuponkód!');
+            }
+        });
+    } else {
+        console.error('"Apply" gomb nem található');
+    }
+});
