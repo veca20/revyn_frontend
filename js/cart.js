@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const orderData = { name, address, billInformation, items: cart };
 
-            fetch('/api/orders', {
+            fetch('/api/order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData)
