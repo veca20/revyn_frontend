@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (applyCouponButton) {
         applyCouponButton.addEventListener('click', function () {
             const couponInput = document.getElementById('gift-card').value.trim();
-            if (couponInput === 'DISCOUNT10') { // Példa kuponkód
+            if (couponInput === 'SAVE20') { // Példa kuponkód
                 let totalPriceElement = document.getElementById('total-price');
                 let totalPrice = parseFloat(totalPriceElement.textContent.replace('Total: $', ''));
                 let newPrice = totalPrice * 0.9; // 10% kedvezmény
