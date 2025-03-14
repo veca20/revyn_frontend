@@ -5,12 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // FormData használata a képfeltöltéshez
         const formData = new FormData();
-        formData.append('name', document.getElementById('product_name').value);
-        formData.append('price', document.getElementById('product_price').value);
-        formData.append('info', document.getElementById('product_description').value);
-        formData.append('image', document.getElementById('product_image').files[0]); // Képfeltöltés
+        formData.append('product_name', document.getElementById('product_name').value);
+        formData.append('product_price', document.getElementById('product_price').value);
+        formData.append('product_stock', document.getElementById('product_stock').value);
+        formData.append('product_description', document.getElementById('product_description').value);
+        formData.append('product_image', document.getElementById('product_image').files[0]); // Képfeltöltés
 
-        fetch('api/newProduct', {
+        fetch('api/upload', {
             method: 'POST',
             body: formData 
         })
