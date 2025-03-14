@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const cvc = document.getElementById('cvc').value;
             const cart = getCartItems();
 
-            if (!first_name || !last_name || !address || !phone_number || !card_number || !expiration_date || !name_on_card ||  !cvc || cart.length === 0) {
+            if (!first_name || !last_name || !address || !phone_number || !card_number || !expiration_date || !name_on_card || !cvc || cart.length === 0) {
                 alert('Minden mezőt ki kell tölteni, és a kosár nem lehet üres!');
                 return;
             }
