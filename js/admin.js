@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('info', document.getElementById('product_description').value);
         formData.append('image', document.getElementById('product_image').files[0]); // Képfeltöltés
 
-        fetch('api/product', {
+        fetch('api/newProduct', {
             method: 'POST',
-            body: formData // Már nem küldünk JSON-t, hanem FormData-t
+            body: formData 
         })
             .then(response => response.json())
             .then(data => {
                 alert(data.message);
-                document.getElementById('product-form').reset(); // Űrlap resetelése
-                displayProducts(); // Termékek frissítése
+                document.getElementById('product-form').reset();
+                displayProducts();
             })
             .catch(error => console.error("Hiba:", error));
     });
