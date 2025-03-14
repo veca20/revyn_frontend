@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     function fetchOrders() {
-        fetch('/api/order')
+        fetch('/api/orders')
             .then(response => response.json())
             .then(orders => {
                 const mainContent = document.querySelector('.main-content');
