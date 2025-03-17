@@ -19,17 +19,21 @@ document.addEventListener('DOMContentLoaded', async function () {
     const userLoggedIn = getCookie('userLoggedIn');
     const profileButton = document.querySelector('.profile-icon'); // A profil gomb
 
-    // Ha be van jelentkezve, akkor a profil gomb átirányítja a profil szerkesztés oldalra
-    if (userLoggedIn === 'true') {
-        profileButton.setAttribute('href', 'profileszerkesztes.html'); // Profil szerkesztés link beállítása
-        console.log('Felhasználó be van jelentkezve, profil gomb átirányít a profil szerkesztés oldalra.');
-    } else {
-        profileButton.addEventListener('click', function (event) {
-            event.preventDefault(); // Megakadályozza, hogy a profil gomb bárhová irányítson, ha nincs bejelentkezve
-            alert("Kérlek, jelentkezz be a profil eléréséhez!");
-            window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
-        });
-    }
+    // Bejelentkezett állapot ellenőrzése
+console.log('Felhasználó bejelentkezett-e:', userLoggedIn);
+
+if (userLoggedIn === 'true') {
+    console.log('Felhasználó be van jelentkezve. Átirányítás...');
+    profileButton.setAttribute('href', 'profileszerkesztes.html'); // Profil gomb link
+} else {
+    console.log('Felhasználó nincs bejelentkezve.');
+    profileButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        alert("Kérlek, jelentkezz be a profil eléréséhez!");
+        window.location.href = "login.html"; // Átirányítás bejelentkezéshez
+    });
+}
+
 
     function updateCart() {
         const cartItemsList = document.getElementById('cart-items-list');
