@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     const products = await res.json();
     let cartItems = JSON.parse(localStorage.getItem('cart')) || []; // Kosár betöltése
 
+    // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
+    if (localStorage.getItem('userLoggedIn')) { // Ha a bejelentkezett állapotot localStorage-ban tárolod
+        window.location.href = 'https://masik-oldal.hu'; // Átirányítás egy másik oldalra
+    }
+
     function updateCart() {
         const cartItemsList = document.getElementById('cart-items-list');
         const cartCount = document.getElementById('cart-count');
@@ -47,25 +52,23 @@ document.addEventListener('DOMContentLoaded', async function () {
                 .replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/");
         });
     }
-    
+
     document.addEventListener("DOMContentLoaded", function () {
         const logoutButton = document.getElementById("logout-button");
-        
+
         if (!logoutButton) {
             console.error("A logout gomb nem található!");
             return;
         }
-    
+
         logoutButton.addEventListener("click", function () {
             deleteAllCookies(); // Minden süti törlése
             alert("Sikeres kijelentkezés!"); // Opcionális értesítés
             window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
         });
-    
+
         console.log("Logout gomb esemény hozzáadva.");
     });
-    
-     
 
     window.addToCart = function (event) {
         const button = event.target;
