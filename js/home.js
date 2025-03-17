@@ -17,8 +17,17 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve a süti alapján
     const userLoggedIn = getCookie('userLoggedIn');
+    const profileButton = document.querySelector('.profile-icon'); // A profil gomb
+
+    // Ha be van jelentkezve, akkor a profil gomb átirányítja a profil szerkesztés oldalra
     if (userLoggedIn === 'true') {
-        window.location.href = 'profileszerkesztes.html'; // Ha be van jelentkezve, irányítsd át egy másik oldalra
+        profileButton.setAttribute('href', 'profileszerkesztes.html'); // Profil szerkesztés link beállítása
+    } else {
+        profileButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Megakadályozza, hogy a profil gomb bárhová irányítson, ha nincs bejelentkezve
+            alert("Kérlek, jelentkezz be a profil eléréséhez!");
+            window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
+        });
     }
 
     function updateCart() {
