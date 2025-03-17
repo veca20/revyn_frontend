@@ -396,7 +396,9 @@ button:disabled {
         border-radius: 5px;
         cursor: pointer;
         text-align: center;
-        margin: 10px auto; /* Középre igazítás */
+        margin: 20px auto; /* Középre igazítás nagyobb margóval */
+        width: 90%; /* Szélesség beállítása mobil nézethez */
+        max-width: 300px; /* Maximális szélesség korlátozása */
     }
 
     
