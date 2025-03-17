@@ -38,15 +38,26 @@ document.addEventListener('DOMContentLoaded', async function () {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }
 
+    function deleteAllCookies() {
+        document.cookie.split(";").forEach(function (cookie) {
+            document.cookie = cookie
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/");
+        });
+    }
+    
+
     document.addEventListener("DOMContentLoaded", function () {
         const logoutButton = document.getElementById("logout-button");
         if (logoutButton) {
             logoutButton.addEventListener("click", function () {
-                alert("Sikeres kijelentkezés!"); // Ezt cseréld le a valódi kijelentkezési logikára
+                deleteAllCookies(); // Minden süti törlése
+                alert("Sikeres kijelentkezés!"); // Opcionális értesítés
                 window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
             });
         }
     });
+    
      
 
     window.addToCart = function (event) {
