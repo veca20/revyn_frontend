@@ -399,17 +399,9 @@ button:disabled {
         margin: 10px auto; /* Középre igazítás */
     }
 
-    /* Vagy ikon formájában jelenítjük meg */
-    #logout-button {
-        font-size: 0; /* Szöveg elrejtése */
-        padding: 10px;
-        background-color: transparent;
-        border: none;
-    }
+    
 
-    #logout-button::before {
-        content: none; /* FontAwesome ikon eltávolítása */
-    }
+   
 }
 
 @media only screen and (max-width: 768px) {
