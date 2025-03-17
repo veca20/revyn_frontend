@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }
 
+    // log out
+
     function deleteAllCookies() {
         document.cookie.split(";").forEach(function (cookie) {
             document.cookie = cookie
@@ -48,13 +50,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     
     document.addEventListener("DOMContentLoaded", function () {
         const logoutButton = document.getElementById("logout-button");
-        if (logoutButton) {
-            logoutButton.addEventListener("click", function () {
-                deleteAllCookies(); // Minden süti törlése
-                alert("Sikeres kijelentkezés!"); // Értesítés
-                window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
-            });
+        
+        if (!logoutButton) {
+            console.error("A logout gomb nem található!");
+            return;
         }
+    
+        logoutButton.addEventListener("click", function () {
+            deleteAllCookies(); // Minden süti törlése
+            alert("Sikeres kijelentkezés!"); // Opcionális értesítés
+            window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
+        });
+    
+        console.log("Logout gomb esemény hozzáadva.");
     });
     
      
