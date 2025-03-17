@@ -329,7 +329,12 @@ button:disabled {
 
 @media only screen and (max-width: 768px) {
     #logout-button {
-        display: none; /* Elrejtjük a kijelentkezés gombot */
+        display: block; /* Gomb látható marad */
+        font-size: 14px; /* Kisebb betűméret mobilon */
+        padding: 8px 12px;
+        background-color: var(--primary-color);
+        border-radius: 5px;
+        text-align: center;
     }
 
     /* Vagy ikon formájában jelenítjük meg */

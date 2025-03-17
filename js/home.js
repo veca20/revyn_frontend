@@ -38,6 +38,17 @@ document.addEventListener('DOMContentLoaded', async function () {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const logoutButton = document.getElementById("logout-button");
+        if (logoutButton) {
+            logoutButton.addEventListener("click", function () {
+                alert("Sikeres kijelentkezés!"); // Ezt cseréld le a valódi kijelentkezési logikára
+                window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
+            });
+        }
+    });
+     
+
     window.addToCart = function (event) {
         const button = event.target;
         const productName = button.getAttribute('data-name');
