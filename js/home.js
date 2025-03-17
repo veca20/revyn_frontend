@@ -7,9 +7,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     const products = await res.json();
     let cartItems = JSON.parse(localStorage.getItem('cart')) || []; // Kosár betöltése
 
-    // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
-    if (localStorage.getItem('userLoggedIn')) { // Ha a bejelentkezett állapotot localStorage-ban tárolod
-        window.location.href = 'profilszerkesztes.html'; // Átirányítás egy másik oldalra
+    // Funkció, ami kiolvassa a sütiket
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve a süti alapján
+    const userLoggedIn = getCookie('userLoggedIn');
+    if (userLoggedIn) {
+        window.location.href = 'https://masik-oldal.hu'; // Ha be van jelentkezve, irányítsd át egy másik oldalra
     }
 
     function updateCart() {
