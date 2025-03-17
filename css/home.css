@@ -329,12 +329,12 @@ button:disabled {
 
 @media only screen and (max-width: 768px) {
     #logout-button {
-        display: block; /* Láthatóvá teszi a gombot */
-        font-size: 14px;
+        display: block; /* Láthatóvá tesszük mobilon is */
+        font-size: 14px; /* Szöveg mérete */
         padding: 8px 12px;
         background-color: var(--primary-color);
-        border: none;
         color: white;
+        border: none;
         border-radius: 5px;
         cursor: pointer;
         text-align: center;
@@ -349,10 +349,7 @@ button:disabled {
     }
 
     #logout-button::before {
-        content: "\f2f5"; /* FontAwesome ikon kódja */
-        font-family: "Font Awesome 6 Free";
-        font-size: 18px;
-        color: var(--secondary-color);
+        content: none; /* FontAwesome ikon eltávolítása */
     }
 }
 
