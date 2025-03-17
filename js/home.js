@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
     if (localStorage.getItem('userLoggedIn')) { // Ha a bejelentkezett állapotot localStorage-ban tárolod
-        window.location.href = 'https://masik-oldal.hu'; // Átirányítás egy másik oldalra
+        window.location.href = 'profilszerkesztes.html'; // Átirányítás egy másik oldalra
     }
 
     function updateCart() {
