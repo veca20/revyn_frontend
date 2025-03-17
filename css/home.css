@@ -326,14 +326,7 @@ button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
-button{
-    padding: 5px;
-    border-radius: 2px;
-    background-color: rgb(0, 0, 0);
-    color: #00FF00;
-    border: none;
-    cursor: pointer;
-}
+
 fa-solid fa-user{
     margin: 1px;
 }
