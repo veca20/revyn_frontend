@@ -334,7 +334,9 @@ button{
     border: none;
     cursor: pointer;
 }
-
+fa-solid fa-user{
+    margin: 1px;
+}
 
 /* Mobilnézethez reszponzív módosítások */
 @media only screen and (max-width: 768px) {
