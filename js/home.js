@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve a süti alapján
     const userLoggedIn = getCookie('userLoggedIn');
     if (userLoggedIn === 'true') {
-        window.location.href = 'https://masik-oldal.hu'; // Ha be van jelentkezve, irányítsd át egy másik oldalra
+        window.location.href = 'profileszerkesztes.html'; // Ha be van jelentkezve, irányítsd át egy másik oldalra
     }
 
     function updateCart() {
