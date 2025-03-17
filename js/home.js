@@ -12,11 +12,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;  // Ha nincs ilyen süti
     }
 
     // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve a süti alapján
     const userLoggedIn = getCookie('userLoggedIn');
-    if (userLoggedIn) {
+    if (userLoggedIn === 'true') {
         window.location.href = 'https://masik-oldal.hu'; // Ha be van jelentkezve, irányítsd át egy másik oldalra
     }
 
@@ -52,7 +53,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // log out
-
     function deleteAllCookies() {
         document.cookie.split(";").forEach(function (cookie) {
             document.cookie = cookie
