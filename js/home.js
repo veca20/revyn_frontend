@@ -46,13 +46,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
     
-
     document.addEventListener("DOMContentLoaded", function () {
         const logoutButton = document.getElementById("logout-button");
         if (logoutButton) {
             logoutButton.addEventListener("click", function () {
                 deleteAllCookies(); // Minden süti törlése
-                alert("Sikeres kijelentkezés!"); // Opcionális értesítés
+                alert("Sikeres kijelentkezés!"); // Értesítés
                 window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
             });
         }
