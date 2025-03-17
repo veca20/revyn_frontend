@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Ha be van jelentkezve, akkor a profil gomb átirányítja a profil szerkesztés oldalra
     if (userLoggedIn === 'true') {
         profileButton.setAttribute('href', 'profileszerkesztes.html'); // Profil szerkesztés link beállítása
+        console.log('Felhasználó be van jelentkezve, profil gomb átirányít a profil szerkesztés oldalra.');
     } else {
         profileButton.addEventListener('click', function (event) {
             event.preventDefault(); // Megakadályozza, hogy a profil gomb bárhová irányítson, ha nincs bejelentkezve
