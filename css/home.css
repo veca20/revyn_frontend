@@ -60,9 +60,48 @@ nav ul li a {
 }
 
 .icons {
-    display: flex;
-    gap: 10px;
+    display: flex; /* Flexbox használata */
+    justify-content: space-between; /* Egyenletes távolság a gombok között */
+    align-items: center; /* Függőleges középre igazítás */
+    gap: 10px; /* Távolság a gombok között */
 }
+
+.icons a, .icons button, .icons .cart-container {
+    flex: 1; /* Azonos szélesség minden elemnek */
+    max-width: 120px; /* Maximális szélesség */
+    text-align: center; /* Szöveg középre igazítás */
+}
+
+.cart-container {
+    position: relative; /* Kosár legördülő tartalmának helyes pozícionálása */
+}
+
+.cart-icon {
+    width: 100%; /* Gomb szélességének igazítása */
+    padding: 10px;
+    font-size: 1rem;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+    .icons {
+        justify-content: space-between; /* Mobilnézetre igazított távolság */
+    }
+
+    .icons a, .icons button, .icons .cart-container {
+        flex: none; /* Nem osztoznak a helyen mobilon */
+        max-width: 100px; /* Mobil nézetre kisebb szélesség */
+    }
+
+    .cart-icon {
+        font-size: 0.9rem; /* Kisebb gomb szövegméret mobilon */
+    }
+}
+
 
 .icons a {
     text-decoration: none;
