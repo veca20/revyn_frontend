@@ -31,8 +31,16 @@
         <div class="icons">
 
             <a href="login.html"><i class="fa-solid fa-user"></i></a>
-            <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
-            <span id="cart-count">0</span>
+            <div class="cart-container">
+                <button class="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </button>
+                <div id="cart-dropdown" class="cart-dropdown">
+                    <ul id="cart-items-list"></ul>
+                    <a href="cart.html" class="checkout-button" id="checkoutButton">Checkout</a>
+                </div>
+            </div>
         </div>
     </div>
 
