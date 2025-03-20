@@ -97,38 +97,7 @@ nav ul li a {
     transition: 0.4s;
 }
 
-.footer {
-    margin-top: auto;
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-}
 
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.footer-link {
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-}
-
-.footer-link:hover {
-    color: gray;
-    transition: color 0.3s ease-in-out;
-}
-
-.text-container p {
-    display: block;
-    text-align: left;
-}
 
 
 /* kártya */
@@ -248,6 +217,36 @@ button {
     color: #00FF00;
     border: none;
     cursor: pointer;
+}
+
+/* Footer stílusok */
+.footer {
+    margin-top: auto;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+}
+
+.footer-link:hover {
+    color: gray;
+    transition: color 0.3s ease-in-out;
 }
 
 
