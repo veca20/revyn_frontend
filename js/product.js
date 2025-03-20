@@ -36,7 +36,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         // Termékadatok megjelenítése
         document.getElementById('product_name').textContent = product.name;
         document.getElementById('product_price').textContent = `Ár: $${product.price}`;
-        document.getElementById('product_image').src = `uploads/${product.image}`;
+        if (product.product_image) {
+            document.getElementById('product_image').src = product.product_image;
+        } else {
+            document.getElementById('product_image').src = 'https://revyn.netlify.app/uploads/default.png'; // Alapértelmezett kép
+        }
+        
 
         document.getElementById('product_description').textContent = product.description;
 
