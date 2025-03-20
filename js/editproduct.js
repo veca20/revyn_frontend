@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="product-details">
                             <h2>${product.name}</h2>
                             <p>$${product.price}</p>
+                            <p>${product.description}</p>
                             <div class="product-actions">
                                 <button class="edit-btn" data-id="${product.id}"><i class="fa-solid fa-pencil"></i> Edit</button>
                                 <button class="delete-btn" data-id="${product.id}"><i class="fa-solid fa-trash"></i> Delete</button>
@@ -41,19 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const productItem = event.target.closest('.product-item');
             const productName = productItem.querySelector('h2').textContent;
             const productPrice = productItem.querySelector('p').textContent.replace('$', '');
+            const productDescription = productItem.querySelector('p:nth-child(3)').textContent;
 
-            console.log('Editing product:', productId, productName, productPrice); // Hibakeresés
+            console.log('Editing product:', productId, productName, productPrice, productDescription); // Hibakeresés
 
             const newName = prompt('Enter new product name:', productName);
             const newPrice = prompt('Enter new product price:', productPrice);
+            const newDescription = prompt('Enter new product description:', productDescription);
 
-            if (newName && newPrice) {
+            if (newName && newPrice && newDescription) {
                 fetch(`/api/products/${productId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ name: newName, price: newPrice })
+                    body: JSON.stringify({ name: newName, price: newPrice, description: newDescription })
                 })
                 .then(response => {
                     if (!response.ok) {
@@ -105,4 +108,3 @@ document.addEventListener('DOMContentLoaded', function() {
         navUl.classList.toggle('show');
     });
 });
-
