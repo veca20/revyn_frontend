@@ -103,12 +103,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoutButton = document.getElementById('logout-button');
 
     if (logoutButton) {
-        logoutButton.addEventListener('click', function () {
-            // Töröljük a sütit
-            document.cookie = 'session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            
-            // Átirányítjuk a felhasználót a bejelentkezési oldalra
-            window.location.href = '/login.html'; // A bejelentkezési oldal URL-je
+        logoutButton.addEventListener('click', async function () {
+            try {
+                // Küldjünk egy kérést a szervernek a kijelentkezéshez
+                const response = await fetch('/api/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    // Töröljük a sütit a kliens oldalon is (ha szükséges)
+                    document.cookie = 'session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    
+                    // Átirányítás a bejelentkezési oldalra
+                    window.location.href = '/login.html';
+                } else {
+                    console.error('Sikertelen kijelentkezés');
+                }
+            } catch (error) {
+                console.error('Hiba történt a kijelentkezés során:', error);
+            }
         });
     } else {
         console.error('A kijelentkezés gomb nem található');
