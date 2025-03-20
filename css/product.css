@@ -1,3 +1,12 @@
+/* Változók definiálása */
+:root {
+    --primary-color: #00FF00;
+    --secondary-color: black;
+    --font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --font-size: 16px;
+}
+
+/* Alapértelmezett stílusok */
 * {
     margin: 0;
     padding: 0;
@@ -5,102 +14,102 @@
 }
 
 body {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
     font-weight: lighter;
     color: black;
     background-color: white;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(to right, #080908, #00FF00);
-    margin: 0;
+    background-image: linear-gradient(to right, #080908, var(--primary-color));
     overflow: auto;
 }
 
 /* Header */
 .banner {
-    background-color: #00FF00;
+    background-color: var(--primary-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     position: relative;
-    flex-wrap: nowrap;
     z-index: 1;
 }
 
 h1 {
     font-size: 36px;
     position: absolute;
-    /* Változtatás: relative-ről absolute-re */
     text-align: center;
     margin: 0;
-    flex: 1;
-    z-index: 2;
     left: 50%;
-    /* Új sor */
     transform: translateX(-50%);
-    /* Új sor */
-    order: 2;
+    z-index: 2;
 }
 
 nav ul {
-    display: none;
-    position: absolute;
-    background-color: white;
     list-style: none;
-    top: 50px;
-    right: 0;
-    width: 200px;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-nav ul.show {
-    display: block;
+    display: flex;
+    gap: 20px;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: black;
+    color: var(--secondary-color);
     font-size: 16px;
 }
 
 .icons {
     display: flex;
     gap: 10px;
-    order: 3;
 }
 
 .icons a {
     text-decoration: none;
-    color: black;
-    font-size: 16px;
+    color: var(--secondary-color);
+    font-size: 23px;
 }
 
 /* Hamburger Menü */
 .hamburger-menu {
     display: none;
-    /* Változtatás: inline-block-ról none-ra */
     cursor: pointer;
     position: relative;
     z-index: 3;
-    order: 1;
 }
 
 .hamburger-menu div {
     width: 30px;
     height: 3px;
-    background-color: black;
+    background-color: var(--secondary-color);
     margin: 6px 0;
     transition: 0.4s;
 }
 
+/* Kártyák elrendezése */
+.container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-evenly !important;
+    gap: 20px !important;
+    padding: 20px;
+}
 
+#products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 20px;
+}
 
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-evenly;
+}
 
-/* kártya */
 .card {
     flex: 1 1 calc(25% - 20px); /* 4 kártya egy sorban, kis margóval */
     background-color: white;
@@ -111,12 +120,11 @@ nav ul li a {
     margin: 5px;
     text-align: center;
     box-sizing: border-box;
-    transition: transform 0.3s ease-in-out;
 }
 
-.card:hover {
-    background-color: white !important; /* Hover esetén is fehér háttér */
-    transform: scale(1.05);
+    .card:hover {
+        background-color: white !important; /* Hover esetén is fehér háttér */
+        transform: scale(1.05);
 }
 
 .card img {
@@ -128,6 +136,10 @@ nav ul li a {
     background-color: white; /* Ha a kép nem tölti ki a helyet, fehér háttér legyen */
 }
 
+.card:hover {
+    transform: scale(1.05);
+}
+
 .card-body {
     display: flex;
     flex-direction: column;
@@ -136,6 +148,24 @@ nav ul li a {
     padding: 10px;
 }
 
+.pic-div {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+}
+
+.pic-div img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Kártya lábléc */
 .card-footer {
     display: flex;
     flex-direction: column;
@@ -163,155 +193,16 @@ nav ul li a {
 .card-footer button:hover {
     background-color: #00cc00;
 }
-
-.quantity {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 15px 0;
-}
-
-.quantity button {
-    background-color: #00FF00;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.quantity input {
-    width: 50px;
-    text-align: center;
-    border: 1px solid #ccc;
-    margin: 0 5px;
-}
-
-.add-to-cart {
-    background-color: #1B3C74;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1em;
-}
-/* Gördülő kosár menü stílusai */
-.cart-container {
-    position: relative;
-}
-
-.cart-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    color: black;
-    position: relative;
-}
-
-#cart-count {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
-}
-
-.cart-dropdown {
-    display: none; /* Alapértelmezettként elrejtve */
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    width: 300px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.cart-dropdown.active {
-    display: block; /* Megjelenik, ha az "active" osztály hozzáadódik */
-}
-
-#cart-items-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#cart-items-list li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-#cart-items-list li img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-#cart-items-list li button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-}
-
-.checkout-button {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background-color: #00FF00;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-top: 10px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.checkout-button:hover {
+button:hover {
     background-color: #00cc00;
+    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4);
 }
 
 
-.features {
-    list-style-type: none;
-    padding: 0;
-    margin: 15px 0 0 0;
-    text-align: left;
-}
-
-.features li {
-    background-color: #b5becc;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-}
-
-button {
-    padding: 5px;
-    border-radius: 2px;
-    background-color: rgb(0, 0, 0);
-    color: #00FF00;
-    border: none;
-    cursor: pointer;
-}
-
-/* Footer stílusok */
+/* Footer */
 .footer {
     margin-top: auto;
-    background-color: black;
+    background-color: var(--secondary-color);
     color: white;
     padding: 20px 0;
     text-align: center;
@@ -342,24 +233,111 @@ button {
     text-align: left;
 }
 
+/* Kosár */
+.cart-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.cart-icon {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    position: relative;
+}
+
+
+
+/* Kosár legördülő menü */
+.cart-dropdown {
+    display: none; /* Alapértelmezetten láthatatlan */
+    flex-direction: column;
+    justify-content: flex-start;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    gap: 10px;
+}
+
+.cart-dropdown.active {
+    display: flex; /* Láthatóvá válik, ha az "active" osztály hozzáadódik */
+}
+.cart-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.cart-dropdown ul li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-dropdown ul li:last-child {
+    border-bottom: none;
+}
+
+.checkout-button {
+    width: 100%;
+    padding: 0px;
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    margin-top: auto;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkout-button:hover {
+    background-color: #00cc00;
+}
+
+
+button {
+    background-color: var(--primary-color);
+    color:blawhite;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #00cc00;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
 /* Mobilnézethez reszponzív módosítások */
 @media only screen and (max-width: 768px) {
     .banner {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         padding: 10px 30px;
-        position: relative;
     }
 
     .hamburger-menu {
         display: block;
-        /* Mobil nézetben jelenjen meg */
         font-size: 30px;
-        color: black;
-        cursor: pointer;
-        position: relative;
-        order: 1;
+        color: var(--secondary-color);
     }
 
     nav ul {
@@ -368,11 +346,10 @@ button {
         position: absolute;
         top: 100%;
         left: 0;
-        background-color: #00FF00;
+        background-color: var(--primary-color);
         width: 100%;
         padding: 10px;
         gap: 10px;
-        z-index: 2;
     }
 
     nav ul.show {
@@ -385,9 +362,8 @@ button {
     }
 
     .card {
-        flex: 1 0 100%;
+        flex: 1 1 100%; /* Mobil nézetben a kártyák 100%-os szélességűek lesznek */
         margin: 10px 0;
-        height: auto;
     }
 
     .card-body,
@@ -398,48 +374,41 @@ button {
     .pic-div {
         width: 100%;
         padding-top: 100%;
-        overflow: hidden;
     }
 
-    .banner {
-        background-color: #00FF00;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 30px;
-        position: relative;
-        z-index: 1;
-    }
-
-    .banner h1 {
-        font-size: 30px;
-        text-align: center;
-        z-index: 2;
-        position: absolute;
-        /* Mobil nézetben is legyen középre igazítva */
-        left: 50%;
-        /* Új sor */
-        transform: translateX(-50%);
-        /* Új sor */
-    }
-
-    .icons {
-        order: 3;
-        justify-content: flex-end;
-        width: 100%;
-    }
     .footer-container {
         flex-direction: column;
         align-items: flex-start;
-    }
-
-    .footer-link {
-        display: block;
-        margin-bottom: 10px;
     }
 
     .text-container p {
         margin-bottom: 20px;
         line-height: 1.6;
     }
+
+    #logout-button {
+        display: block; /* Gomb megjelenítése mobilon */
+        font-size: 16px;
+        padding: 10px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        margin: 20px auto; /* Középre igazítás nagyobb margóval */
+        width: 90%; /* Szélesség beállítása mobil nézethez */
+        max-width: 300px; /* Maximális szélesség korlátozása */
+    }
+
+    
+
+   
 }
+
+@media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+    }
+}
+
