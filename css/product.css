@@ -105,6 +105,14 @@ nav ul li a {
     min-height: 150px;
 }
 
+.footer {
+    margin-top: auto;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
 .footer-container {
     display: flex;
     justify-content: space-between;
@@ -118,7 +126,6 @@ nav ul li a {
     text-decoration: none;
     color: white;
     font-size: 1rem;
-    font-family: 'Arial', sans-serif;
 }
 
 .footer-link:hover {
@@ -126,14 +133,11 @@ nav ul li a {
     transition: color 0.3s ease-in-out;
 }
 
-.footer-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    font-family: 'Arial', sans-serif;
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
+.text-container p {
+    display: block;
+    text-align: left;
 }
+
 
 /* kártya */
 .product-card {
