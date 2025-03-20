@@ -222,7 +222,7 @@ button {
 /* Footer stílusok */
 .footer {
     margin-top: auto;
-    background-color: var(--secondary-color);
+    background-color: black;
     color: white;
     padding: 20px 0;
     text-align: center;
@@ -313,7 +313,7 @@ button {
     }
 
     .banner {
-        background-color: black;
+        background-color: #00FF00;
         display: flex;
         justify-content: space-between;
         align-items: center;
