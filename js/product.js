@@ -98,3 +98,19 @@ document.querySelector('.cart-icon').addEventListener('click', function() {
     const cartDropdown = document.getElementById('cart-dropdown');
     cartDropdown.classList.toggle('active');
 });
+// kijelentkezés
+document.addEventListener('DOMContentLoaded', function () {
+    const logoutButton = document.getElementById('logout-button');
+
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function () {
+            // Töröljük a sütit
+            document.cookie = 'session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            
+            // Átirányítjuk a felhasználót a bejelentkezési oldalra
+            window.location.href = '/login.html'; // A bejelentkezési oldal URL-je
+        });
+    } else {
+        console.error('A kijelentkezés gomb nem található');
+    }
+});
