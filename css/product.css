@@ -195,6 +195,95 @@ nav ul li a {
     border-radius: 5px;
     font-size: 1em;
 }
+/* Gördülő kosár menü stílusai */
+.cart-container {
+    position: relative;
+}
+
+.cart-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: black;
+    position: relative;
+}
+
+#cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.cart-dropdown {
+    display: none; /* Alapértelmezettként elrejtve */
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.cart-dropdown.active {
+    display: block; /* Megjelenik, ha az "active" osztály hozzáadódik */
+}
+
+#cart-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#cart-items-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+#cart-items-list li img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+#cart-items-list li button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+.checkout-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #00FF00;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.checkout-button:hover {
+    background-color: #00cc00;
+}
+
 
 .features {
     list-style-type: none;
