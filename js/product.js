@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     try {
-        const response = await fetch(`/api/products/${productId}`); // Backend végpont
+        const response = await fetch(`/api/product/${productId}`); // Backend végpont
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
 
         const product = await response.json();
