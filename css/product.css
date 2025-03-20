@@ -31,20 +31,34 @@ body {
 
 h1 {
     font-size: 36px;
-    position: absolute; /* Változtatás: relative-ről absolute-re */
+    position: absolute;
+    /* Változtatás: relative-ről absolute-re */
     text-align: center;
     margin: 0;
     flex: 1;
     z-index: 2;
-    left: 50%; /* Új sor */
-    transform: translateX(-50%); /* Új sor */
+    left: 50%;
+    /* Új sor */
+    transform: translateX(-50%);
+    /* Új sor */
     order: 2;
 }
 
 nav ul {
+    display: none;
+    position: absolute;
+    background-color: white;
     list-style: none;
-    display: flex;
-    gap: 20px;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+nav ul.show {
+    display: block;
 }
 
 nav ul li a {
@@ -67,7 +81,8 @@ nav ul li a {
 
 /* Hamburger Menü */
 .hamburger-menu {
-    display: none; /* Változtatás: inline-block-ról none-ra */
+    display: none;
+    /* Változtatás: inline-block-ról none-ra */
     cursor: pointer;
     position: relative;
     z-index: 3;
@@ -128,13 +143,17 @@ nav ul li a {
     padding: 20px;
     max-width: 300px;
     text-align: center;
-    margin: 20px auto; /* Kártyák közötti távolság */
+    margin: 20px auto;
+    /* Kártyák közötti távolság */
 }
 
 .product-card img {
-     max-width: 100%; /* Kisebb méretű kép */ 
-    height: auto; /* Az arányok megtartása */ 
-    border-radius: 10px; }
+    max-width: 100%;
+    /* Kisebb méretű kép */
+    height: auto;
+    /* Az arányok megtartása */
+    border-radius: 10px;
+}
 
 .product-card h2 {
     font-size: 1.5em;
@@ -191,7 +210,8 @@ nav ul li a {
     margin-bottom: 5px;
     border-radius: 5px;
 }
-button{
+
+button {
     padding: 5px;
     border-radius: 2px;
     background-color: rgb(0, 0, 0);
@@ -212,7 +232,8 @@ button{
     }
 
     .hamburger-menu {
-        display: block; /* Mobil nézetben jelenjen meg */
+        display: block;
+        /* Mobil nézetben jelenjen meg */
         font-size: 30px;
         color: black;
         cursor: pointer;
@@ -273,9 +294,12 @@ button{
         font-size: 30px;
         text-align: center;
         z-index: 2;
-        position: absolute; /* Mobil nézetben is legyen középre igazítva */
-        left: 50%; /* Új sor */
-        transform: translateX(-50%); /* Új sor */
+        position: absolute;
+        /* Mobil nézetben is legyen középre igazítva */
+        left: 50%;
+        /* Új sor */
+        transform: translateX(-50%);
+        /* Új sor */
     }
 
     .icons {
