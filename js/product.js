@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
-
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
@@ -23,23 +22,19 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     try {
         const response = await fetch(`/api/product/${productId}`);
-        // Backend végpont
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
 
         const product = await response.json();
 
-        // Ellenőrizzük, hogy a termékadatok valóban léteznek-e
-        if (!product || !product_name || !product_price || !product_image || !product_description) {
+        if (!product || !product.name || !product.price || !product.image || !product.description) {
             throw new Error('A termék adatai nem teljesek.');
         }
 
-        // Termékadatok megjelenítése
         document.getElementById('product_name').textContent = product.name;
         document.getElementById('product_price').textContent = `Ár: $${product.price}`;
         document.getElementById('product_image').src = `uploads/${product.image}`;
         document.getElementById('product_description').textContent = product.description;
 
-        // Kosárhoz adás gomb működése
         const addToCartButton = document.getElementById('add-to-cart');
         if (addToCartButton) {
             addToCartButton.addEventListener('click', function () {
@@ -54,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 localStorage.setItem('cart', JSON.stringify(cart));
                 alert(`${product.name} hozzáadva a kosárhoz!`);
+                updateCart(); // Frissítjük a kosár menüt
             });
         } else {
             console.error('add-to-cart gomb nem található');
@@ -77,6 +73,7 @@ function updateCart() {
 
     cartItemsList.innerHTML = '';
     let totalCount = 0;
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
     cartItems.forEach((item, index) => {
         totalCount += item.quantity;
@@ -95,3 +92,9 @@ function updateCart() {
     checkoutButton.style.display = cartItems.length > 0 ? 'block' : 'none';
     localStorage.setItem('cart', JSON.stringify(cartItems));
 }
+
+// Kosár ikon kattintás eseménye
+document.querySelector('.cart-icon').addEventListener('click', function() {
+    const cartDropdown = document.getElementById('cart-dropdown');
+    cartDropdown.classList.toggle('active');
+});
