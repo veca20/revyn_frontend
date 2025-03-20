@@ -132,33 +132,67 @@ nav ul li a {
 
 
 /* kártya */
-.product-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 300px;
+.card {
+    flex: 1 1 calc(25% - 20px); /* 4 kártya egy sorban, kis margóval */
+    background-color: white;
+    max-width: 250px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 5px;
     text-align: center;
-    margin: 20px auto;
-    /* Kártyák közötti távolság */
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out;
 }
 
-.product-card img {
-    max-width: 100%;
-    /* Kisebb méretű kép */
-    height: auto;
-    /* Az arányok megtartása */
-    border-radius: 10px;
+.card:hover {
+    background-color: white !important; /* Hover esetén is fehér háttér */
+    transform: scale(1.05);
 }
 
-.product-card h2 {
-    font-size: 1.5em;
-    margin: 10px 0;
+.card img {
+    width: 100%; /* A kép szélessége igazodik a kártyához */
+    height: 150px; /* Fix magasság beállítása */
+    object-fit: contain; /* A teljes kép látszódik torzítás nélkül */
+    border-radius: 5px;
+    display: block; /* Eltávolítja az esetleges extra margókat */
+    background-color: white; /* Ha a kép nem tölti ki a helyet, fehér háttér legyen */
 }
 
-.product-card .price {
-    font-size: 1.2em;
-    color: #555;
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.card-footer p {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.card-footer button {
+    font-size: 1.2rem;
+    padding: 10px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-footer button:hover {
+    background-color: #00cc00;
 }
 
 .quantity {
