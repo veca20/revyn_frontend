@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
+
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
@@ -10,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Hamburger vagy navMenu elem nem található');
     }
 });
-
 
 document.addEventListener('DOMContentLoaded', async function () {
     const params = new URLSearchParams(window.location.search);
@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     try {
-        const response = await fetch(`/api/product/${productId}`); // Backend végpont
+        const response = await fetch(`/api/product/${productId}`);
+        // Backend végpont
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
 
         const product = await response.json();
