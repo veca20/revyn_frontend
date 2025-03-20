@@ -36,13 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         // Termékadatok megjelenítése
         document.getElementById('product_name').textContent = product.name;
         document.getElementById('product_price').textContent = `Ár: $${product.price}`;
-        if (product.product_image) {
-            document.getElementById('product_image').src = product.product_image;
-        } else {
-            document.getElementById('product_image').src = 'https://revyn.netlify.app/uploads/default.png'; // Alapértelmezett kép
-        }
-        
-
+        document.getElementById('product_image').src = `uploads/${product.image}`;
         document.getElementById('product_description').textContent = product.description;
 
         // Kosárhoz adás gomb működése
@@ -70,3 +64,34 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.getElementById('product-container').innerHTML = "<p>Hiba történt a termék betöltésekor.</p>";
     }
 });
+
+function updateCart() {
+    const cartItemsList = document.getElementById('cart-items-list');
+    const cartCount = document.getElementById('cart-count');
+    const checkoutButton = document.getElementById('checkoutButton');
+
+    if (!cartItemsList || !cartCount || !checkoutButton) {
+        console.error("Kosár elemei nem találhatók.");
+        return;
+    }
+
+    cartItemsList.innerHTML = '';
+    let totalCount = 0;
+
+    cartItems.forEach((item, index) => {
+        totalCount += item.quantity;
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" style="width: 40px; height: 40px; margin-right: 10px;">
+            ${item.name} - $${item.price.toFixed(2)} (x${item.quantity})
+            <button class="decrease-quantity" data-index="${index}">➖</button>
+            <button class="increase-quantity" data-index="${index}">➕</button>
+            <button class="remove-item" data-index="${index}">❌</button>
+        `;
+        cartItemsList.appendChild(li);
+    });
+
+    cartCount.textContent = totalCount;
+    checkoutButton.style.display = cartItems.length > 0 ? 'block' : 'none';
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+}
