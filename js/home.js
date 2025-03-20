@@ -14,18 +14,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         return null;
     }
 
-    const userLoggedIn = getCookie('userLoggedIn');
-    const profileButton = document.querySelector('.profile-icon');
-
-    if (userLoggedIn === 'true') {
-        profileButton.setAttribute('href', 'profileszerkesztes.html');
-    } else {
-        profileButton.addEventListener('click', function (event) {
-            event.preventDefault();
-            alert("Kérlek, jelentkezz be a profil eléréséhez!");
-            window.location.href = "login.html";
-        });
-    }
+    const userLoggedIn = localStorage.getItem('userLoggedIn');
+if (userLoggedIn === 'true') {
+    console.log('Felhasználó be van jelentkezve.');
+    profileButton.setAttribute('href', 'profileszerkesztes.html');
+} else {
+    console.log('Felhasználó nincs bejelentkezve.');
+    profileButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        alert("Kérlek, jelentkezz be a profil eléréséhez!");
+        window.location.href = "login.html";
+    });
+}
 
     function updateCart() {
         const cartItemsList = document.getElementById('cart-items-list');
