@@ -5,35 +5,27 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     const products = await res.json();
-    let cartItems = JSON.parse(localStorage.getItem('cart')) || []; // Kosár betöltése
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Funkció, ami kiolvassa a sütiket
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;  // Ha nincs ilyen süti
+        return null;
     }
 
-    // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve a süti alapján
     const userLoggedIn = getCookie('userLoggedIn');
-    const profileButton = document.querySelector('.profile-icon'); // A profil gomb
+    const profileButton = document.querySelector('.profile-icon');
 
-    // Bejelentkezett állapot ellenőrzése
-console.log('Felhasználó bejelentkezett-e:', userLoggedIn);
-
-if (userLoggedIn === 'true') {
-    console.log('Felhasználó be van jelentkezve. Átirányítás...');
-    profileButton.setAttribute('href', 'profileszerkesztes.html'); // Profil gomb link
-} else {
-    console.log('Felhasználó nincs bejelentkezve.');
-    profileButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        alert("Kérlek, jelentkezz be a profil eléréséhez!");
-        window.location.href = "login.html"; // Átirányítás bejelentkezéshez
-    });
-}
-
+    if (userLoggedIn === 'true') {
+        profileButton.setAttribute('href', 'profileszerkesztes.html');
+    } else {
+        profileButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            alert("Kérlek, jelentkezz be a profil eléréséhez!");
+            window.location.href = "login.html";
+        });
+    }
 
     function updateCart() {
         const cartItemsList = document.getElementById('cart-items-list');
@@ -65,32 +57,6 @@ if (userLoggedIn === 'true') {
         checkoutButton.style.display = cartItems.length > 0 ? 'block' : 'none';
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }
-
-    // log out
-    function deleteAllCookies() {
-        document.cookie.split(";").forEach(function (cookie) {
-            document.cookie = cookie
-                .replace(/^ +/, "")
-                .replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/");
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const logoutButton = document.getElementById("logout-button");
-
-        if (!logoutButton) {
-            console.error("A logout gomb nem található!");
-            return;
-        }
-
-        logoutButton.addEventListener("click", function () {
-            deleteAllCookies(); // Minden süti törlése
-            alert("Sikeres kijelentkezés!"); // Opcionális értesítés
-            window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
-        });
-
-        console.log("Logout gomb esemény hozzáadva.");
-    });
 
     window.addToCart = function (event) {
         const button = event.target;
