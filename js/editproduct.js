@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Termékek lekérése és megjelenítése
     function fetchProducts() {
-        fetch('/api/product')
+        fetch('/api/products')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
