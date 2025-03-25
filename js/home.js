@@ -1,49 +1,60 @@
 document.addEventListener('DOMContentLoaded', async function () {
+    // Termékek betöltése
     const res = await fetch('/api/products', {
         method: 'GET',
         credentials: 'include'
     });
-
     const products = await res.json();
-    let cartItems = JSON.parse(localStorage.getItem('cart')) || []; // Kosár betöltése
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Funkció, ami kiolvassa a sütiket
+    // Süti kezelés
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;  // Ha nincs ilyen süti
+        return null;
     }
 
-    // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve a süti alapján
+    // Felhasználói állapot kezelése
     const userLoggedIn = getCookie('userLoggedIn');
-    const profileButton = document.querySelector('.profile-icon'); // A profil gomb
+    const profileButton = document.querySelector('.profile-icon');
+    const logoutContainer = document.getElementById('logout-container');
 
-    // Bejelentkezett állapot ellenőrzése
-console.log('Felhasználó bejelentkezett-e:', userLoggedIn);
+    // Bejelentkezési állapot kezelése
+    if (userLoggedIn === 'true') {
+        profileButton.setAttribute('href', 'profileszerkesztes.html');
+        if (logoutContainer) logoutContainer.style.display = 'flex';
+    } else {
+        profileButton.setAttribute('href', 'login.html');
+        if (logoutContainer) logoutContainer.style.display = 'none';
+    }
 
-if (userLoggedIn === 'true') {
-    console.log('Felhasználó be van jelentkezve. Átirányítás...');
-    profileButton.setAttribute('href', 'profileszerkesztes.html'); // Profil gomb link
-} else {
-    console.log('Felhasználó nincs bejelentkezve.');
-    profileButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        alert("Kérlek, jelentkezz be a profil eléréséhez!");
-        window.location.href = "login.html"; // Átirányítás bejelentkezéshez
-    });
-}
+    // Logout funkció
+    function deleteAllCookies() {
+        document.cookie.split(";").forEach(function(cookie) {
+            document.cookie = cookie
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/");
+        });
+    }
 
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            deleteAllCookies();
+            localStorage.removeItem('cart');
+            alert("Sikeres kijelentkezés!");
+            window.location.href = "login.html";
+        });
+    }
 
+    // Kosár frissítése
     function updateCart() {
         const cartItemsList = document.getElementById('cart-items-list');
         const cartCount = document.getElementById('cart-count');
         const checkoutButton = document.getElementById('checkoutButton');
 
-        if (!cartItemsList || !cartCount || !checkoutButton) {
-            console.error("Kosár elemei nem találhatók.");
-            return;
-        }
+        if (!cartItemsList || !cartCount || !checkoutButton) return;
 
         cartItemsList.innerHTML = '';
         let totalCount = 0;
@@ -66,60 +77,55 @@ if (userLoggedIn === 'true') {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }
 
-    // log out
-    function deleteAllCookies() {
-        document.cookie.split(";").forEach(function (cookie) {
-            document.cookie = cookie
-                .replace(/^ +/, "")
-                .replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/");
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const logoutButton = document.getElementById("logout-button");
-
-        if (!logoutButton) {
-            console.error("A logout gomb nem található!");
-            return;
+    // Kosár eseménykezelők
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('decrease-quantity')) {
+            const index = e.target.getAttribute('data-index');
+            if (cartItems[index].quantity > 1) {
+                cartItems[index].quantity--;
+            } else {
+                cartItems.splice(index, 1);
+            }
+            updateCart();
+        } else if (e.target.classList.contains('increase-quantity')) {
+            const index = e.target.getAttribute('data-index');
+            cartItems[index].quantity++;
+            updateCart();
+        } else if (e.target.classList.contains('remove-item')) {
+            const index = e.target.getAttribute('data-index');
+            cartItems.splice(index, 1);
+            updateCart();
         }
-
-        logoutButton.addEventListener("click", function () {
-            deleteAllCookies(); // Minden süti törlése
-            alert("Sikeres kijelentkezés!"); // Opcionális értesítés
-            window.location.href = "login.html"; // Átirányítás a bejelentkező oldalra
-        });
-
-        console.log("Logout gomb esemény hozzáadva.");
     });
 
-    window.addToCart = function (event) {
+    // Termék hozzáadása a kosárhoz
+    window.addToCart = function(event) {
         const button = event.target;
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
-        let productImage = button.getAttribute('data-image');
-
-        if (!productImage || productImage === "uploads/") {
-            productImage = "uploads/default.jpg";
-        }
+        let productImage = button.getAttribute('data-image') || 'uploads/default.jpg';
 
         const existingItem = cartItems.find(item => item.name === productName);
 
         if (existingItem) {
             existingItem.quantity++;
         } else {
-            cartItems.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
+            cartItems.push({ 
+                name: productName, 
+                price: productPrice, 
+                image: productImage, 
+                quantity: 1 
+            });
         }
 
         alert(`${productName} hozzáadva a kosárhoz!`);
         updateCart();
     };
 
+    // Termékek megjelenítése
     function displayProducts(products) {
         const container = document.getElementById('products-container');
-        if (!container) {
-            console.error('A termékeket tartalmazó elem nem található.');
-            return;
-        }
+        if (!container) return;
 
         container.innerHTML = '';
 
@@ -137,25 +143,29 @@ if (userLoggedIn === 'true') {
                     <button class="btnAddToCart" 
                         data-name="${product.product_name}" 
                         data-price="${product.product_price || 0}" 
-                        data-image="uploads/${product.product_image}">ADD TO CART</button>
+                        data-image="uploads/${product.product_image}"
+                        onclick="addToCart(event)">
+                        ADD TO CART
+                    </button>
                 </div>
             `;
 
             container.appendChild(productElement);
         });
-
-        document.querySelectorAll('.btnAddToCart').forEach(button => {
-            button.addEventListener('click', function (event) {
-                addToCart(event);
-            });
-        });
     }
 
+    // Kosár legördülő menü kezelése
+    document.querySelector('.cart-icon')?.addEventListener('click', function() {
+        const cartDropdown = document.getElementById('cart-dropdown');
+        if (cartDropdown) cartDropdown.classList.toggle('active');
+    });
+
+    // Hamburger menü kezelése
+    document.querySelector('.hamburger-menu')?.addEventListener('click', function() {
+        document.querySelector('nav ul')?.classList.toggle('show');
+    });
+
+    // Inicializálás
     displayProducts(products);
     updateCart();
-});
-
-document.querySelector('.cart-icon').addEventListener('click', function() {
-    const cartDropdown = document.getElementById('cart-dropdown');
-    cartDropdown.classList.toggle('active');
 });
