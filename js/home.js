@@ -35,19 +35,39 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // 4. User state management
-    function checkLoginState() {
-        const userLoggedIn = getCookie('userLoggedIn');
-        const profileButton = document.querySelector('.profile-icon');
-        const logoutContainer = document.getElementById('logout-container');
+    // Logout gomb kezelése
+function setupLogoutButton() {
+    const logoutButton = document.getElementById('logout-button');
+    if (!logoutButton) return;
 
-        if (userLoggedIn === 'true') {
-            profileButton?.setAttribute('href', 'profileszerkesztes.html');
-            if (logoutContainer) logoutContainer.style.display = 'flex';
-        } else {
-            profileButton?.setAttribute('href', 'login.html');
-            if (logoutContainer) logoutContainer.style.display = 'none';
+    logoutButton.addEventListener('click', async function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();  // Más eseménykezelők blokkolása
+        
+        try {
+            // 1. Küldjük a kijelentkezési kérelmet
+            await fetch('/api/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+            
+            // 2. Töröljük az ügyfél oldali adatokat
+            deleteAllCookies();
+            localStorage.clear();
+            
+            // 3. Frissítjük a felületet
+            document.querySelector('.profile-icon')?.setAttribute('href', 'login.html');
+            document.getElementById('logout-container').style.display = 'none';
+            
+            // 4. Átirányítás késleltetve
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 500);
+        } catch (error) {
+            console.error("Logout error:", error);
         }
-    }
+    });
+}
 
     // 5. Cart management
     function updateCart() {
