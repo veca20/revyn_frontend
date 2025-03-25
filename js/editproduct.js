@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const productItem = document.createElement('div');
                     productItem.classList.add('product-item');
                     productItem.innerHTML = `
-                        <img src="${product_image_url}" alt="Product Image">
+                        <img src="${product.image_url}" alt="Product Image">
                         <div class="product-details">
-                            <h2>${product_name}</h2>
-                            <p>$${product_price}</p>
-                            <p>${product_description}</p>
+                            <h2>${product.name}</h2>
+                            <p>$${product.price}</p>
+                            <p>${product.description}</p>
                             <div class="product-actions">
                                 <button class="edit-btn" data-id="${product.id}"><i class="fa-solid fa-pencil"></i> Edit</button>
                                 <button class="delete-btn" data-id="${product.id}"><i class="fa-solid fa-trash"></i> Delete</button>
