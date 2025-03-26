@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
 
         const product = await response.json();
-        console.log(`product: ${product}`);
+        console.log(product);
         
         if (!product || !product.name || !product.price || !product.image || !product.description) {
             throw new Error('A termék adatai nem teljesek.');
