@@ -32,10 +32,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Kijelentkezés gomb eseménykezelő
     const logoutButton = document.getElementById('logout-button');
     if (logoutButton) {
-        logoutButton.addEventListener('click', function () {
+        logoutButton.addEventListener('click', async function () {
             localStorage.removeItem('user'); // Felhasználói adatok törlése
             sessionStorage.clear(); // Munkamenet törlése
             window.location.href = 'login.html'; // Átirányítás a bejelentkezési oldalra
+
+            const res = await fetch('/api/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+            
+            if (res.ok) {
+                const message = await res.json();
+                alert(message.message);
+            } else {
+                alert('Hiba a kijelentkezéskor');
+            }
         });
     }
 });
