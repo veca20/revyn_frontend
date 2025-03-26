@@ -17,11 +17,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     function deleteAllCookies() {
-        document.cookie.split(";").forEach(cookie => {
-            document.cookie = cookie
-                .replace(/^ +/, "")
-                .replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/");
-        });
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i];
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        }
     }
 
     function showNotification(message, type = 'success') {
@@ -29,7 +31,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         notification.className = `notification ${type}`;
         notification.textContent = message;
         
-        // Style the notification
         notification.style.position = 'fixed';
         notification.style.top = '20px';
         notification.style.right = '20px';
@@ -38,28 +39,50 @@ document.addEventListener('DOMContentLoaded', async function () {
         notification.style.color = 'white';
         notification.style.borderRadius = '5px';
         notification.style.zIndex = '1000';
+        notification.style.transition = 'opacity 0.5s ease';
         
         document.body.appendChild(notification);
         
         setTimeout(() => {
-            notification.remove();
-        }, 3000);
+            notification.style.opacity = '0';
+            setTimeout(() => notification.remove(), 500);
+        }, 2500);
     }
 
     // ======================
     // 3. LOGIN STATE MANAGEMENT
     // ======================
-    function checkLoginState() {
-        const userLoggedIn = getCookie('userLoggedIn');
-        const profileButton = document.querySelector('.profile-icon');
-        const logoutContainer = document.getElementById('logout-container');
+    async function checkLoginState() {
+        try {
+            const res = await fetch('/api/check-auth', {
+                credentials: 'include'
+            });
+            
+            const isLoggedIn = res.ok;
+            const profileButton = document.querySelector('.profile-icon');
+            const logoutContainer = document.getElementById('logout-container');
 
-        if (userLoggedIn === 'true') {
-            if (profileButton) profileButton.setAttribute('href', 'profileszerkesztes.html');
-            if (logoutContainer) logoutContainer.style.display = 'flex';
-        } else {
-            if (profileButton) profileButton.setAttribute('href', 'login.html');
-            if (logoutContainer) logoutContainer.style.display = 'none';
+            console.log('Login state check:', isLoggedIn);
+
+            if (isLoggedIn) {
+                if (profileButton) profileButton.setAttribute('href', 'profileszerkesztes.html');
+                if (logoutContainer) {
+                    logoutContainer.style.display = 'flex';
+                    setTimeout(() => {
+                        logoutContainer.style.opacity = '1';
+                    }, 10);
+                }
+            } else {
+                if (profileButton) profileButton.setAttribute('href', 'login.html');
+                if (logoutContainer) {
+                    logoutContainer.style.opacity = '0';
+                    setTimeout(() => {
+                        logoutContainer.style.display = 'none';
+                    }, 300);
+                }
+            }
+        } catch (error) {
+            console.error('Error checking login state:', error);
         }
     }
 
@@ -217,9 +240,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.querySelector('nav ul')?.classList.toggle('show');
         });
 
-        // Enhanced logout button with all storage clearing
+        // Stabil logout handler
         document.getElementById('logout-button')?.addEventListener('click', async function(e) {
             e.preventDefault();
+            
+            const button = this;
+            button.disabled = true;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Kijelentkezés...';
+
             try {
                 const res = await fetch('/api/logout', {
                     method: 'POST',
@@ -227,24 +256,33 @@ document.addEventListener('DOMContentLoaded', async function () {
                 });
                 
                 if (res.ok) {
-                    const message = await res.json();
-                    // Clear all storage methods
+                    // Clear all auth-related data
                     deleteAllCookies();
-                    localStorage.removeItem('cart');
                     localStorage.removeItem('user');
                     sessionStorage.clear();
                     
-                    // Show notification
-                    showNotification(message.message || "Successfully logged out!");
+                    // Smooth transition for logout button
+                    const logoutContainer = document.getElementById('logout-container');
+                    if (logoutContainer) {
+                        logoutContainer.style.opacity = '0';
+                        setTimeout(() => {
+                            logoutContainer.style.display = 'none';
+                        }, 300);
+                    }
                     
-                    // Redirect after delay
-                    setTimeout(() => window.location.href = "login.html", 1000);
+                    showNotification("Sikeresen kijelentkeztél!");
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 1000);
                 } else {
-                    throw new Error(res.statusText || 'Logout failed');
+                    throw new Error('A kijelentkezés sikertelen');
                 }
             } catch (error) {
-                console.error("Logout failed:", error);
-                showNotification("Logout failed. Please try again.", 'error');
+                console.error("Kijelentkezési hiba:", error);
+                showNotification("Hiba történt a kijelentkezés során", 'error');
+                button.disabled = false;
+                button.innerHTML = originalText;
+                checkLoginState(); // Re-check state after error
             }
         });
 
@@ -253,6 +291,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             handleCartActions(e);
             handleAddToCart(e);
         });
+
+        // Check auth state periodically
+        setInterval(checkLoginState, 300000); // 5 minutes
     }
 
     // ======================
@@ -260,20 +301,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     async function initializeApp() {
         try {
-            // Load products first
-            products = await loadProducts();
+            // First check auth state
+            await checkLoginState();
             
-            // Then setup the UI
-            checkLoginState();
+            // Then load other data
+            products = await loadProducts();
             displayProducts(products);
             updateCart();
             setupEventListeners();
             
-            // Show app is ready
-            console.log("Application initialized successfully");
+            console.log("Alkalmazás inicializálva");
         } catch (error) {
-            console.error("Initialization error:", error);
-            showNotification("Failed to initialize application", 'error');
+            console.error("Inicializálási hiba:", error);
+            showNotification("Az alkalmazás betöltése sikertelen", 'error');
         }
     }
 
