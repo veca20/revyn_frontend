@@ -54,39 +54,43 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     async function checkLoginState() {
         try {
-            const res = await fetch('api/check-auth', {  // Módosított végpont
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include', // Cookie-k továbbítása
+            const res = await fetch('/api/logout', {
+                method: 'POST',
+                credentials: 'include' // Fontos: küldi a cookie-kat
             });
     
             const isLoggedIn = res.ok;
+            console.log('Auth check response:', res.status, isLoggedIn);
+    
             const profileButton = document.querySelector('.profile-icon');
             const logoutContainer = document.getElementById('logout-container');
     
-            console.log('Login state check:', isLoggedIn);
-    
             if (isLoggedIn) {
-                if (profileButton) profileButton.setAttribute('href', 'profileszerkesztes.html');
+                // Bejelentkezett állapot
+                if (profileButton) {
+                    profileButton.href = 'profileszerkesztes.html';
+                    profileButton.innerHTML = '<i class="fas fa-user-edit"></i> Profil szerkesztése';
+                }
                 if (logoutContainer) {
                     logoutContainer.style.display = 'flex';
-                    setTimeout(() => {
-                        logoutContainer.style.opacity = '1';
-                    }, 10);
+                    setTimeout(() => { logoutContainer.style.opacity = '1' }, 10);
                 }
             } else {
-                if (profileButton) profileButton.setAttribute('href', 'login.html');
+                // Nem bejelentkezett állapot
+                if (profileButton) {
+                    profileButton.href = 'login.html';
+                    profileButton.innerHTML = '<i class="fas fa-user"></i> Bejelentkezés';
+                }
                 if (logoutContainer) {
                     logoutContainer.style.opacity = '0';
-                    setTimeout(() => {
-                        logoutContainer.style.display = 'none';
-                    }, 300);
+                    setTimeout(() => { logoutContainer.style.display = 'none' }, 300);
                 }
             }
         } catch (error) {
-            console.error('Error checking login state:', error);
+            console.error('Login state check failed:', error);
+            // Alapértelmezettként nem bejelentkezett állapot
+            document.querySelector('.profile-icon').href = 'login.html';
+            document.getElementById('logout-container').style.display = 'none';
         }
     }
 
