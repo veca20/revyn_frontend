@@ -54,7 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Termékek listázása MySQL-ből
 function displayProducts() {
-    fetch('api/product')
+    fetch('api/product', {
+        method: 'GET',
+        credentials: 'include'
+    })
         .then(response => response.json())
         .then(products => {
             const productsContainer = document.getElementById('products-container');

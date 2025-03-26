@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Termékek lekérése és megjelenítése
     function fetchProducts() {
-        fetch('/api/products')
+        fetch('/api/products', {
+            method: 'GET',
+            credentials: 'include'
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -102,7 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     product_name: newName, 
                     product_price: newPrice, 
                     product_description: newDescription 
-                })
+                }),
+                credentials: 'include'
             })
             .then(response => {
                 if (!response.ok) {
@@ -129,7 +133,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
             fetch(`/api/products/${productId}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
             })
             .then(response => {
                 if (!response.ok) {

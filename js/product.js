@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 const response = await fetch('/api/logout', { method: 'POST', credentials: 'include' });
                 if (response.ok) {
-                    document.cookie = 'session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                     window.location.href = '/login.html';
                 }
             } catch (error) {
@@ -44,7 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
 // Termék betöltése és megjelenítése
 async function loadProduct(productId) {
     try {
-        const response = await fetch(`/api/product/${productId}`);
+        console.log(productId);
+        
+        const response = await fetch(`/api/product/${productId}`, {
+            method: 'GET',
+            credentials: 'include'
+        });
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
         const product = await response.json();
 

@@ -134,7 +134,8 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(orderData)
+                body: JSON.stringify(orderData),
+                credentials: 'include'
             })
             .then(response => response.json())
             .then(data => {
