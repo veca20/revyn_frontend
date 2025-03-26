@@ -60,10 +60,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-               
+                body: JSON.stringify({ email: emailValue, psw: pswValue }),
                 credentials: 'include', // Cookie-k továbbítása
             });
-           
+            console.log(emailValue,pswValue);
 
             const isLoggedIn = res.ok;
             const profileButton = document.querySelector('.profile-icon');
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             updateCart();
             setupEventListeners();
 
-           
+            console.log("Alkalmazás inicializálva");
         } catch (error) {
             console.error("Inicializálási hiba:", error);
             showNotification("Az alkalmazás betöltése sikertelen", 'error');
