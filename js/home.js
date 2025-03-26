@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
@@ -158,7 +158,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
 
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-            return await res.json();
+            products = await res.json();
+            console.log(products);
+            
+            return products;
         } catch (error) {
             console.error("Failed to load products:", error);
             showNotification("Failed to load products. Please try again later.", 'error');
@@ -169,17 +172,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     function displayProducts(products) {
         const container = document.getElementById('products-container');
         if (!container) return;
-    
+
         container.innerHTML = '';
-    
+
         products.forEach(product => {
             const productElement = document.createElement('div');
             productElement.classList.add('card');
-    
+
             // Abszolút elérési út használata
             const imagePath = `/uploads/${product.product_image}`;
             const defaultImage = `/uploads/default.jpg`; // Figyelj a / jelre!
-    
+
             productElement.innerHTML = `
                 <div class="card-body">
                     <a href="product.html?id=${product.product_id}">
@@ -198,7 +201,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     </button>
                 </div>
             `;
-    
+
             container.appendChild(productElement);
         });
     }
@@ -288,7 +291,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 if (res.ok) {
                     // Clear all auth-related data
-                    deleteAllCookies();
+                    //deleteAllCookies();
                     localStorage.removeItem('user');
                     sessionStorage.clear();
 
