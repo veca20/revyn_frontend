@@ -54,23 +54,20 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     async function checkLoginState() {
         try {
-            const res = await fetch('api/logout', {
-                method: 'POST',
-
+            const res = await fetch('api/check-auth', {  // Módosított végpont
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: emailValue, psw: pswValue }),
                 credentials: 'include', // Cookie-k továbbítása
             });
-            console.log(emailValue,pswValue);
-
+    
             const isLoggedIn = res.ok;
             const profileButton = document.querySelector('.profile-icon');
             const logoutContainer = document.getElementById('logout-container');
-
+    
             console.log('Login state check:', isLoggedIn);
-
+    
             if (isLoggedIn) {
                 if (profileButton) profileButton.setAttribute('href', 'profileszerkesztes.html');
                 if (logoutContainer) {
