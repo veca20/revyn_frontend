@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
         notification.textContent = message;
-        
+
         notification.style.position = 'fixed';
         notification.style.top = '20px';
         notification.style.right = '20px';
@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         notification.style.borderRadius = '5px';
         notification.style.zIndex = '1000';
         notification.style.transition = 'opacity 0.5s ease';
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.style.opacity = '0';
             setTimeout(() => notification.remove(), 500);
@@ -55,9 +55,15 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function checkLoginState() {
         try {
             const res = await fetch('api/logout', {
-                credentials: 'include'
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: emailValue, psw: pswValue }),
+                credentials: 'include', // Cookie-k továbbítása
             });
-            
+
             const isLoggedIn = res.ok;
             const profileButton = document.querySelector('.profile-icon');
             const logoutContainer = document.getElementById('logout-container');
@@ -129,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 method: 'GET',
                 credentials: 'include'
             });
-            
+
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             return await res.json();
         } catch (error) {
@@ -206,21 +212,21 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!button) return;
 
         button.disabled = true;
-        
+
         const productName = button.getAttribute('data-name');
         const productPrice = parseFloat(button.getAttribute('data-price')) || 0;
         const productImage = button.getAttribute('data-image') || 'uploads/default.jpg';
 
         const existingItem = cartItems.find(item => item.name === productName);
-        
+
         if (existingItem) {
             existingItem.quantity++;
         } else {
-            cartItems.push({ 
-                name: productName, 
-                price: productPrice, 
-                image: productImage, 
-                quantity: 1 
+            cartItems.push({
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                quantity: 1
             });
         }
 
@@ -231,19 +237,19 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     function setupEventListeners() {
         // Cart toggle
-        document.querySelector('.cart-icon')?.addEventListener('click', function() {
+        document.querySelector('.cart-icon')?.addEventListener('click', function () {
             document.getElementById('cart-dropdown')?.classList.toggle('active');
         });
 
         // Hamburger menu
-        document.querySelector('.hamburger-menu')?.addEventListener('click', function() {
+        document.querySelector('.hamburger-menu')?.addEventListener('click', function () {
             document.querySelector('nav ul')?.classList.toggle('show');
         });
 
         // Stabil logout handler
-        document.getElementById('logout-button')?.addEventListener('click', async function(e) {
+        document.getElementById('logout-button')?.addEventListener('click', async function (e) {
             e.preventDefault();
-            
+
             const button = this;
             button.disabled = true;
             const originalText = button.innerHTML;
@@ -254,13 +260,13 @@ document.addEventListener('DOMContentLoaded', async function () {
                     method: 'POST',
                     credentials: 'include'
                 });
-                
+
                 if (res.ok) {
                     // Clear all auth-related data
                     deleteAllCookies();
                     localStorage.removeItem('user');
                     sessionStorage.clear();
-                    
+
                     // Smooth transition for logout button
                     const logoutContainer = document.getElementById('logout-container');
                     if (logoutContainer) {
@@ -269,7 +275,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                             logoutContainer.style.display = 'none';
                         }, 300);
                     }
-                    
+
                     showNotification("Sikeresen kijelentkeztél!");
                     setTimeout(() => {
                         window.location.href = "login.html";
@@ -287,7 +293,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 
         // Delegated event listeners
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             handleCartActions(e);
             handleAddToCart(e);
         });
@@ -303,13 +309,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         try {
             // First check auth state
             await checkLoginState();
-            
+
             // Then load other data
             products = await loadProducts();
             displayProducts(products);
             updateCart();
             setupEventListeners();
-            
+
             console.log("Alkalmazás inicializálva");
         } catch (error) {
             console.error("Inicializálási hiba:", error);
