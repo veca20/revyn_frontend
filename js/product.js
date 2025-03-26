@@ -27,15 +27,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         const product = await response.json();
         console.log(product);
-        
+        /*
         if (!product || !product.name || !product.price || !product.image || !product.description) {
             throw new Error('A termék adatai nem teljesek.');
         }
+        */
 
-        document.getElementById('product_name').textContent = product.name;
+        document.getElementById('product_name').textContent = `${product.name}`;
         document.getElementById('product_price').textContent = `Ár: $${product.price}`;
         document.getElementById('product_image').src = `uploads/${product.image}`;
-        document.getElementById('product_description').textContent = product.description;
+        document.getElementById('product_description').textContent = `${product.description}`;
 
         const addToCartButton = document.getElementById('add-to-cart');
         if (addToCartButton) {
