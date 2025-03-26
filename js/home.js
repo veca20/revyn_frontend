@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             productElement.innerHTML = `
                 <div class="card-body">
                     <a href="product.html?id=${product.product_id}">
-                        <img src="uploads/${product.product_image}" 
+                        <img src="/uploads/${product.product_image}" 
                              alt="${product.product_name}" 
                              class="product-image"
                              onerror="this.onerror=null;this.src='uploads/default.jpg'">
