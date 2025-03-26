@@ -1,3 +1,19 @@
+document.addEventListener('DOMContentLoaded', function () {
+    
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navMenu = document.querySelector('nav ul');
+
+    // Hamburger menü működtetése
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function () {
+            navMenu.classList.toggle('show');
+        });
+    } else {
+        console.error('Hamburger vagy navMenu nem található.');
+    }
+});
+
+
 document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     // 1. INITIALIZATION
