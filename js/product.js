@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         document.getElementById('product_name').textContent = `${product.product_name}`;
         document.getElementById('product_price').textContent = `Ár: $${product.product_price}`;
-        document.getElementById('product_image').src = `uploads/${product.product_image}`;
+        document.getElementById('product_image').src = `/uploads/${product.product_image}`;
         document.getElementById('product_description').textContent = `${product.product_description}`; 
 
         const addToCartButton = document.getElementById('add-to-cart');
