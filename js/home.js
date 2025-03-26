@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             updateCart();
             setupEventListeners();
 
-            console.log("Alkalmazás inicializálva");
+           
         } catch (error) {
             console.error("Inicializálási hiba:", error);
             showNotification("Az alkalmazás betöltése sikertelen", 'error');
