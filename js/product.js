@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.error('Nincs termék ID megadva.');
         return;
     }
+    console.log(params, productId);  
 
     try {
         const response = await fetch(`/api/product/${productId}`);
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     } catch (error) {
         console.error(error);
-        document.getElementById('product-container').innerHTML = "<p>Hiba történt a termék betöltésekor.</p>";
+        alert('Hiba történt a termék betöltésekor!');
     }
 });
 
