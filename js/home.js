@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 // Nem bejelentkezett állapot
                 if (profileButton) {
                     profileButton.href = 'login.html';
-                    profileButton.innerHTML = '<i class="fas fa-user"></i> Bejelentkezés';
+                    profileButton.innerHTML = '<i class="fas fa-user"></i>';
                 }
                 if (logoutContainer) {
                     logoutContainer.style.opacity = '0';
