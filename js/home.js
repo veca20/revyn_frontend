@@ -217,15 +217,31 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.querySelector('nav ul')?.classList.toggle('show');
         });
 
-        // Logout button
+        // Enhanced logout button with all storage clearing
         document.getElementById('logout-button')?.addEventListener('click', async function(e) {
             e.preventDefault();
             try {
-                await fetch('/api/logout', { method: 'POST' });
-                deleteAllCookies();
-                localStorage.removeItem('cart');
-                showNotification("Successfully logged out!");
-                setTimeout(() => window.location.href = "login.html", 1000);
+                const res = await fetch('/api/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                
+                if (res.ok) {
+                    const message = await res.json();
+                    // Clear all storage methods
+                    deleteAllCookies();
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('user');
+                    sessionStorage.clear();
+                    
+                    // Show notification
+                    showNotification(message.message || "Successfully logged out!");
+                    
+                    // Redirect after delay
+                    setTimeout(() => window.location.href = "login.html", 1000);
+                } else {
+                    throw new Error(res.statusText || 'Logout failed');
+                }
             } catch (error) {
                 console.error("Logout failed:", error);
                 showNotification("Logout failed. Please try again.", 'error');
