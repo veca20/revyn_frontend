@@ -150,32 +150,36 @@ document.addEventListener('DOMContentLoaded', async function () {
     function displayProducts(products) {
         const container = document.getElementById('products-container');
         if (!container) return;
-
+    
         container.innerHTML = '';
-
+    
         products.forEach(product => {
             const productElement = document.createElement('div');
             productElement.classList.add('card');
-
+    
+            // Abszolút elérési út használata
+            const imagePath = `/uploads/${product.product_image}`;
+            const defaultImage = `/uploads/default.jpg`; // Figyelj a / jelre!
+    
             productElement.innerHTML = `
                 <div class="card-body">
                     <a href="product.html?id=${product.product_id}">
-                        <img src="/uploads/${product.product_image}" 
+                        <img src="${imagePath}" 
                              alt="${product.product_name}" 
                              class="product-image"
-                             onerror="this.onerror=null;this.src='uploads/default.jpg'">
+                             onerror="this.onerror=null;this.src='${defaultImage}'">
                     </a>
                     <h3>${product.product_name}</h3>
                     <p class="price">$${product.product_price || 0}</p>
                     <button class="btnAddToCart" 
                             data-name="${product.product_name}" 
                             data-price="${product.product_price || 0}" 
-                            data-image="uploads/${product.product_image}">
+                            data-image="${imagePath}"> <!-- Itt is abszolút út -->
                         ADD TO CART
                     </button>
                 </div>
             `;
-
+    
             container.appendChild(productElement);
         });
     }
