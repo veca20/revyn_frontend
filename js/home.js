@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 // Bejelentkezett állapot
                 if (profileButton) {
                     profileButton.href = 'profileszerkesztes.html';
-                    profileButton.innerHTML = '<i class="fas fa-user-edit"></i> Profil szerkesztése';
+                    profileButton.innerHTML = '<i class="fas fa-user-edit"></i>';
                 }
                 if (logoutContainer) {
                     logoutContainer.style.display = 'flex';
