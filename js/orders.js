@@ -45,3 +45,25 @@ async function getOrders() {
     console.log(orders);
     
 }
+
+ // Kijelentkezés gomb eseménykezelő
+ const logoutButton = document.getElementById('logout-button');
+ if (logoutButton) {
+     logoutButton.addEventListener('click', async function () {
+         localStorage.removeItem('user'); // Felhasználói adatok törlése
+         sessionStorage.clear(); // Munkamenet törlése
+
+         const res = await fetch('/api/logout', {
+             method: 'POST',
+             credentials: 'include'
+         });
+         
+         if (res.ok) {
+             const message = await res.json();
+             alert(message.message);
+             window.location.href = 'login.html'; // Átirányítás a bejelentkezési oldalra
+         } else {
+             alert('Hiba a kijelentkezéskor');
+         }
+     });
+ };
