@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 showNotification("Hiba történt a kijelentkezés során", 'error');
                 button.disabled = false;
                 button.innerHTML = originalText;
-                checkLoginState(); // Re-check state after error
+                //checkLoginState(); // Re-check state after error
             }
         });
 
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 
         // Check auth state periodically
-        setInterval(checkLoginState, 300000); // 5 minutes
+        //setInterval(checkLoginState, 300000); // 5 minutes
     }
 
     // ======================
