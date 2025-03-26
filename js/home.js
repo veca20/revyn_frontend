@@ -25,12 +25,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     // 2. UTILITY FUNCTIONS
     // ======================
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    }
+    // function getCookie(name) {
+    //     const value = `; ${document.cookie}`;
+    //     const parts = value.split(`; ${name}=`);
+    //     if (parts.length === 2) return parts.pop().split(';').shift();
+    //     return null;
+    // }
     // ez mi a szarnak?
     // function deleteAllCookies() {
     //     const cookies = document.cookie.split(";");
@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     // 3. LOGIN STATE MANAGEMENT
     // ======================
+    // mintha saját magaddal akarnál kicseszni
+    /*
     async function checkLoginState() {
         try {
             const res = await fetch('/api/logout', {
@@ -109,6 +111,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.getElementById('logout-container').style.display = 'none';
         }
     }
+        */
 
     // ======================
     // 4. CART MANAGEMENT
