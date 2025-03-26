@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const params = new URLSearchParams(window.location.search);
     const productId = params.get('id');
     if (!productId) return;
-
+    console.log(`HTML query-ből a productId: ${productId}`);
+    
     loadProduct(productId);
 
     // Kijelentkezés kezelése
@@ -51,6 +52,8 @@ async function loadProduct(productId) {
         });
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
         const product = await response.json();
+        console.log('termékről az infók:');
+        console.log(product);
 
         document.getElementById('product_name').textContent = product.product_name;
         document.getElementById('product_price').textContent = `Ár: $${product.product_price}`;
