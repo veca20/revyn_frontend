@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 body: JSON.stringify({ email: emailValue, psw: pswValue }),
                 credentials: 'include', // Cookie-k továbbítása
             });
+            console.log(emailValue,pswValue);
 
             const isLoggedIn = res.ok;
             const profileButton = document.querySelector('.profile-icon');
