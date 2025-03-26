@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
 
         const product = await response.json();
-
+        console.log(`product: ${product}`);
+        
         if (!product || !product.name || !product.price || !product.image || !product.description) {
             throw new Error('A termék adatai nem teljesek.');
         }
@@ -40,7 +41,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (addToCartButton) {
             addToCartButton.addEventListener('click', function () {
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                console.log(`cart: ${cart}`);
+                
                 let existingItem = cart.find(item => item.id === product.id);
+                console.log(`existingItem: ${existingItem}`);
+                
 
                 if (existingItem) {
                     existingItem.quantity++;
