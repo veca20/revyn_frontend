@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
         logoutButton.addEventListener('click', async function () {
             localStorage.removeItem('user'); // Felhasználói adatok törlése
             sessionStorage.clear(); // Munkamenet törlése
-            window.location.href = 'login.html'; // Átirányítás a bejelentkezési oldalra
 
             const res = await fetch('/api/logout', {
                 method: 'POST',
@@ -45,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (res.ok) {
                 const message = await res.json();
                 alert(message.message);
+                window.location.href = 'login.html'; // Átirányítás a bejelentkezési oldalra
             } else {
                 alert('Hiba a kijelentkezéskor');
             }
