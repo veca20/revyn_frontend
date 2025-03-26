@@ -1,19 +1,19 @@
-// Hamburger menü kapcsoló funkció
-function toggleMenu() {
-    var menu = document.getElementById('nav-menu');
-    menu.classList.toggle('hidden');
-}
-
-// Hamburger menü kapcsoló funkció
-document.querySelector('.hamburger-menu').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function () {
     
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navMenu = document.querySelector('nav ul');
+
+    // Hamburger menü működtetése
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function () {
+            navMenu.classList.toggle('show');
+        });
+    } else {
+        console.error('Hamburger vagy navMenu nem található.');
+    }
 });
 
-// Keresés
-document.getElementById('search-icon').addEventListener('click', function() {
-    const searchBox = document.getElementById('search-box');
-    searchBox.classList.toggle('show');
-});
+
 
 document.getElementById('profileForm').addEventListener('submit', function(event) {
     event.preventDefault();
