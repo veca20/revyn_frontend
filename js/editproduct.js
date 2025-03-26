@@ -62,11 +62,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleEdit(editBtn) {
         const productId = editBtn.getAttribute('data-id');
+        
+        // Debug: Check if productId exists
+        if (!productId) {
+            console.error('No product ID found for edit button:', editBtn);
+            alert('Error: Could not identify product to edit.');
+            return;
+        }
+    
         const productItem = editBtn.closest('.product-item');
         const productName = productItem.querySelector('h2').textContent;
         const productPrice = productItem.querySelector('p').textContent.replace('$', '');
         const productDescription = productItem.querySelectorAll('p')[1].textContent;
-
+    
         const newName = prompt('Enter new product name:', productName);
         if (newName === null) return; // User cancelled
         
@@ -75,8 +83,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const newDescription = prompt('Enter new product description:', productDescription);
         if (newDescription === null) return;
-
+    
         if (newName && newPrice && newDescription) {
+            // Debug: Log the request details
+            console.log('Sending PUT request to:', `/api/products/${productId}`);
+            console.log('Request payload:', { 
+                product_name: newName, 
+                product_price: newPrice, 
+                product_description: newDescription 
+            });
+    
             fetch(`/api/products/${productId}`, {
                 method: 'PUT',
                 headers: {
@@ -90,7 +106,10 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    // Get more details about the error
+                    return response.text().then(text => {
+                        throw new Error(`Server responded with ${response.status}: ${text}`);
+                    });
                 }
                 return response.json();
             })
@@ -100,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error updating product:', error);
-                alert('Error updating product. Please try again.');
+                alert(`Error updating product: ${error.message}`);
             });
         }
     }
