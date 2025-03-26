@@ -334,11 +334,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     // 7. MAIN EXECUTION
     // ======================
     // mi a fenének ez is? Miért nem lehet az órai munkából dolgozni?
-    /*
     async function initializeApp() {
         try {
             // First check auth state
-            await checkLoginState();
+            //await checkLoginState();
 
             // Then load other data
             products = await loadProducts();
@@ -355,5 +354,4 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Start the application
     initializeApp();
-    */
 });
