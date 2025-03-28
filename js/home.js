@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function initializeApp() {
         try {
             // First check auth state
-            //await checkLoginState();
+            await checkLoginState();
 
             // Then load other data
             products = await loadProducts();
