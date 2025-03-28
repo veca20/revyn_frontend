@@ -1,13 +1,20 @@
-document.addEventListener('DOMContentLoaded', async function () {
-    // Hamburger menü kezelése
+document.addEventListener('DOMContentLoaded', function () {
+
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
+
+    // Hamburger menü működtetése
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
         });
+    } else {
+        console.error('Hamburger vagy navMenu nem található.');
     }
+});
 
+
+document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     // 1. INITIALIZATION
     // ======================
@@ -16,42 +23,24 @@ document.addEventListener('DOMContentLoaded', async function () {
     let updateCartTimeout;
 
     // ======================
-    // 2. AUTHENTICATION MANAGEMENT
+    // 2. UTILITY FUNCTIONS
     // ======================
-    async function checkLoginState() {
-        try {
-            const res = await fetch('/api/login', {
-                method: 'GET',
-                credentials: 'include'
-            });
-            
-            const profileIcon = document.querySelector('.profile-icon');
-            const logoutContainer = document.getElementById('logout-container');
-            
-            if (res.ok) {
-                // Ha be van jelentkezve
-                if (profileIcon) {
-                    profileIcon.style.display = 'block';
-                    profileIcon.href = "profilszerkesztes.html";
-                    profileIcon.title = "Profil szerkesztése";
-                }
-                if (logoutContainer) logoutContainer.style.display = 'block';
-                return true;
-            } else {
-                // Ha nincs bejelentkezve
-                if (profileIcon) {
-                    profileIcon.style.display = 'block';
-                    profileIcon.href = "login.html";
-                    profileIcon.title = "Bejelentkezés";
-                }
-                if (logoutContainer) logoutContainer.style.display = 'none';
-                return false;
-            }
-        } catch (error) {
-            console.error("Auth check failed:", error);
-            return false;
-        }
-    }
+    // function getCookie(name) {
+    //     const value = `; ${document.cookie}`;
+    //     const parts = value.split(`; ${name}=`);
+    //     if (parts.length === 2) return parts.pop().split(';').shift();
+    //     return null;
+    // }
+    // ez mi a szarnak?
+    // function deleteAllCookies() {
+    //     const cookies = document.cookie.split(";");
+    //     for (let i = 0; i < cookies.length; i++) {
+    //         const cookie = cookies[i];
+    //         const eqPos = cookie.indexOf("=");
+    //         const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    //         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    //     }
+    // }
 
     function showNotification(message, type = 'success') {
         const notification = document.createElement('div');
@@ -77,7 +66,55 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // ======================
-    // 3. CART MANAGEMENT
+    // 3. LOGIN STATE MANAGEMENT
+    // ======================
+    // mintha saját magaddal akarnál kicseszni
+    /*
+    async function checkLoginState() {
+        try {
+            const res = await fetch('/api/logout', {
+                method: 'POST',
+                credentials: 'include' // Fontos: küldi a cookie-kat
+            });
+    
+            const isLoggedIn = res.ok;
+            console.log('Auth check response:', res.status, isLoggedIn);
+    
+            const profileButton = document.querySelector('.profile-icon');
+            const logoutContainer = document.getElementById('logout-container');
+    
+            if (isLoggedIn) {
+                // Bejelentkezett állapot
+                if (profileButton) {
+                    profileButton.href = 'profileszerkesztes.html';
+                    profileButton.innerHTML = '<i class="fas fa-user-edit"></i>';
+                }
+                if (logoutContainer) {
+                    logoutContainer.style.display = 'flex';
+                    setTimeout(() => { logoutContainer.style.opacity = '1' }, 10);
+                }
+            } else {
+                // Nem bejelentkezett állapot
+                if (profileButton) {
+                    profileButton.href = 'login.html';
+                    profileButton.innerHTML = '<i class="fas fa-user"></i>';
+                }
+                if (logoutContainer) {
+                    logoutContainer.style.opacity = '0';
+                    setTimeout(() => { logoutContainer.style.display = 'none' }, 300);
+                }
+            }
+        } catch (error) {
+            console.error('Login state check failed:', error);
+            // Alapértelmezettként nem bejelentkezett állapot
+            document.querySelector('.profile-icon').href = 'login.html';
+            document.getElementById('logout-container').style.display = 'none';
+        }
+    }
+        */
+
+    // ======================
+    // 4. CART MANAGEMENT
     // ======================
     function updateCart() {
         clearTimeout(updateCartTimeout);
@@ -111,7 +148,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // ======================
-    // 4. PRODUCT DISPLAY
+    // 5. PRODUCT DISPLAY
     // ======================
     async function loadProducts() {
         try {
@@ -122,6 +159,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             products = await res.json();
+            console.log(products);
+            
             return products;
         } catch (error) {
             console.error("Failed to load products:", error);
@@ -140,8 +179,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             const productElement = document.createElement('div');
             productElement.classList.add('card');
 
+            // Abszolút elérési út használata
             const imagePath = `/uploads/${product.product_image}`;
-            const defaultImage = `/uploads/default.jpg`;
+            const defaultImage = `/uploads/default.jpg`; // Figyelj a / jelre!
 
             productElement.innerHTML = `
                 <div class="card-body">
@@ -156,7 +196,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <button class="btnAddToCart" 
                             data-name="${product.product_name}" 
                             data-price="${product.product_price || 0}" 
-                            data-image="${imagePath}">
+                            data-image="${imagePath}"> <!-- Itt is abszolút út -->
                         ADD TO CART
                     </button>
                 </div>
@@ -167,7 +207,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // ======================
-    // 5. EVENT HANDLERS
+    // 6. EVENT HANDLERS
     // ======================
     function handleCartActions(e) {
         const target = e.target.closest('.cart-action');
@@ -229,15 +269,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.getElementById('cart-dropdown')?.classList.toggle('active');
         });
 
-        // Delegated event listeners
-        document.addEventListener('click', function (e) {
-            handleCartActions(e);
-            handleAddToCart(e);
+        // Hamburger menu
+        document.querySelector('.hamburger-menu')?.addEventListener('click', function () {
+            document.querySelector('nav ul')?.classList.toggle('show');
         });
 
-        // Logout handler
+        // Stabil logout handler
         document.getElementById('logout-button')?.addEventListener('click', async function (e) {
             e.preventDefault();
+
             const button = this;
             button.disabled = true;
             const originalText = button.innerHTML;
@@ -250,10 +290,24 @@ document.addEventListener('DOMContentLoaded', async function () {
                 });
 
                 if (res.ok) {
+                    // Clear all auth-related data
+                    //deleteAllCookies();
                     localStorage.removeItem('user');
                     sessionStorage.clear();
+
+                    // Smooth transition for logout button
+                    const logoutContainer = document.getElementById('logout-container');
+                    if (logoutContainer) {
+                        logoutContainer.style.opacity = '0';
+                        setTimeout(() => {
+                            logoutContainer.style.display = 'none';
+                        }, 300);
+                    }
+
                     showNotification("Sikeresen kijelentkeztél!");
-                    setTimeout(() => window.location.href = "login.html", 1000);
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 1000);
                 } else {
                     throw new Error('A kijelentkezés sikertelen');
                 }
@@ -262,19 +316,30 @@ document.addEventListener('DOMContentLoaded', async function () {
                 showNotification("Hiba történt a kijelentkezés során", 'error');
                 button.disabled = false;
                 button.innerHTML = originalText;
+                //checkLoginState(); // Re-check state after error
             }
         });
+
+        // Delegated event listeners
+        document.addEventListener('click', function (e) {
+            handleCartActions(e);
+            handleAddToCart(e);
+        });
+
+        // Check auth state periodically
+        //setInterval(checkLoginState, 300000); // 5 minutes
     }
 
     // ======================
-    // 6. MAIN EXECUTION
+    // 7. MAIN EXECUTION
     // ======================
+    // mi a fenének ez is? Miért nem lehet az órai munkából dolgozni?
     async function initializeApp() {
         try {
-            // Check auth state first
-            await checkLoginState();
+            // First check auth state
+            //await checkLoginState();
 
-            // Load other data
+            // Then load other data
             products = await loadProducts();
             displayProducts(products);
             updateCart();
