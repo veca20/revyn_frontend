@@ -22,25 +22,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     let updateCartTimeout;
 
-    // ======================
-    // 2. UTILITY FUNCTIONS
-    // ======================
-    // function getCookie(name) {
-    //     const value = `; ${document.cookie}`;
-    //     const parts = value.split(`; ${name}=`);
-    //     if (parts.length === 2) return parts.pop().split(';').shift();
-    //     return null;
-    // }
-    // ez mi a szarnak?
-    // function deleteAllCookies() {
-    //     const cookies = document.cookie.split(";");
-    //     for (let i = 0; i < cookies.length; i++) {
-    //         const cookie = cookies[i];
-    //         const eqPos = cookie.indexOf("=");
-    //         const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-    //         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-    //     }
-    // }
+   
 
     function showNotification(message, type = 'success') {
         const notification = document.createElement('div');
@@ -65,53 +47,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }, 2500);
     }
 
-    // ======================
-    // 3. LOGIN STATE MANAGEMENT
-    // ======================
-    // mintha saját magaddal akarnál kicseszni
-    /*
-    async function checkLoginState() {
-        try {
-            const res = await fetch('/api/logout', {
-                method: 'POST',
-                credentials: 'include' // Fontos: küldi a cookie-kat
-            });
-    
-            const isLoggedIn = res.ok;
-            console.log('Auth check response:', res.status, isLoggedIn);
-    
-            const profileButton = document.querySelector('.profile-icon');
-            const logoutContainer = document.getElementById('logout-container');
-    
-            if (isLoggedIn) {
-                // Bejelentkezett állapot
-                if (profileButton) {
-                    profileButton.href = 'profileszerkesztes.html';
-                    profileButton.innerHTML = '<i class="fas fa-user-edit"></i>';
-                }
-                if (logoutContainer) {
-                    logoutContainer.style.display = 'flex';
-                    setTimeout(() => { logoutContainer.style.opacity = '1' }, 10);
-                }
-            } else {
-                // Nem bejelentkezett állapot
-                if (profileButton) {
-                    profileButton.href = 'login.html';
-                    profileButton.innerHTML = '<i class="fas fa-user"></i>';
-                }
-                if (logoutContainer) {
-                    logoutContainer.style.opacity = '0';
-                    setTimeout(() => { logoutContainer.style.display = 'none' }, 300);
-                }
-            }
-        } catch (error) {
-            console.error('Login state check failed:', error);
-            // Alapértelmezettként nem bejelentkezett állapot
-            document.querySelector('.profile-icon').href = 'login.html';
-            document.getElementById('logout-container').style.display = 'none';
-        }
-    }
-        */
+ 
 
     // ======================
     // 4. CART MANAGEMENT
@@ -330,10 +266,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         //setInterval(checkLoginState, 300000); // 5 minutes
     }
 
-    // ======================
-    // 7. MAIN EXECUTION
-    // ======================
-    // mi a fenének ez is? Miért nem lehet az órai munkából dolgozni?
+  
     async function initializeApp() {
         try {
             // First check auth state
