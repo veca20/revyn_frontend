@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // 3. LOGIN STATE MANAGEMENT
     // ======================
     // mintha saját magaddal akarnál kicseszni
-    /*
+    
     async function checkLoginState() {
         try {
             const res = await fetch('/api/logout', {
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.getElementById('logout-container').style.display = 'none';
         }
     }
-        */
+        
 
     // ======================
     // 4. CART MANAGEMENT
