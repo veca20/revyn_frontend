@@ -40,8 +40,8 @@ async function login(event) {
     }
 
     // Az értékek lekérése
-    const email = email.value;
-    const psw = psw.value;
+    const email = emailInput.value;
+    const psw = pswInput.value;
     console.log(email, psw);
 
     if (!email || !psw) {
