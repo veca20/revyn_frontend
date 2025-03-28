@@ -33,7 +33,7 @@ async function login(event) {
     console.log(emailInput, pswInput);
     
 
-    if (!email || !psw) {
+    if (!emailInput || !pswInput) {
         console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
         alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
         return;
