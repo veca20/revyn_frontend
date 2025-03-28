@@ -39,10 +39,10 @@ async function login(event) {
     }
 
     // Az értékek lekérése
-    const emailValue = email.value;
-    const pswValue = psw.value;
+    const email = email.value;
+    const psw = psw.value;
 
-    if (!emailValue || !pswValue) {
+    if (!email || !psw) {
         alert('Kérlek, töltsd ki az összes mezőt.');
         return;
     }
@@ -53,7 +53,7 @@ async function login(event) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: emailValue, psw: pswValue }),
+            body: JSON.stringify({ email, psw }),
             credentials: 'include', // Cookie-k továbbítása
         });
 
@@ -61,6 +61,7 @@ async function login(event) {
        
 
         const data = await res.json();
+       console.log(data);
        
         // Ha a válasz nem sikeres
         if (!res.ok) {
