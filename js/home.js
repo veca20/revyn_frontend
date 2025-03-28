@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
 document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     // 1. INITIALIZATION
@@ -21,8 +19,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     let products = [];
     let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     let updateCartTimeout;
-
-   
 
     function showNotification(message, type = 'success') {
         const notification = document.createElement('div');
@@ -47,10 +43,39 @@ document.addEventListener('DOMContentLoaded', async function () {
         }, 2500);
     }
 
- 
+    // ======================
+    // 2. AUTHENTICATION MANAGEMENT
+    // ======================
+    async function checkLoginState() {
+        try {
+            const res = await fetch('/api/check-auth', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            
+            if (!res.ok) {
+                // Show login button and hide logout if user is not authenticated
+                const loginContainer = document.getElementById('login-container');
+                const logoutContainer = document.getElementById('logout-container');
+                if (loginContainer) loginContainer.style.display = 'block';
+                if (logoutContainer) logoutContainer.style.display = 'none';
+                return false;
+            }
+            
+            // Hide login button and show logout if user is authenticated
+            const loginContainer = document.getElementById('login-container');
+            const logoutContainer = document.getElementById('logout-container');
+            if (loginContainer) loginContainer.style.display = 'none';
+            if (logoutContainer) logoutContainer.style.display = 'block';
+            return true;
+        } catch (error) {
+            console.error("Auth check failed:", error);
+            return false;
+        }
+    }
 
     // ======================
-    // 4. CART MANAGEMENT
+    // 3. CART MANAGEMENT
     // ======================
     function updateCart() {
         clearTimeout(updateCartTimeout);
@@ -84,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // ======================
-    // 5. PRODUCT DISPLAY
+    // 4. PRODUCT DISPLAY
     // ======================
     async function loadProducts() {
         try {
@@ -115,9 +140,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             const productElement = document.createElement('div');
             productElement.classList.add('card');
 
-            // Abszolút elérési út használata
             const imagePath = `/uploads/${product.product_image}`;
-            const defaultImage = `/uploads/default.jpg`; // Figyelj a / jelre!
+            const defaultImage = `/uploads/default.jpg`;
 
             productElement.innerHTML = `
                 <div class="card-body">
@@ -132,7 +156,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <button class="btnAddToCart" 
                             data-name="${product.product_name}" 
                             data-price="${product.product_price || 0}" 
-                            data-image="${imagePath}"> <!-- Itt is abszolút út -->
+                            data-image="${imagePath}">
                         ADD TO CART
                     </button>
                 </div>
@@ -143,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // ======================
-    // 6. EVENT HANDLERS
+    // 5. EVENT HANDLERS
     // ======================
     function handleCartActions(e) {
         const target = e.target.closest('.cart-action');
@@ -210,7 +234,13 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.querySelector('nav ul')?.classList.toggle('show');
         });
 
-        // Stabil logout handler
+        // Login button handler
+        document.getElementById('login-button')?.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = "login.html";
+        });
+
+        // Logout handler
         document.getElementById('logout-button')?.addEventListener('click', async function (e) {
             e.preventDefault();
 
@@ -226,18 +256,22 @@ document.addEventListener('DOMContentLoaded', async function () {
                 });
 
                 if (res.ok) {
-                    // Clear all auth-related data
-                    //deleteAllCookies();
                     localStorage.removeItem('user');
                     sessionStorage.clear();
 
-                    // Smooth transition for logout button
                     const logoutContainer = document.getElementById('logout-container');
                     if (logoutContainer) {
                         logoutContainer.style.opacity = '0';
                         setTimeout(() => {
                             logoutContainer.style.display = 'none';
                         }, 300);
+                    }
+
+                    // Show login button after logout
+                    const loginContainer = document.getElementById('login-container');
+                    if (loginContainer) {
+                        loginContainer.style.display = 'block';
+                        loginContainer.style.opacity = '1';
                     }
 
                     showNotification("Sikeresen kijelentkeztél!");
@@ -252,7 +286,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                 showNotification("Hiba történt a kijelentkezés során", 'error');
                 button.disabled = false;
                 button.innerHTML = originalText;
-                //checkLoginState(); // Re-check state after error
             }
         });
 
@@ -263,14 +296,19 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 
         // Check auth state periodically
-        //setInterval(checkLoginState, 300000); // 5 minutes
+        setInterval(checkLoginState, 300000); // 5 minutes
     }
 
-  
     async function initializeApp() {
         try {
             // First check auth state
-            //await checkLoginState();
+            const isAuthenticated = await checkLoginState();
+            
+            // If not authenticated and we're on a protected page, redirect
+            if (!isAuthenticated && window.location.pathname !== '/login.html') {
+                // Optional: redirect to login if you want to protect the whole site
+                // window.location.href = "login.html";
+            }
 
             // Then load other data
             products = await loadProducts();
