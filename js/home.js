@@ -22,7 +22,40 @@ document.addEventListener('DOMContentLoaded', async function () {
     let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     let updateCartTimeout;
 
-   
+    async function checkLoginState() {
+        try {
+            const res = await fetch('/api/check-auth', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            
+            const profileIcon = document.querySelector('.profile-icon');
+            const logoutContainer = document.getElementById('logout-container');
+            
+            if (res.ok) {
+                // Ha be van jelentkezve
+                if (profileIcon) {
+                    profileIcon.style.display = 'block';
+                    profileIcon.href = "profilszerkesztes.html"; // Profil szerkesztés oldalra mutat
+                    profileIcon.title = "Profil szerkesztése"; // Tooltip hozzáadása
+                }
+                if (logoutContainer) logoutContainer.style.display = 'block';
+                return true;
+            } else {
+                // Ha nincs bejelentkezve
+                if (profileIcon) {
+                    profileIcon.style.display = 'block';
+                    profileIcon.href = "login.html"; // Bejelentkezés oldalra mutat
+                    profileIcon.title = "Bejelentkezés"; // Tooltip hozzáadása
+                }
+                if (logoutContainer) logoutContainer.style.display = 'none';
+                return false;
+            }
+        } catch (error) {
+            console.error("Auth check failed:", error);
+            return false;
+        }
+    }
 
     function showNotification(message, type = 'success') {
         const notification = document.createElement('div');
@@ -266,7 +299,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         //setInterval(checkLoginState, 300000); // 5 minutes
     }
 
-  
+    // ======================
+    // 7. MAIN EXECUTION
+    // ======================
+    // mi a fenének ez is? Miért nem lehet az órai munkából dolgozni?
     async function initializeApp() {
         try {
             // First check auth state
