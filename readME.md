@@ -3,10 +3,10 @@ szöveg
 
 
 # Használt technológiák
--Html
--Css
--Js
--FontAwesome
+- Html
+- Css
+- Js
+- FontAwesome
 
 
 # Projekt struktúrája
