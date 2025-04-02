@@ -21,8 +21,8 @@ szöveg
 - termékek vásárlása
 - boltok keresése
 - admin területen:
-    -teremékek feltöltése
-    -termékek szerkesztése
-    -termék törlése
-    -megrendelések    
+    - teremékek feltöltése
+    - termékek szerkesztése
+    - termék törlése
+    - megrendelések    
 
