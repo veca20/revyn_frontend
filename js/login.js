@@ -28,21 +28,23 @@ async function login(event) {
     event.preventDefault(); // Megakadályozza az űrlap elküldését
 
     // Ellenőrizzük, hogy az elemek léteznek-e
-    const email = document.querySelector('.email');
-    const psw = document.querySelector('.password');
+    const emailInput = document.querySelector('.email');
+    const pswInput = document.querySelector('.password');
+    console.log(emailInput, pswInput);
+    
 
-
-    if (!email || !psw) {
+    if (!emailInput || !pswInput) {
         console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
         alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
         return;
     }
 
     // Az értékek lekérése
-    const emailValue = email.value;
-    const pswValue = psw.value;
+    const email = emailInput.value;
+    const psw = pswInput.value;
+    console.log(email, psw);
 
-    if (!emailValue || !pswValue) {
+    if (!email || !psw) {
         alert('Kérlek, töltsd ki az összes mezőt.');
         return;
     }
@@ -53,7 +55,7 @@ async function login(event) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: emailValue, psw: pswValue }),
+            body: JSON.stringify({ email, psw }),
             credentials: 'include', // Cookie-k továbbítása
         });
 
@@ -61,6 +63,7 @@ async function login(event) {
        
 
         const data = await res.json();
+       console.log(data);
        
         // Ha a válasz nem sikeres
         if (!res.ok) {
