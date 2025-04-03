@@ -172,6 +172,7 @@ h3 {
     color: #00AA00; /* Slightly darker green for headings */
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
+    align-items: center;
 }
 
 .icon-list, .feature-list, .check-list, .arrow-list, .plain-list {
