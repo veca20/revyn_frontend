@@ -15,17 +15,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-document.getElementById('profileForm').addEventListener('submit', function(event) {
+document.getElementById('profileForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    // Példa mentésre, itt el lehet küldeni az adatokat egy szerverre
-    console.log('Felhasználónév:', username);
-    console.log('E-mail:', email);
-    console.log('Jelszó:', password);
+    // API kérés elküldése a backendhez
+    try {
+        const response = await fetch('api/update-profile', { // Itt módosítsd az API URL-t!
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password }) 
+        });
 
-    alert('Profiladatok mentése sikeres!');
+        const result = await response.json();
+        if (response.ok) {
+            alert('Profil sikeresen frissítve!');
+        } else {
+            alert('Hiba történt: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Hálózati hiba:', error);
+        alert('Nem sikerült csatlakozni a szerverhez.');
+    }
 });
