@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     async function loadProducts() {
         try {
-            const res = await fetch('api/product', {
+            const res = await fetch('api/products', {
                 method: 'GET',
                 credentials: 'include'
             });
