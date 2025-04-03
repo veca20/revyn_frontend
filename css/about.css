@@ -115,13 +115,14 @@ nav ul li a {
     bottom: 20px;
 }
 
-/* CSS (add this to your about.css file) */
+/* Updated CSS with #00FF00 color scheme */
 .about-section {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
     color: #333;
+    font-family: Arial, sans-serif;
 }
 
 .about-section h2 {
@@ -129,7 +130,6 @@ nav ul li a {
     margin-bottom: 2rem;
     color: #1a1a1a;
     position: relative;
-    display: inline-block;
 }
 
 .about-section h2::after {
@@ -137,7 +137,7 @@ nav ul li a {
     position: absolute;
     width: 50%;
     height: 3px;
-    background: linear-gradient(90deg, #ff6b00, #ffa502);
+    background: linear-gradient(90deg, #00FF00, #00CC00);
     bottom: -10px;
     left: 25%;
 }
@@ -147,12 +147,12 @@ nav ul li a {
     margin-top: 2rem;
 }
 
-.about-block, .mission, .science, .future {
+.intro-text, .mission, .innovation, .science, .future, .marketing {
     margin-bottom: 3rem;
     text-align: center;
 }
 
-.about-block p, .mission p, .science p, .future p {
+.intro-text p, .mission p, .innovation p, .science p, .future p, .marketing p {
     line-height: 1.8;
     margin-bottom: 1.5rem;
     max-width: 800px;
@@ -160,28 +160,28 @@ nav ul li a {
     margin-right: auto;
 }
 
-.features, .innovation, .testimonials {
+.features {
     margin: 3rem 0;
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: rgba(0, 255, 0, 0.05);
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-left: 4px solid #00FF00;
 }
 
-.features h3, .innovation h3, .testimonials h3, .science h3, .future h3 {
-    color: #ff6b00;
+h3 {
+    color: #00AA00; /* Slightly darker green for headings */
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
 }
 
-.features ul, .science ul, .future ul {
+.icon-list, .feature-list, .check-list, .arrow-list, .plain-list {
     list-style: none;
     padding: 0;
     max-width: 600px;
     margin: 0 auto;
 }
 
-.features li, .science li, .future li {
+.icon-list li, .feature-list li, .check-list li, .arrow-list li, .plain-list li {
     padding: 0.8rem 0;
     text-align: left;
     position: relative;
@@ -189,46 +189,60 @@ nav ul li a {
     line-height: 1.6;
 }
 
-.features i, .science i, .future i {
-    color: #ff6b00;
-    margin-right: 0.8rem;
+.icon-list li::before {
     position: absolute;
     left: 0;
-}
-
-.innovation-grid, .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.innovation-item, .testimonial-item {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.innovation-item:hover, .testimonial-item:hover {
-    transform: translateY(-5px);
-}
-
-.innovation-item i, .testimonial-item i {
-    font-size: 2rem;
-    color: #ff6b00;
-    margin-bottom: 1rem;
-    display: block;
+    font-size: 1.2em;
+    color: #00FF00; /* Bright green for icons */
 }
 
 .cta {
-    background: linear-gradient(135deg, #ff6b00, #ffa502);
-    color: white;
+    background-color: rgba(0, 255, 0, 0.1);
     padding: 1.5rem;
     border-radius: 8px;
     margin-top: 2rem;
     font-weight: bold;
+    border-left: 4px solid #00FF00;
+    color: #006600;
+}
+
+/* Special styling for the check marks and arrows */
+.check-list li::before {
+    content: '✔';
+    color: #00FF00;
+    position: absolute;
+    left: 0;
+}
+
+.arrow-list li::before {
+    content: '→';
+    color: #00FF00;
+    position: absolute;
+    left: 0;
+}
+
+/* Hover effects for interactive elements */
+.features:hover, .cta:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 1rem;
+    }
+    
+    .about-section h2 {
+        font-size: 2rem;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    .features, .cta {
+        padding: 1rem;
+    }
 }
 
 @media (max-width: 768px) {
