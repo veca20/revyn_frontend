@@ -83,7 +83,36 @@ nav ul li a {
     transition: 0.4s;
 }
 
+.coupon-section {
+    margin: 15px 0;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 5px;
+}
 
+#coupon-code {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#apply-coupon {
+    padding: 8px 15px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#apply-coupon:hover {
+    background: #45a049;
+}
+
+#coupon-message {
+    margin-left: 10px;
+    font-weight: bold;
+}
 
 /* Mobilnézethez reszponzív módosítások */
 @media only screen and (max-width: 768px) {
