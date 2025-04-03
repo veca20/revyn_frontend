@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     async function loadProducts() {
         try {
-            const res = await fetch('/.netlify/functions/get-products', {
+            const res = await fetch('api/get-products', {
                 method: 'GET',
                 credentials: 'include'
             });
