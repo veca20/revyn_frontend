@@ -115,6 +115,132 @@ nav ul li a {
     bottom: 20px;
 }
 
+/* CSS (add this to your about.css file) */
+.about-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    color: #333;
+}
+
+.about-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+    position: relative;
+    display: inline-block;
+}
+
+.about-section h2::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b00, #ffa502);
+    bottom: -10px;
+    left: 25%;
+}
+
+.about-content {
+    text-align: left;
+    margin-top: 2rem;
+}
+
+.about-block, .mission, .science, .future {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.about-block p, .mission p, .science p, .future p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.features, .innovation, .testimonials {
+    margin: 3rem 0;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.features h3, .innovation h3, .testimonials h3, .science h3, .future h3 {
+    color: #ff6b00;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.features ul, .science ul, .future ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.features li, .science li, .future li {
+    padding: 0.8rem 0;
+    text-align: left;
+    position: relative;
+    padding-left: 2rem;
+    line-height: 1.6;
+}
+
+.features i, .science i, .future i {
+    color: #ff6b00;
+    margin-right: 0.8rem;
+    position: absolute;
+    left: 0;
+}
+
+.innovation-grid, .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.innovation-item, .testimonial-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.innovation-item:hover, .testimonial-item:hover {
+    transform: translateY(-5px);
+}
+
+.innovation-item i, .testimonial-item i {
+    font-size: 2rem;
+    color: #ff6b00;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.cta {
+    background: linear-gradient(135deg, #ff6b00, #ffa502);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 1rem;
+    }
+    
+    .innovation-grid, .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Mobile view adjustments */
 @media only screen and (max-width: 768px) {
     .countries {
