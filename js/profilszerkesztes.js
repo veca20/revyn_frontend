@@ -17,27 +17,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById('profileForm').addEventListener('submit', async function(event) {
     event.preventDefault();
-    
-    const token = localStorage.getItem('token'); // JWT token
-    if (!token) {
-        alert('Be kell jelentkezned!');
-        return;
-    }
 
     const firstname = document.getElementById('firstname').value.trim();
     const lastname = document.getElementById('lastname').value.trim();
     const password = document.getElementById('password').value.trim();
-    const profilePicture = document.getElementById('profile_picture').files[0];
+    
 
     try {
         // **1️⃣ Név módosítása**
         if (firstname || lastname) {
             const nameResponse = await fetch('/api/editProfileName', {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include', // 🔹 ENGEDÉLYEZI A COOKIE-KAT
                 body: JSON.stringify({ firstname, lastname })
             });
 
@@ -51,10 +43,8 @@ document.getElementById('profileForm').addEventListener('submit', async function
 
             const passwordResponse = await fetch('/api/editProfilePsw', {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include', // 🔹 ENGEDÉLYEZI A COOKIE-KAT
                 body: JSON.stringify({ psw: password })
             });
 
@@ -62,22 +52,6 @@ document.getElementById('profileForm').addEventListener('submit', async function
             if (!passwordResponse.ok) throw new Error(passwordResult.error);
         }
 
-        // **3️⃣ Profilkép módosítása**
-        if (profilePicture) {
-            const formData = new FormData();
-            formData.append('profile_picture', profilePicture);
-
-            const pictureResponse = await fetch('/api/editProfilePicture', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formData
-            });
-
-            const pictureResult = await pictureResponse.json();
-            if (!pictureResponse.ok) throw new Error(pictureResult.error);
-        }
 
         document.getElementById('message').textContent = 'Profil sikeresen frissítve!';
         document.getElementById('message').style.color = 'green';
