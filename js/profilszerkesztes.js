@@ -19,21 +19,22 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('profileForm').addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        // Ellenőrzés: Az összes input létezik-e?
-        const firstnameInput = document.getElementById('firstname');
-        const lastnameInput = document.getElementById('lastname');
+        // 🔹 Az új id-k, amik megegyeznek a HTML fájlban lévőkkel
+        const firstnameInput = document.getElementById('first_name');
+        const lastnameInput = document.getElementById('last_name');
+        const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
 
-
-        if (!firstnameInput || !lastnameInput || !passwordInput || !profilePictureInput) {
+        // 🔹 Ellenőrizzük, hogy az elemek léteznek-e
+        if (!firstnameInput || !lastnameInput || !emailInput || !passwordInput) {
             console.error('Hiba: Nem találhatóak az input mezők!');
             return;
         }
 
         const firstname = firstnameInput.value.trim();
         const lastname = lastnameInput.value.trim();
+        const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
-        const profilePicture = profilePictureInput.files[0];
 
         try {
             // **1️⃣ Név módosítása**
@@ -49,7 +50,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!nameResponse.ok) throw new Error(nameResult.error);
             }
 
-            // **2️⃣ Jelszó módosítása**
+            // **2️⃣ Email módosítása**
+            if (email) {
+                const emailResponse = await fetch('/api/editProfileEmail', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email })
+                });
+
+                const emailResult = await emailResponse.json();
+                if (!emailResponse.ok) throw new Error(emailResult.error);
+            }
+
+            // **3️⃣ Jelszó módosítása**
             if (password) {
                 if (password.length < 6) throw new Error('A jelszónak legalább 6 karakter hosszúnak kell lennie.');
 
@@ -64,8 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!passwordResponse.ok) throw new Error(passwordResult.error);
             }
 
-
-
             document.getElementById('message').textContent = 'Profil sikeresen frissítve!';
             document.getElementById('message').style.color = 'green';
         } catch (error) {
@@ -75,3 +87,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
