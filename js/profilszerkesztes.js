@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
+document.getElementById('message').textContent = 'Profil sikeresen frissítve!';
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('profileForm').addEventListener('submit', async function (event) {
