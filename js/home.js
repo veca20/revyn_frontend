@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // 3. LOGIN STATE MANAGEMENT
     // ======================
     // mintha saját magaddal akarnál kicseszni
-    /*
+    
     async function checkLoginState() {
         try {
             const res = await fetch('/api/logout', {
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.getElementById('logout-container').style.display = 'none';
         }
     }
-        */
+        
 
     // ======================
     // 4. CART MANAGEMENT
@@ -336,8 +336,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     // mi a fenének ez is? Miért nem lehet az órai munkából dolgozni?
     async function initializeApp() {
         try {
-            // First check auth state
-            //await checkLoginState();
+            //First check auth state
+            await checkLoginState();
 
             // Then load other data
             products = await loadProducts();
