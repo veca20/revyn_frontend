@@ -18,18 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById('profileForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const username = document.getElementById('username').value;
+    const first_name = document.getElementById('first_name').value;
+    const last_name = document.getElementById('last_name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    // API kérés elküldése a backendhez
     try {
-        const response = await fetch('api/update-profile', { // Itt módosítsd az API URL-t!
+        const response = await fetch('/api/update-profile', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, email, password }) 
+            body: JSON.stringify({ first_name, last_name, email, password }) 
         });
 
         const result = await response.json();
@@ -43,3 +43,4 @@ document.getElementById('profileForm').addEventListener('submit', async function
         alert('Nem sikerült csatlakozni a szerverhez.');
     }
 });
+
