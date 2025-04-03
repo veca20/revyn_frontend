@@ -18,29 +18,51 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById('profileForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const first_name = document.getElementById('first_name').value;
-    const last_name = document.getElementById('last_name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const token = localStorage.getItem('token'); // A JWT token
+    const firstname = document.getElementById('firstname').value.trim();
+    const lastname = document.getElementById('lastname').value.trim();
+    const password = document.getElementById('password').value.trim();
+   
 
     try {
-        const response = await fetch('/api/update-profile', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ first_name, last_name, email, password }) 
-        });
+        // **1️⃣ Név módosítása**
+        if (firstname || lastname) {
+            const nameResponse = await fetch('/api/editProfileName', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ firstname, lastname })
+            });
 
-        const result = await response.json();
-        if (response.ok) {
-            alert('Profil sikeresen frissítve!');
-        } else {
-            alert('Hiba történt: ' + result.message);
+            const nameResult = await nameResponse.json();
+            if (!nameResponse.ok) throw new Error(nameResult.error);
         }
+
+        // **2️⃣ Jelszó módosítása**
+        if (password) {
+            if (password.length < 6) throw new Error('A jelszónak legalább 6 karakter hosszúnak kell lennie.');
+
+            const passwordResponse = await fetch('/api/editProfilePsw', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ psw: password })
+            });
+
+            const passwordResult = await passwordResponse.json();
+            if (!passwordResponse.ok) throw new Error(passwordResult.error);
+        }
+
+        
+        alert('Profil sikeresen frissítve!');
     } catch (error) {
-        console.error('Hálózati hiba:', error);
-        alert('Nem sikerült csatlakozni a szerverhez.');
+        console.error('Hiba:', error);
+        alert('Hiba történt: ' + error.message);
     }
 });
+
 
