@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
             navMenu.classList.toggle('show');
         });
     } else {
-        console.error('Hamburger vagy navMenu nem található.');
+        console.error('Hamburger or navMenu not found.');
     }
 });
 
@@ -43,30 +43,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // ======================
-    // 3. LOGIN STATE MANAGEMENT (JAVÍTOTT)
+    // 2. AUTHENTICATION MANAGEMENT
     // ======================
-   // ======================
-// 3. LOGIN STATE MANAGEMENT (JAVÍTOTT)
-// ======================
-async function checkLoginState() {
-    try {
-        const res = await fetch('/api/check-auth', { // FIXED: Added proper endpoint
-            method: 'GET',
-            credentials: 'include'
-        });
-
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        
-        const data = await res.json();
-        const isLoggedIn = data.authenticated;
-        
-        console.log('Auth status:', isLoggedIn, data);
-
+    function updateUI(isLoggedIn) {
         const profileButton = document.querySelector('.profile-icon');
         const logoutContainer = document.getElementById('logout-container');
 
         if (isLoggedIn) {
-            // Bejelentkezett állapot
             if (profileButton) {
                 profileButton.href = 'profileszerkesztes.html';
                 profileButton.innerHTML = '<i class="fas fa-user-edit"></i>';
@@ -77,7 +60,6 @@ async function checkLoginState() {
                 setTimeout(() => { logoutContainer.style.opacity = '1' }, 10);
             }
         } else {
-            // Nem bejelentkezett állapot
             if (profileButton) {
                 profileButton.href = 'login.html';
                 profileButton.innerHTML = '<i class="fas fa-user"></i>';
@@ -88,44 +70,30 @@ async function checkLoginState() {
                 setTimeout(() => { logoutContainer.style.display = 'none' }, 300);
             }
         }
-    } catch (error) {
-        console.error('Login state check failed:', error);
-        // Alapértelmezett állapot beállítása
-        const profileButton = document.querySelector('.profile-icon');
-        if (profileButton) {
-            profileButton.href = 'login.html';
-            profileButton.style.display = 'block';
-        }
-        const logoutContainer = document.getElementById('logout-container');
-        if (logoutContainer) logoutContainer.style.display = 'none';
     }
-}
 
-// Keep only one initializeApp() function
-async function initializeApp() {
-    try {
-        // Először vizuális elemek alaphelyzetbe állítása
-        document.querySelector('.profile-icon').style.display = 'none';
-        document.getElementById('logout-container').style.display = 'none';
-        
-        // Bejelentkezési állapot ellenőrzése
-        await checkLoginState();
-        
-        // Termékek betöltése
-        products = await loadProducts();
-        displayProducts(products);
-        updateCart();
-        setupEventListeners();
-        
-        // Késleltetett újraellenőrzés
-        setTimeout(checkLoginState, 1000);
-    } catch (error) {
-        console.error("Initialization error:", error);
-        showNotification("The application failed to load.", 'error');
+    async function checkLoginState() {
+        try {
+            // Try Netlify Identity first
+            if (window.netlifyIdentity) {
+                const user = netlifyIdentity.currentUser();
+                updateUI(!!user);
+                return;
+            }
+
+            // Fallback to localStorage token check
+            const token = localStorage.getItem('token');
+            const isLoggedIn = !!token;
+            updateUI(isLoggedIn);
+            
+        } catch (error) {
+            console.error('Login state check failed:', error);
+            updateUI(false);
+        }
     }
-}
+
     // ======================
-    // 4. CART MANAGEMENT
+    // 3. CART MANAGEMENT
     // ======================
     function updateCart() {
         clearTimeout(updateCartTimeout);
@@ -159,19 +127,17 @@ async function initializeApp() {
     }
 
     // ======================
-    // 5. PRODUCT DISPLAY
+    // 4. PRODUCT MANAGEMENT
     // ======================
     async function loadProducts() {
         try {
-            const res = await fetch('/api/products', {
+            const res = await fetch('/.netlify/functions/get-products', {
                 method: 'GET',
                 credentials: 'include'
             });
 
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-            products = await res.json();
-            console.log(products);
-            
+            const products = await res.json();
             return products;
         } catch (error) {
             console.error("Failed to load products:", error);
@@ -217,7 +183,7 @@ async function initializeApp() {
     }
 
     // ======================
-    // 6. EVENT HANDLERS
+    // 5. EVENT HANDLERS
     // ======================
     function handleCartActions(e) {
         const target = e.target.closest('.cart-action');
@@ -273,74 +239,78 @@ async function initializeApp() {
         button.disabled = false;
     }
 
+    async function handleLogout(e) {
+        e.preventDefault();
+        const button = e.target;
+        button.disabled = true;
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Logging out...';
+
+        try {
+            // If using Netlify Identity
+            if (window.netlifyIdentity) {
+                netlifyIdentity.logout();
+                return;
+            }
+
+            // Clear local authentication
+            localStorage.removeItem('token');
+            localStorage.removeItem('cart');
+            cartItems = [];
+            
+            updateUI(false);
+            updateCart();
+            
+            showNotification("You have successfully logged out!");
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1000);
+        } catch (error) {
+            console.error("Logout error:", error);
+            showNotification("An error occurred while logging out", 'error');
+            button.disabled = false;
+            button.innerHTML = originalText;
+        }
+    }
+
     function setupEventListeners() {
         document.querySelector('.cart-icon')?.addEventListener('click', function () {
             document.getElementById('cart-dropdown')?.classList.toggle('active');
         });
 
-        document.querySelector('.hamburger-menu')?.addEventListener('click', function () {
-            document.querySelector('nav ul')?.classList.toggle('show');
-        });
-
-        document.getElementById('logout-button')?.addEventListener('click', async function (e) {
-            e.preventDefault();
-
-            const button = this;
-            button.disabled = true;
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Kijelentkezés...';
-
-            try {
-                const res = await fetch('/api/logout', {
-                    method: 'POST',
-                    credentials: 'include'
-                });
-
-                if (res.ok) {
-                    localStorage.removeItem('user');
-                    sessionStorage.clear();
-
-                    const logoutContainer = document.getElementById('logout-container');
-                    if (logoutContainer) {
-                        logoutContainer.style.opacity = '0';
-                        setTimeout(() => {
-                            logoutContainer.style.display = 'none';
-                        }, 300);
-                    }
-
-                    showNotification("You have successfully logged out!!");
-                    setTimeout(() => {
-                        window.location.href = "login.html";
-                    }, 1000);
-                } else {
-                    throw new Error('Logout failed');
-                }
-            } catch (error) {
-                console.error("Logout error:", error);
-                showNotification("An error occurred while logging out", 'error');
-                button.disabled = false;
-                button.innerHTML = originalText;
-            }
-        });
+        document.getElementById('logout-button')?.addEventListener('click', handleLogout);
 
         document.addEventListener('click', function (e) {
             handleCartActions(e);
             handleAddToCart(e);
         });
 
+        // Check auth state every 5 minutes
         setInterval(checkLoginState, 300000);
     }
 
     // ======================
-    // 7. MAIN EXECUTION
+    // 6. MAIN INITIALIZATION
     // ======================
     async function initializeApp() {
         try {
+            // Initialize UI elements
+            document.querySelector('.profile-icon').style.display = 'none';
+            document.getElementById('logout-container').style.display = 'none';
+            
+            // Check auth state
             await checkLoginState();
+            
+            // Load products
             products = await loadProducts();
             displayProducts(products);
             updateCart();
+            
+            // Set up event listeners
             setupEventListeners();
+            
+            // Re-check auth after 1 second
+            setTimeout(checkLoginState, 1000);
         } catch (error) {
             console.error("Initialization error:", error);
             showNotification("The application failed to load.", 'error');
