@@ -22,22 +22,21 @@ document.addEventListener('DOMContentLoaded', function () {
         // 🔹 Az új id-k, amik megegyeznek a HTML fájlban lévőkkel
         const firstnameInput = document.getElementById('first_name');
         const lastnameInput = document.getElementById('last_name');
-        const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
 
         // 🔹 Ellenőrizzük, hogy az elemek léteznek-e
-        if (!firstnameInput || !lastnameInput || !emailInput || !passwordInput) {
+        if (!firstnameInput || !lastnameInput || !passwordInput) {
             console.error('Hiba: Nem találhatóak az input mezők!');
             return;
         }
 
         const firstname = firstnameInput.value.trim();
         const lastname = lastnameInput.value.trim();
-        const email = emailInput.value.trim();
+        
         const password = passwordInput.value.trim();
 
         try {
-            // **1️⃣ Név módosítása**
+            // Név módosítása**
             if (firstname || lastname) {
                 const nameResponse = await fetch('/api/editProfileName', {
                     method: 'PUT',
@@ -50,20 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!nameResponse.ok) throw new Error(nameResult.error);
             }
 
-            // **2️⃣ Email módosítása**
-            if (email) {
-                const emailResponse = await fetch('/api/editProfileEmail', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
-                    body: JSON.stringify({ email })
-                });
-
-                const emailResult = await emailResponse.json();
-                if (!emailResponse.ok) throw new Error(emailResult.error);
-            }
-
-            // **3️⃣ Jelszó módosítása**
+           
+           
+            //  Jelszó módosítása**
             if (password) {
                 if (password.length < 6) throw new Error('A jelszónak legalább 6 karakter hosszúnak kell lennie.');
 
