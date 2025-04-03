@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     async function checkLoginState() {
         try {
-            const res = await fetch('/api/login', {
+            const res = await fetch('', {
                 method: 'GET',
                 credentials: 'include'
             });
