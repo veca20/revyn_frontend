@@ -17,12 +17,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById('profileForm').addEventListener('submit', async function(event) {
     event.preventDefault();
+    
+    const token = localStorage.getItem('token'); // JWT token
+    if (!token) {
+        alert('Be kell jelentkezned!');
+        return;
+    }
 
-    const token = localStorage.getItem('token'); // A JWT token
     const firstname = document.getElementById('firstname').value.trim();
     const lastname = document.getElementById('lastname').value.trim();
     const password = document.getElementById('password').value.trim();
-   
+    const profilePicture = document.getElementById('profile_picture').files[0];
 
     try {
         // **1️⃣ Név módosítása**
@@ -57,12 +62,28 @@ document.getElementById('profileForm').addEventListener('submit', async function
             if (!passwordResponse.ok) throw new Error(passwordResult.error);
         }
 
-        
-        alert('Profil sikeresen frissítve!');
+        // **3️⃣ Profilkép módosítása**
+        if (profilePicture) {
+            const formData = new FormData();
+            formData.append('profile_picture', profilePicture);
+
+            const pictureResponse = await fetch('/api/editProfilePicture', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            const pictureResult = await pictureResponse.json();
+            if (!pictureResponse.ok) throw new Error(pictureResult.error);
+        }
+
+        document.getElementById('message').textContent = 'Profil sikeresen frissítve!';
+        document.getElementById('message').style.color = 'green';
     } catch (error) {
         console.error('Hiba:', error);
-        alert('Hiba történt: ' + error.message);
+        document.getElementById('message').textContent = 'Hiba történt: ' + error.message;
+        document.getElementById('message').style.color = 'red';
     }
 });
-
-
