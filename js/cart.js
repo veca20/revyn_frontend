@@ -54,11 +54,25 @@ document.addEventListener('DOMContentLoaded', function () {
         return itemElement;
     }
 
+    function applyCoupon(couponCode) {
+        const validCoupons = {
+            'DISCOUNT10': 10,
+            'SAVE20': 20,
+            'WELCOME15': 15
+        };
+        
+        return validCoupons[couponCode] || 0;
+    }
+
     function displayCart() {
         let cart = getCartItems();
         const cartContainer = document.getElementById('cart-container');
         const totalPriceElement = document.getElementById('total-price');
         const orderSummary = document.getElementById('order-summary');
+        const discountElement = document.getElementById('discount');
+        const couponMessage = document.getElementById('coupon-message');
+        const couponInput = document.getElementById('coupon-code');
+        const applyCouponBtn = document.getElementById('apply-coupon');
 
         if (cartContainer) {
             cartContainer.innerHTML = cart.length === 0 ? '<p>Cart is empty!</p>' : '';
@@ -77,9 +91,55 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        let totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        let discount = 0;
+        let couponCode = localStorage.getItem('appliedCoupon');
+
+        if (couponCode) {
+            discount = applyCoupon(couponCode);
+            if (discount > 0 && couponInput) {
+                couponInput.value = couponCode;
+                if (couponMessage) {
+                    couponMessage.textContent = `${discount}% discount applied!`;
+                    couponMessage.style.color = 'green';
+                }
+            }
+        }
+
+        let totalPrice = subtotal * (1 - discount / 100);
+
         if (totalPriceElement) {
-            totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
+            totalPriceElement.innerHTML = `
+                <p>Subtotal: $${subtotal.toFixed(2)}</p>
+                ${discount > 0 ? `<p>Discount: ${discount}% (-$${(subtotal * discount / 100).toFixed(2)})</p>` : ''}
+                <p><strong>Total: $${totalPrice.toFixed(2)}</strong></p>
+            `;
+        }
+
+        if (discountElement) {
+            discountElement.textContent = discount > 0 ? `Discount: ${discount}%` : '';
+        }
+
+        if (applyCouponBtn) {
+            applyCouponBtn.addEventListener('click', function() {
+                const couponCode = couponInput.value.trim();
+                const discount = applyCoupon(couponCode);
+                
+                if (discount > 0) {
+                    localStorage.setItem('appliedCoupon', couponCode);
+                    if (couponMessage) {
+                        couponMessage.textContent = `${discount}% discount applied!`;
+                        couponMessage.style.color = 'green';
+                    }
+                } else {
+                    localStorage.removeItem('appliedCoupon');
+                    if (couponMessage) {
+                        couponMessage.textContent = 'Invalid coupon code';
+                        couponMessage.style.color = 'red';
+                    }
+                }
+                displayCart(); // Refresh the cart to show updated prices
+            });
         }
     }
 
@@ -125,11 +185,29 @@ document.addEventListener('DOMContentLoaded', function () {
             const cart = getCartItems();
 
             if (!first_name || !last_name || !address || !phone_number || !card_number || !expiration_date || !name_on_card || !cvc || cart.length === 0) {
-                alert('All fields must be filled in and the cart cannot be empty.!');
+                alert('All fields must be filled in and the cart cannot be empty!');
                 return;
             }
 
-            const orderData = { first_name, last_name, address, phone_number, card_number, expiration_date, name_on_card, cart };
+            const couponCode = localStorage.getItem('appliedCoupon');
+            const discount = couponCode ? applyCoupon(couponCode) : 0;
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const total = subtotal * (1 - discount / 100);
+
+            const orderData = { 
+                first_name, 
+                last_name, 
+                address, 
+                phone_number, 
+                card_number, 
+                expiration_date, 
+                name_on_card, 
+                cart,
+                couponCode,
+                discount,
+                subtotal,
+                total
+            };
 
             fetch('/api/orders', {
                 method: 'POST',
@@ -140,7 +218,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 alert('Payment successful! Order saved.');
-                localStorage.removeItem('cart'); // Kosár törlése
+                localStorage.removeItem('cart');
+                localStorage.removeItem('appliedCoupon');
+                updateCartCount();
+                displayCart();
             })
             .catch(error => console.error('Error saving order:', error));
         });
