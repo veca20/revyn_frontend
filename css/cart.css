@@ -98,7 +98,7 @@ nav ul li a {
 
 #apply-coupon {
     padding: 8px 15px;
-    background: #4CAF50;
+    background: #00FF00;
     color: white;
     border: none;
     border-radius: 4px;
@@ -106,7 +106,7 @@ nav ul li a {
 }
 
 #apply-coupon:hover {
-    background: #45a049;
+    background: #15cc15;
 }
 
 #coupon-message {
