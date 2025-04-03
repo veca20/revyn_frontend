@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-document.getElementById('message').textContent = 'Profil sikeresen frissítve!';
+document.getElementById('message').textContent = 'Profile updated successfully!';
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('profileForm').addEventListener('submit', async function (event) {
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
            
             //  Jelszó módosítása**
             if (password) {
-                if (password.length < 6) throw new Error('A jelszónak legalább 6 karakter hosszúnak kell lennie.');
+                if (password.length < 6) throw new Error('Password must be at least 6 characters long.');
 
                 const passwordResponse = await fetch('/api/editProfilePsw', {
                     method: 'PUT',
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!passwordResponse.ok) throw new Error(passwordResult.error);
             }
 
-            document.getElementById('message').textContent = 'Profil sikeresen frissítve!';
+            document.getElementById('message').textContent = 'Profile updated successfully!';
             document.getElementById('message').style.color = 'green';
         } catch (error) {
             console.error('Hiba:', error);

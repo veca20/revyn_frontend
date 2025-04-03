@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert(message.message);
                 window.location.href = 'login.html'; // Átirányítás a bejelentkezési oldalra
             } else {
-                alert('Hiba a kijelentkezéskor');
+                alert('Error while logging out');
             }
         });
     }
@@ -86,5 +86,5 @@ function displayProducts() {
                 productsContainer.appendChild(productElement);
             });
         })
-        .catch(error => console.error("Hiba a termékek betöltésekor:", error));
+        .catch(error => console.error("Error loading products:", error));
 }

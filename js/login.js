@@ -34,8 +34,8 @@ async function login(event) {
     
 
     if (!emailInput || !pswInput) {
-        console.error('HIBA: Nem található az email vagy jelszó mező a HTML-ben!');
-        alert('Hiba történt! Frissítsd az oldalt és próbáld újra.');
+        console.error('ERROR: Email or password field not found in HTML!');
+        alert('An error has occurred! Refresh the page and try again.');
         return;
     }
 
@@ -45,7 +45,7 @@ async function login(event) {
     console.log(email, psw);
 
     if (!email || !psw) {
-        alert('Kérlek, töltsd ki az összes mezőt.');
+        alert('Please fill in all fields.');
         return;
     }
 
@@ -68,15 +68,15 @@ async function login(event) {
         // Ha a válasz nem sikeres
         if (!res.ok) {
             const errorText = await res.text();
-            console.error('Hiba történt:', errorText);
-            alert('Bejelentkezés sikertelen. Ellenőrizd az adatokat.');
+            console.error('An error occurred:', errorText);
+            alert('Login failed. Please check your details.');
             return;
         }
 
-        console.log('Bejelentkezés sikeres:', data);
+        console.log('Login successful:', data);
         if (data && data.message) {
             alert(data.message);
-            console.log('Cookie-k sikeres bejelentkezés után:', document.cookie);
+            console.log('Cookies after successful login:', document.cookie);
 
             // Ha admin, irányítsuk az admin felületre
             if (data.is_admin == 1) {
@@ -85,10 +85,10 @@ async function login(event) {
                 window.location.href = '../index.html';  // Normál felhasználó felület
             }
         } else {
-            alert('Ismeretlen hiba történt.');
+            alert('An unknown error occurred.');
         }
     } catch (error) {
-        console.error('Hiba a bejelentkezés során:', error);
-        alert('Nem sikerült csatlakozni a szerverhez. Próbáld újra később.');
+        console.error('Error while logging in:', error);
+        alert('Failed to connect to the server. Please try again later.');
     }
 }

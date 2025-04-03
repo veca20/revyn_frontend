@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             navMenu.classList.toggle('show');
         });
     } else {
-        console.error('Hamburger vagy navMenu elem nem található');
+        console.error('Hamburger or navMenu element not found');
     }
 });
 

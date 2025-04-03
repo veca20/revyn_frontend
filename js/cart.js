@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
             navMenu.classList.toggle('show');
         });
     } else {
-        console.error('Hamburger vagy navMenu elem nem található');
+        console.error('Hamburger or navMenu element not found');
     }
 
     function getCartItems() {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             localStorage.setItem('cart', JSON.stringify(cart));
         } catch (e) {
-            console.error('Hiba a kosár mentésekor:', e);
+            console.error('Error saving cart:', e);
         }
     }
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const orderSummary = document.getElementById('order-summary');
 
         if (cartContainer) {
-            cartContainer.innerHTML = cart.length === 0 ? '<p>A kosár üres!</p>' : '';
+            cartContainer.innerHTML = cart.length === 0 ? '<p>Cart is empty!</p>' : '';
             cart.forEach((item, index) => {
                 const itemElement = createCartItemElement(item, index);
                 cartContainer.appendChild(itemElement);
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const cart = getCartItems();
 
             if (!first_name || !last_name || !address || !phone_number || !card_number || !expiration_date || !name_on_card || !cvc || cart.length === 0) {
-                alert('Minden mezőt ki kell tölteni, és a kosár nem lehet üres!');
+                alert('All fields must be filled in and the cart cannot be empty.!');
                 return;
             }
 
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(response => response.json())
             .then(data => {
-                alert('Sikeres fizetés! A rendelés mentve lett.');
+                alert('Payment successful! Order saved.');
                 localStorage.removeItem('cart'); // Kosár törlése
             })
             .catch(error => console.error('Error saving order:', error));

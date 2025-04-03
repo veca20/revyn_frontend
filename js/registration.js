@@ -19,29 +19,29 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             // Konzolba kiírás
-            console.log('Szerver válasza:', response);
+            console.log('Server response:', response);
             const result = await response.json();
-            console.log('Szerver válasz JSON:', result);
+            console.log('Server response JSON:', result);
 
             // Ellenőrizd a válasz státuszát
             if (!response.ok) {
-                console.log('Hiba a válaszban:', response.status);
-                return alert(`Hiba történt! HTTP státusz: ${response.status}`);
+                console.log('Error in the answer:', response.status);
+                return alert(`An error occurred! HTTP status: ${response.status}`);
             }
 
             // Ha van hibaüzenet
             if (result.errors) {
-                console.error('Szerver hibaüzenetek:', result.errors);
-                alert('Hiba történt a regisztráció során.');
+                console.error('Server error messages:', result.errors);
+                alert('An error occurred during registration.');
             } else {
-                console.log('Sikeres regisztráció:', result);
-                alert('Sikeres regisztráció!');
+                console.log('Successful registration:', result);
+                alert('Successful registration:');
                 form.reset();
                 window.location.href = 'index.html'; // Átirányítás siker után
             }
         } catch (error) {
-            console.error('Hálózati hiba:', error);
-            alert('Hálózati hiba történt! Próbáld újra.');
+            console.error('Network error:', error);
+            alert('A network error has occurred! Please try again.');
         }
     });
 });

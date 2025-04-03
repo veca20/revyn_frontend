@@ -304,16 +304,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                         }, 300);
                     }
 
-                    showNotification("Sikeresen kijelentkeztél!");
+                    showNotification("You have successfully logged out!!");
                     setTimeout(() => {
                         window.location.href = "login.html";
                     }, 1000);
                 } else {
-                    throw new Error('A kijelentkezés sikertelen');
+                    throw new Error('Logout failed');
                 }
             } catch (error) {
-                console.error("Kijelentkezési hiba:", error);
-                showNotification("Hiba történt a kijelentkezés során", 'error');
+                console.error("Logout error:", error);
+                showNotification("An error occurred while logging out", 'error');
                 button.disabled = false;
                 button.innerHTML = originalText;
                 //checkLoginState(); // Re-check state after error
@@ -345,10 +345,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             updateCart();
             setupEventListeners();
 
-            console.log("Alkalmazás inicializálva");
+           
         } catch (error) {
-            console.error("Inicializálási hiba:", error);
-            showNotification("Az alkalmazás betöltése sikertelen", 'error');
+            console.error("Initialization error:", error);
+            showNotification("The application failed to load.", 'error');
         }
     }
 

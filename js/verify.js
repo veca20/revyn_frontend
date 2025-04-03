@@ -7,7 +7,4 @@ document.addEventListener('DOMContentLoaded', function() {
         shipTo.classList.toggle('show');
     });
 });
-document.getElementById('search-icon').addEventListener('click', function() {
-    const searchBox = document.getElementById('search-box');
-    searchBox.classList.toggle('show');
-});
+
