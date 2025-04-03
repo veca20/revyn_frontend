@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
 
-    // Hamburger menü működtetése
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
@@ -13,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
 document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     // 1. INITIALIZATION
@@ -21,7 +18,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     let products = [];
     let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     let updateCartTimeout;
-
 
     function showNotification(message, type = 'success') {
         const notification = document.createElement('div');
@@ -47,25 +43,22 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // ======================
-    // 3. LOGIN STATE MANAGEMENT
+    // 3. LOGIN STATE MANAGEMENT (JAVÍTOTT)
     // ======================
-  
-    
     async function checkLoginState() {
         try {
-            const res = await fetch('/api/logout', {
-                method: 'POST',
-                credentials: 'include' // Fontos: küldi a cookie-kat
+            const res = await fetch('/api/check-auth', {
+                method: 'GET',
+                credentials: 'include'
             });
-    
+
             const isLoggedIn = res.ok;
             console.log('Auth check response:', res.status, isLoggedIn);
-    
+
             const profileButton = document.querySelector('.profile-icon');
             const logoutContainer = document.getElementById('logout-container');
-    
+
             if (isLoggedIn) {
-                // Bejelentkezett állapot
                 if (profileButton) {
                     profileButton.href = 'profileszerkesztes.html';
                     profileButton.innerHTML = '<i class="fas fa-user-edit"></i>';
@@ -75,7 +68,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                     setTimeout(() => { logoutContainer.style.opacity = '1' }, 10);
                 }
             } else {
-                // Nem bejelentkezett állapot
                 if (profileButton) {
                     profileButton.href = 'login.html';
                     profileButton.innerHTML = '<i class="fas fa-user"></i>';
@@ -87,12 +79,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         } catch (error) {
             console.error('Login state check failed:', error);
-            // Alapértelmezettként nem bejelentkezett állapot
-            document.querySelector('.profile-icon').href = 'login.html';
-            document.getElementById('logout-container').style.display = 'none';
+            const profileButton = document.querySelector('.profile-icon');
+            if (profileButton) profileButton.href = 'login.html';
+            const logoutContainer = document.getElementById('logout-container');
+            if (logoutContainer) logoutContainer.style.display = 'none';
         }
     }
-        
 
     // ======================
     // 4. CART MANAGEMENT
@@ -160,9 +152,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             const productElement = document.createElement('div');
             productElement.classList.add('card');
 
-            // Abszolút elérési út használata
             const imagePath = `/uploads/${product.product_image}`;
-            const defaultImage = `/uploads/default.jpg`; // Figyelj a / jelre!
+            const defaultImage = `/uploads/default.jpg`;
 
             productElement.innerHTML = `
                 <div class="card-body">
@@ -177,7 +168,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <button class="btnAddToCart" 
                             data-name="${product.product_name}" 
                             data-price="${product.product_price || 0}" 
-                            data-image="${imagePath}"> <!-- Itt is abszolút út -->
+                            data-image="${imagePath}">
                         ADD TO CART
                     </button>
                 </div>
@@ -245,17 +236,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     function setupEventListeners() {
-        // Cart toggle
         document.querySelector('.cart-icon')?.addEventListener('click', function () {
             document.getElementById('cart-dropdown')?.classList.toggle('active');
         });
 
-        // Hamburger menu
         document.querySelector('.hamburger-menu')?.addEventListener('click', function () {
             document.querySelector('nav ul')?.classList.toggle('show');
         });
 
-        // Stabil logout handler
         document.getElementById('logout-button')?.addEventListener('click', async function (e) {
             e.preventDefault();
 
@@ -271,12 +259,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 });
 
                 if (res.ok) {
-                    // Clear all auth-related data
-                    //deleteAllCookies();
                     localStorage.removeItem('user');
                     sessionStorage.clear();
 
-                    // Smooth transition for logout button
                     const logoutContainer = document.getElementById('logout-container');
                     if (logoutContainer) {
                         logoutContainer.style.opacity = '0';
@@ -297,42 +282,32 @@ document.addEventListener('DOMContentLoaded', async function () {
                 showNotification("An error occurred while logging out", 'error');
                 button.disabled = false;
                 button.innerHTML = originalText;
-                //checkLoginState(); // Re-check state after error
             }
         });
 
-        // Delegated event listeners
         document.addEventListener('click', function (e) {
             handleCartActions(e);
             handleAddToCart(e);
         });
 
-        // Check auth state periodically
-        setInterval(checkLoginState, 300000); // 5 minutes
+        setInterval(checkLoginState, 300000);
     }
 
     // ======================
     // 7. MAIN EXECUTION
     // ======================
-    
     async function initializeApp() {
         try {
-            //First check auth state
             await checkLoginState();
-
-            // Then load other data
             products = await loadProducts();
             displayProducts(products);
             updateCart();
             setupEventListeners();
-
-           
         } catch (error) {
             console.error("Initialization error:", error);
             showNotification("The application failed to load.", 'error');
         }
     }
 
-    // Start the application
     initializeApp();
 });
