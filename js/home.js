@@ -47,30 +47,36 @@ document.addEventListener('DOMContentLoaded', async function () {
     // ======================
     async function checkLoginState() {
         try {
-            const res = await fetch('/api/check-auth', {
+            const res = await fetch('/api/auth/status', {
                 method: 'GET',
                 credentials: 'include'
             });
-
-            const isLoggedIn = res.ok;
-            console.log('Auth check response:', res.status, isLoggedIn);
-
+    
+            const data = await res.json();
+            const isLoggedIn = data.authenticated;
+            
+            console.log('Auth status:', isLoggedIn, data);
+    
             const profileButton = document.querySelector('.profile-icon');
             const logoutContainer = document.getElementById('logout-container');
-
+    
             if (isLoggedIn) {
+                // Bejelentkezett állapot
                 if (profileButton) {
                     profileButton.href = 'profileszerkesztes.html';
                     profileButton.innerHTML = '<i class="fas fa-user-edit"></i>';
+                    profileButton.style.display = 'block';
                 }
                 if (logoutContainer) {
                     logoutContainer.style.display = 'flex';
                     setTimeout(() => { logoutContainer.style.opacity = '1' }, 10);
                 }
             } else {
+                // Nem bejelentkezett állapot
                 if (profileButton) {
                     profileButton.href = 'login.html';
                     profileButton.innerHTML = '<i class="fas fa-user"></i>';
+                    profileButton.style.display = 'block';
                 }
                 if (logoutContainer) {
                     logoutContainer.style.opacity = '0';
@@ -79,13 +85,40 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         } catch (error) {
             console.error('Login state check failed:', error);
+            // Alapértelmezett állapot beállítása
             const profileButton = document.querySelector('.profile-icon');
-            if (profileButton) profileButton.href = 'login.html';
+            if (profileButton) {
+                profileButton.href = 'login.html';
+                profileButton.style.display = 'block';
+            }
             const logoutContainer = document.getElementById('logout-container');
             if (logoutContainer) logoutContainer.style.display = 'none';
         }
     }
-
+    
+    // Frissített initializeApp() függvény
+    async function initializeApp() {
+        try {
+            // Először vizuális elemek alaphelyzetbe állítása
+            document.querySelector('.profile-icon').style.display = 'none';
+            document.getElementById('logout-container').style.display = 'none';
+            
+            // Bejelentkezési állapot ellenőrzése
+            await checkLoginState();
+            
+            // Termékek betöltése
+            products = await loadProducts();
+            displayProducts(products);
+            updateCart();
+            setupEventListeners();
+            
+            // Késleltetett újraellenőrzés
+            setTimeout(checkLoginState, 1000);
+        } catch (error) {
+            console.error("Initialization error:", error);
+            showNotification("The application failed to load.", 'error');
+        }
+    }
     // ======================
     // 4. CART MANAGEMENT
     // ======================
