@@ -227,6 +227,57 @@ h3 {
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
     transition: all 0.3s ease;
 }
+/* CSS (updated centered version) */
+.testimonials {
+    margin: 3rem auto; /* Centered with auto margins */
+    padding: 2rem;
+    text-align: center;
+    max-width: 1000px; /* Limiting width for better centering */
+}
+
+.testimonial-grid {
+    display: flex;
+    justify-content: center; /* Center the grid items */
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.testimonial-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    width: 280px; /* Fixed width for consistent items */
+    text-align: center;
+    border-top: 3px solid #00FF00;
+}
+
+.testimonial-item span {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+    color: #00FF00;
+}
+
+.testimonial-item p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .testimonial-grid {
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 600px) {
+    .testimonial-item {
+        width: 100%;
+        max-width: 350px;
+    }
+}
 
 @media (max-width: 768px) {
     .about-section {
