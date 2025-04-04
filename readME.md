@@ -12,6 +12,8 @@ szöveg
 # Projekt struktúrája
 ## Mappa struktúra
 / src 
+
+
 ├── js    
 ├── css        
 ├── html       
