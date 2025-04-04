@@ -4,12 +4,12 @@ Amit közösen a társammal Szarvas Petrával alkottunk meg. Azt szerettük voln
 
 ## Tartalomjegyzék
 -Index az az a fő oldal amiről több különböző oldalra tudunk navigálni
-    -About Revyn ahol az oldalról és a cégről tudunk meg információkat
-    -Where To Buy ahol egy google térkép segítségével tudjuk meg nézni hol találhatóak azoka  boltok ahol a termékeket árúsítják
-    -Veryfy Your Revny olal ahol azt tudjuk meg nézni mely országokban található még a termék 
-    -Profil szerekesztés
-    -Kilépés 
-    -Kosár
+    - About Revyn ahol az oldalról és a cégről tudunk meg információkat
+    - Where To Buy ahol egy google térkép segítségével tudjuk meg nézni hol találhatóak azoka  boltok ahol a termékeket árúsítják
+    - Veryfy Your Revny olal ahol azt tudjuk meg nézni mely országokban található még a termék 
+    - Profil szerekesztés
+    - Kilépés 
+    - Kosár
 
 ## `index.html` (Főoldal / Shop)
 
@@ -143,8 +143,12 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 ├── css/
 │   ├── (a html -hez tartozó  stílusfájlok)
+
+
 ├── js/
 │   ├── (a html-hez tartozó JavaScript fájlok)
+
+
 ├── img/
 │   ├── logo.png                 - Márka logó
 │   ├── flag/                    - Országzászlók hitelesítéshez
