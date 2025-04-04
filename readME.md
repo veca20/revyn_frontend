@@ -145,15 +145,22 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 │   ├── veryfyyourrevyn.html     - Termék hitelesítés országonként
 
 ├── css/
+
+
 │   ├── (a html -hez tartozó  stílusfájlok)
 
 
 ├── js/
+
+
 │   ├── (a html-hez tartozó JavaScript fájlok)
 
 
 ├── img/
+
 │   ├── logo.png                 - Márka logó
+
+
 │   ├── flag/                    - Országzászlók hitelesítéshez
 
  # Jövőbeli fejlesztések
