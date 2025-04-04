@@ -3,13 +3,13 @@ Ez a dokumentáció weboldal működését és célját írja le a Revyn webolda
 Amit közösen a társammal Szarvas Petrával alkottunk meg. Azt szerettük volna hogyan legyen egy olyan weboldalunk ahol egészséges illetve olyan termékeket tudunk arúsítani amik a sportólók számára kedveznek és edzés után vagy el tudják ezeket fogyasztani hogy másabbúl induljona  napjuk és igy meg alkottuk a Revyn márkát!
 
 ## Tartalomjegyzék
--Index az az a fő oldal amiről több különböző oldalra tudunk navigálni
-    - About Revyn ahol az oldalról és a cégről tudunk meg információkat
-    - Where To Buy ahol egy google térkép segítségével tudjuk meg nézni hol találhatóak azoka  boltok ahol a termékeket árúsítják
-    - Veryfy Your Revny olal ahol azt tudjuk meg nézni mely országokban található még a termék 
-    - Profil szerekesztés
-    - Kilépés 
-    - Kosár
+# Index az az a fő oldal amiről több különböző oldalra tudunk navigálni:
+        - About Revyn ahol az oldalról és a cégről tudunk meg információkat
+       - Where To Buy ahol egy google térkép segítségével tudjuk meg nézni hol találhatóak azoka  boltok ahol a termékeket árúsítják
+       - Veryfy Your Revny olal ahol azt tudjuk meg nézni mely országokban található még a termék 
+       - Profil szerekesztés
+       - Kilépés 
+        - Kosár
 
 ## `index.html` (Főoldal / Shop)
 
