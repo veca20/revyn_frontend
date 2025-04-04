@@ -43,7 +43,7 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 # E-kereskedelmi funkciók
 
-## `product.html` (Termékek megjelenítésére szolgáló oldal:)
+## `product.html` (Termékek megjelenítésére szolgáló oldal)
     - Termékkép, név, ár és leírás
     - "Kosárba" funkció
     - Kosár számláló a fejlécben
