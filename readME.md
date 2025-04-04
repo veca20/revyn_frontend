@@ -85,24 +85,62 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 
 ---
-# Használt technológiák
-- Html
-- Css
-- Js
-- FontAwesome
+# Technikai megvalósítás
+## Frontend technológiák
+- HTML5 szemantikus struktúra
+- CSS a stílusozáshoz és reszponzív tervezéshez
+- Font Awesome ikonok a felhasználói felülethez
+- Mobil-first megközelítés hamburger menüvel
+
+## Főbb JavaScript funkciók
+    - Kosár kezelés (termékek hozzáadása/eltávolítása, mennyiség módosítása)
+    - Űrlap validáció regisztrációhoz és pénztárhoz
+    - Termékkezelés admin felhasználóknak
+    - Dinamikus tartalom betöltése termékoldalakhoz
+
+# Használati forgatókönyvek
+## Vásárlói út:
+    -Termékek böngészése → Kosárba → Pénztár → Fizetés
+    -Fiók létrehozása → Profil szerkesztése → Rendelési előzmények
+
+## Admin munkafolyamat:
+    - Új termékek felvétele → Meglévő termékek szerkesztése → Rendelések megtekintése
+    - Készlet és árazás kezelése
+
+## Márka interakció:
+    - Ismerje meg a Revyn történetét és küldetését
+     -Hitelesítse termékét országonként
 
 
 # Projekt struktúrája
 ## File struktúra
 ├── html/
+
+│   ├── login.html               - Bejelentkezési oldal
+
 │   ├── addproduct.html          - Admin termékfelvételi űrlap
+
+
 │   ├── AboutRevyn.html          - Céginformációs oldal
+
+
 │   ├── cart.html                - Bevásárlókosár és pénztár
+
+
 │   ├── orders.html              - Admin rendeléskezelés
+
+
 │   ├── product.html             - Termék részletes oldal
+
+
 │   ├── profileszerkesztes.html  - Felhasználói profil szerkesztés
+
+
 │   ├── registration.html        - Felhasználói regisztráció
+
+
 │   ├── veryfyyourrevyn.html     - Termék hitelesítés országonként
+
 ├── css/
 │   ├── (a html -hez tartozó  stílusfájlok)
 ├── js/
@@ -111,13 +149,7 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 │   ├── logo.png                 - Márka logó
 │   ├── flag/                    - Országzászlók hitelesítéshez
 
-# Fő funkciók
-- ki- be jelentekezés
-- termékek vásárlása
-- boltok keresése
-- admin területen:
-    - teremékek feltöltése
-    - termékek szerkesztése
-    - termék törlése
-    - megrendelések    
-
+ # Jövőbeli fejlesztések
+    - Keresési funkció hozzáadása termékekhez
+    - Reszponzív design implementálása minden képernyőmérethez
+    - Többnyelvű támogatás hozzáadása
