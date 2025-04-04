@@ -41,6 +41,37 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     -Profiladatok szerkesztése
     -Jelszó változtatás
 
+# E-kereskedelmi funkciók
+
+## `product.html` (Termékek megjelenítésére szolgáló oldal:)
+    -Termékkép, név, ár és leírás
+    -"Kosárba" funkció
+    -Kosár számláló a fejlécben
+
+## `cart.html` ( Bevásálókosár és pénztár)
+    -Elérhetőségi adatok gyűjtése
+    -Szállítási cím űrlap
+    -Fizetési folyamat
+    -Kuponkód bevitele
+    -Rendelés összegzés
+
+# Admin felület
+
+## `addproduct.html`(Új termék felvitele)
+    -Terméknév, ár, készlet, leírás
+    -Képfeltöltési lehetőség
+
+## `editproduct.html`(Termékek szerkesztése és törlése)
+    - Termékneve,ára,leírásának módosítása
+    - Termék törlése
+
+## `orders.html`(Itt találhatjuk a megrenedeléseket)
+    - Megjeleníti az ügyfelek nevét, címét és számlázási adatait
+    - Táblázatos formátum könnyű áttekintéshez
+
+
+
+
 
 ---
 # Használt technológiák
