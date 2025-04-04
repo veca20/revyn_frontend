@@ -32,34 +32,34 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 ## `registration.html` (Regisztráció)
 - **Új felhasználók regisztrációja:**:
-    -Keresztnév, vezetéknév, email és jelszó mezők
-    -Űrlap validáció
+    - Keresztnév, vezetéknév, email és jelszó mezők
+    - Űrlap validáció
 
 
 ## `profileszerkesztes.html` (A felhasználók itt tudják szerkeszteni adataikat)
 - **Regisztrált felhasználók számára:**:
-    -Profiladatok szerkesztése
-    -Jelszó változtatás
+    - Profiladatok szerkesztése
+    - Jelszó változtatás
 
 # E-kereskedelmi funkciók
 
 ## `product.html` (Termékek megjelenítésére szolgáló oldal:)
-    -Termékkép, név, ár és leírás
-    -"Kosárba" funkció
-    -Kosár számláló a fejlécben
+    - Termékkép, név, ár és leírás
+    - "Kosárba" funkció
+    - Kosár számláló a fejlécben
 
 ## `cart.html` ( Bevásálókosár és pénztár)
-    -Elérhetőségi adatok gyűjtése
-    -Szállítási cím űrlap
-    -Fizetési folyamat
-    -Kuponkód bevitele
-    -Rendelés összegzés
+    - Elérhetőségi adatok gyűjtése
+    - Szállítási cím űrlap
+    - Fizetési folyamat
+    - Kuponkód bevitele
+    - Rendelés összegzés
 
 # Admin felület
 
 ## `addproduct.html`(Új termék felvitele)
-    -Terméknév, ár, készlet, leírás
-    -Képfeltöltési lehetőség
+    - Terméknév, ár, készlet, leírás
+    - Képfeltöltési lehetőség
 
 ## `editproduct.html`(Termékek szerkesztése és törlése)
     - Termékneve,ára,leírásának módosítása
@@ -70,7 +70,18 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     - Táblázatos formátum könnyű áttekintéshez
 
 
+# Tartalom oldalak
 
+## `AboutRevyn.html` (Márka történet)
+    - Célkitűzés és értékek
+    - Termék jellemzők és előnyök
+    - Tudományos alapok az összetevőkhöz
+    - Vélemények és jövőbeli tervek
+
+
+## `veryfyyourrevyn.html` (Országok ahol megtalálható a márka)
+    - Vizuális országválasztó zászlókkal
+    - 12 támogatott ország
 
 
 ---
