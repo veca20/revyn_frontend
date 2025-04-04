@@ -118,6 +118,12 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 │   ├── login.html               - Bejelentkezési oldal
 
+│   ├── registration.html        - Felhasználói regisztráció
+
+│   ├── editproduct.html        - termékek szerkesztése admin részére
+
+│   ├── orders.html        - Rendelések megtekenitése admin részre 
+
 │   ├── addproduct.html          - Admin termékfelvételi űrlap
 
 
@@ -134,9 +140,6 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 
 │   ├── profileszerkesztes.html  - Felhasználói profil szerkesztés
-
-
-│   ├── registration.html        - Felhasználói regisztráció
 
 
 │   ├── veryfyyourrevyn.html     - Termék hitelesítés országonként
