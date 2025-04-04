@@ -30,6 +30,18 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 - **Google Maps integráció**: A `#map` ID-jű div jeleníti meg a térképet 750px magasságban.
 - **Footer**: Hírlevél feliratkozási lehetőség és navigációs linkek.
 
+## `registration.html` (Regisztráció)
+- **Új felhasználók regisztrációja:**:
+    -Keresztnév, vezetéknév, email és jelszó mezők
+    -Űrlap validáció
+
+
+## `profileszerkesztes.html` (A felhasználók itt tudják szerkeszteni adataikat)
+- **Regisztrált felhasználók számára:**:
+    -Profiladatok szerkesztése
+    -Jelszó változtatás
+
+
 ---
 # Használt technológiák
 - Html
@@ -39,13 +51,23 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 
 # Projekt struktúrája
-## Mappa struktúra
-/ src 
-
-
-├── js    
-├── css        
-├── html       
+## File struktúra
+├── html/
+│   ├── addproduct.html          - Admin termékfelvételi űrlap
+│   ├── AboutRevyn.html          - Céginformációs oldal
+│   ├── cart.html                - Bevásárlókosár és pénztár
+│   ├── orders.html              - Admin rendeléskezelés
+│   ├── product.html             - Termék részletes oldal
+│   ├── profileszerkesztes.html  - Felhasználói profil szerkesztés
+│   ├── registration.html        - Felhasználói regisztráció
+│   ├── veryfyyourrevyn.html     - Termék hitelesítés országonként
+├── css/
+│   ├── (a html -hez tartozó  stílusfájlok)
+├── js/
+│   ├── (a html-hez tartozó JavaScript fájlok)
+├── img/
+│   ├── logo.png                 - Márka logó
+│   ├── flag/                    - Országzászlók hitelesítéshez
 
 # Fő funkciók
 - ki- be jelentekezés
