@@ -55,12 +55,16 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     - "Kosárba" funkció
     - Kosár számláló a fejlécben
 
+![Mobil Nézete a rendelés leadása résznek](képek/product.png)
+
 ## `cart.html` ( Bevásálókosár és pénztár)
     - Elérhetőségi adatok gyűjtése
     - Szállítási cím űrlap
     - Fizetési folyamat
     - Kuponkód bevitele
     - Rendelés összegzés
+
+![Mobil Nézete a rendelés leadása résznek](képek/redelesleadas.png)
 
 # Admin felület
 
@@ -75,7 +79,7 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 ## `orders.html`(Itt találhatjuk a megrenedeléseket)
     - Megjeleníti az ügyfelek nevét, címét és számlázási adatait
     - Táblázatos formátum könnyű áttekintéshez
-![Mobil Nézete a rendelés le adása résznek](képek/redelesleadas.png)
+
 
 
 # Tartalom oldalak
@@ -86,7 +90,7 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     - Tudományos alapok az összetevőkhöz
     - Vélemények és jövőbeli tervek
 
-
+![Mobil Nézete a rendelés le adása résznek](képek/about.png)
 ## `veryfyyourrevyn.html` (Országok ahol megtalálható a márka)
     - Vizuális országválasztó zászlókkal
     - 12 támogatott ország
