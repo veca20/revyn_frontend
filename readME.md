@@ -1,7 +1,7 @@
 # Revyn Frontend/Weboldal Dokumentáció
 Ez a dokumentáció weboldal működését és célját írja le a Revyn weboldalhoz.
 Amit közösen a társammal Szarvas Petrával alkottunk meg. Azt szerettük volna hogyan legyen egy olyan weboldalunk ahol egészséges illetve olyan termékeket tudunk arúsítani amik a sportólók számára kedveznek és edzés után vagy el tudják ezeket fogyasztani hogy másabbúl induljona  napjuk és igy meg alkottuk a Revyn márkát!
-
+[REVYN az oldal](https://revyn.netlify.app/login.html)
 # Tartalomjegyzék
 ### Index az az a fő oldal amiről több különböző oldalra tudunk navigálni:
     - About Revyn ahol az oldalról és a cégről tudunk meg információkat
@@ -184,7 +184,7 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 [Netlyfy](https://www.netlify.com/)
 
-[REVYN az oldal](https://revyn.netlify.app/login.html)
+
 
 
 [Git hub](https://github.com/)
