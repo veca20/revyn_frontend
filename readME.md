@@ -75,7 +75,7 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 ## `orders.html`(Itt találhatjuk a megrenedeléseket)
     - Megjeleníti az ügyfelek nevét, címét és számlázási adatait
     - Táblázatos formátum könnyű áttekintéshez
-![Mobil Nézete a rendelés le adása résznek](képek/rendelesleadas.png)
+![Mobil Nézete a rendelés le adása résznek](képek/redelesleadas.png)
 
 
 # Tartalom oldalak
