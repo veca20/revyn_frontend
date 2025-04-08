@@ -203,84 +203,16 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    overflow-x: auto;
-    display: block;
 }
 
 th, td {
-    padding: 12px 8px;
+    padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-    white-space: nowrap;
 }
 
 th {
     background-color: #f2f2f2;
-    position: sticky;
-    top: 0;
-}
-
-
-@media (max-width: 768px) {
-    table {
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    
-    .responsive-table {
-        width: 100%;
-    }
-    
-    .responsive-table thead {
-        display: none;
-    }
-    
-    .responsive-table tr {
-        display: block;
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-    
-    .responsive-table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 10px;
-        border-bottom: 1px solid #eee;
-        white-space: normal;
-        text-align: right;
-    }
-    
-    .responsive-table td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        margin-right: auto;
-        padding-right: 10px;
-        text-align: left;
-    }
-    
-    
-}
-
-/* Additional mobile improvements */
-@media (max-width: 430px) {
-    .main-content {
-        padding: 10px 5px;
-    }
-    
-    h1 {
-        font-size: 20px;
-        margin-bottom: 15px;
-    }
-    
-    /* Make sure table doesn't push beyond viewport */
-    html, body {
-        overflow-x: hidden;
-        width: 100%;
-    }
 }
 
 
