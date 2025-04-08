@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Hamburger menü működtetése
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
+            this.classList.toggle('active'); // Animációhoz
             navMenu.classList.toggle('show');
         });
     } else {
