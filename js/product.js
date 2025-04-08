@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Hamburger menü kezelése
+    
     const hamburger = document.querySelector('.hamburger-menu');
     const navMenu = document.querySelector('nav ul');
+
+    // Hamburger menü működtetése
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('show');
         });
+    } else {
+        console.error('Hamburger vagy navMenu nem található.');
     }
 
     // Termék betöltése URL-ből
