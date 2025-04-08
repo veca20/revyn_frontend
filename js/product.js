@@ -1,10 +1,16 @@
-// Hamburger menü működtetése
-if (hamburger && navMenu) {
-    hamburger.addEventListener('click', function () {
-        this.classList.toggle('active'); // Animációhoz
-        navMenu.classList.toggle('show');
-    });
-}
+document.addEventListener('DOMContentLoaded', function () {
+    
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navMenu = document.querySelector('nav ul');
+
+    // Hamburger menü működtetése
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function () {
+            navMenu.classList.toggle('show');
+        });
+    } else {
+        console.error('Hamburger vagy navMenu nem található.');
+    }
 
     // Termék betöltése URL-ből
     const params = new URLSearchParams(window.location.search);
@@ -37,7 +43,7 @@ if (hamburger && navMenu) {
             if (cartDropdown) cartDropdown.classList.toggle('active');
         });
     }
-
+});
 
 // Termék betöltése és megjelenítése
 async function loadProduct(productId) {
