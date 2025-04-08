@@ -13,6 +13,10 @@ Amit közösen a társammal Szarvas Petrával alkottunk meg. Azt szerettük voln
 
 ## `index.html` (Főoldal / Shop)
 
+
+![Mobil Nézete a kosár oldalnak](képek/kosar.png)
+![Mobil Nézete a fő oldalnak](képek/fooldal.png)
+
 A látogatók számára elérhető főoldal, ahol megjelennek az elérhető termékek
 ### Főbb elemek:
 - **Navigációs sáv**: SHOP, ABOUT REVYN, WHERE TO BUY, VERIFY YOUR REVYN linkek.
@@ -35,6 +39,9 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     - Keresztnév, vezetéknév, email és jelszó mezők
     - Űrlap validáció
 
+![Mobil Nézete a regisztáció fülnek](képek/regisztracio.png)
+
+![Mobil Nézete a login oldalnak](képek/login.png)
 
 ## `profileszerkesztes.html` (A felhasználók itt tudják szerkeszteni adataikat)
 - **Regisztrált felhasználók számára:**:
@@ -68,6 +75,7 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 ## `orders.html`(Itt találhatjuk a megrenedeléseket)
     - Megjeleníti az ügyfelek nevét, címét és számlázási adatait
     - Táblázatos formátum könnyű áttekintéshez
+![Mobil Nézete a rendelés le adása résznek](képek/rendelesleadas.png)
 
 
 # Tartalom oldalak
@@ -168,4 +176,6 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     - Reszponzív design implementálása minden képernyőmérethez
     - Többnyelvű támogatás hozzáadása
 
-![Mobil Nézete a fő oldalnak](kepek/fooldal.png)
+
+
+
