@@ -7,200 +7,266 @@
 
 body {
     font-family: Arial, sans-serif;
-    font-size: 1em; /* Base font size */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow: auto;
 }
 
-/* Fejléc mobil nézetben */
+h1 {
+    text-align: center;
+    text-decoration: none;
+    margin: 0;
+}
+
+/* Fejléc */
 .banner {
     background-color: #00FF00;
     display: flex;
-    flex-direction: column; /* Stack vertically on mobile */
+    justify-content: space-between;
     align-items: center;
-    padding: 1em;
+    padding: 20px;
     position: relative;
     z-index: 1;
-}
-
-@media (min-width: 768px) {
-    .banner {
-        flex-direction: row; /* Side by side on desktop */
-        justify-content: space-between;
-    }
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 1em;
-    flex-wrap: wrap; /* Allow items to wrap on small screens */
-    justify-content: center; /* Center items on mobile */
+    gap: 20px;
 }
 
 nav ul li a {
     text-decoration: none;
     color: #698369;
-    font-size: 1em;
-    padding: 0.5em;
-    display: block;
+    font-size: 16px;
 }
 
 .icons {
     display: flex;
-    gap: 0.625em; /* 10px equivalent */
-    margin-top: 1em; /* Space between nav and icons on mobile */
+    gap: 10px;
 }
 
-@media (min-width: 768px) {
-    .icons {
-        margin-top: 0; /* Remove extra space on desktop */
-    }
+/* Hamburger Menü */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
 }
 
-/* Admin felület mobil nézetben */
+.hamburger-menu div {
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* Admin felület */
 .admin-container {
     display: flex;
-    flex-direction: column; /* Stack sidebar and main content on mobile */
-}
-
-@media (min-width: 768px) {
-    .admin-container {
-        flex-direction: row; /* Side by side on desktop */
-    }
 }
 
 .sidebar {
-    width: 100%; /* Full width on mobile */
+    width: 200px;
     background-color: #00FF00;
-    padding: 1em;
+    padding: 20px;
     color: black;
-    position: static; /* Remove fixed positioning on mobile */
+    height: 100vh;
+    position: fixed;
 }
 
-@media (min-width: 768px) {
-    .sidebar {
-        width: 12.5em; /* 200px equivalent */
-        height: 100vh;
-        position: fixed;
-    }
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #42b642;
 }
 
 .main-content {
-    padding: 1em;
+    margin-left: 220px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.main-content h1 {
+    font-size: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+form label, form input, form textarea {
+    margin-bottom: 10px;
+}
+
+form input, form textarea {
+    padding: 10px;
+    border: 1px solid #00FF00;
+    border-radius: 10px;
     width: 100%;
 }
 
-@media (min-width: 768px) {
-    .main-content {
-        margin-left: 13.75em; /* 220px equivalent */
-    }
+form button {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-/* Táblázat stílusok mobilra */
-.table-container {
+form button:hover {
+    background-color: rgb(26, 24, 24);
+}
+
+/* Kártyák stílusai */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product-item {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: calc(33.333% - 40px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-item img {
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    margin: 1em 0;
+    height: auto;
+    border-radius: 5px;
 }
 
+.product-details {
+    padding: 10px 0;
+}
+
+.product-details h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.product-details p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-actions .edit-btn,
+.product-actions .delete-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-actions .edit-btn:hover,
+.product-actions .delete-btn:hover {
+    background-color: rgb(26, 24, 24);
+}
+
+/* Táblázat stílusai */
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 37.5em; /* 600px - minimum width before scrolling */
-    font-size: 0.875em; /* Slightly smaller font for mobile */
+    margin-top: 20px;
 }
 
 th, td {
-    padding: 0.75em 0.5em;
+    padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
 th {
     background-color: #f2f2f2;
-    position: sticky;
-    top: 0;
 }
 
-/* Alternatív megoldás: stackelt táblázat mobilra */
-@media (max-width: 767px) {
-    .responsive-table {
-        min-width: 100%;
-    }
-    
-    .responsive-table thead {
-        display: none;
-    }
-    
-    .responsive-table tr {
-        display: block;
-        margin-bottom: 1em;
-        border: 1px solid #ddd;
-        border-radius: 0.3125em; /* 5px */
-    }
-    
-    .responsive-table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5em 0.625em; /* 8px 10px */
-        border-bottom: 1px solid #eee;
-        text-align: right;
-    }
-    
-    .responsive-table td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        margin-right: auto;
-        padding-right: 0.625em; /* 10px */
-        text-align: left;
-    }
-}
 
-/* Gombok mobilra */
-button {
-    padding: 0.5em 1em;
-    border-radius: 0.125em; /* 2px */
+button{
+    padding: 5px;
+    border-radius: 2px;
     background-color: rgb(0, 0, 0);
     color: #00FF00;
     border: none;
     cursor: pointer;
-    font-size: 0.875em; /* Smaller buttons on mobile */
-    margin: 0.25em 0;
 }
 
-/* iPhone 14 és kisebb képernyők */
+
+
+/* Media Queries iPhone 14-hez */
 @media (max-width: 430px) {
-    body {
-        font-size: 0.9375em; /* Slightly reduce base font size */
+    .banner {
+        flex-direction: column;
+        padding: 10px;
     }
     
     h1 {
-        font-size: 1.5em; /* 24px equivalent */
-        margin-bottom: 0.5em;
+        position: static;
+        transform: none;
+        font-size: 24px;
     }
     
     nav ul {
         flex-direction: column;
-        gap: 0.5em;
+        gap: 10px;
+    }
+    
+    .icons {
+        margin-top: 10px;
+        gap: 5px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        padding: 10px;
     }
     
     .sidebar ul li {
-        margin-bottom: 0.75em;
+        margin-bottom: 10px;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
     }
     
     .product-item {
         width: 100%;
-        padding: 1em;
-    }
-    
-    /* Make sure inputs are readable on small screens */
-    form input, form textarea {
-        font-size: 1em;
     }
 }
