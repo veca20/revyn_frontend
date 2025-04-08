@@ -37,13 +37,10 @@ async function getOrders() {
         orders.forEach(order => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${order.order_id}</td>
                 <td>${order.first_name} ${order.last_name}</td>
                 <td>${order.address}</td>
                 <td>${order.phone_number}</td>
-                <td>${order.card_number}</td>
                 <td>${order.total}</td>
-                <td>${new Date(order.order_date).toLocaleDateString()}</td>
             `;
             table.appendChild(row);
         });
