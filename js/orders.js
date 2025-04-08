@@ -22,13 +22,13 @@ async function getOrders() {
             <h1>Orders</h1>
             <table>
                 <tr>
-                    <th>Order ID</th>
+
                     <th>Name</th>
                     <th>Address</th>
                     <th>Phone</th>
-                    <th>Card Number</th>
+
                     <th>Total</th>
-                    <th>Date</th>
+
                 </tr>
             </table>
         `;
