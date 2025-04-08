@@ -184,8 +184,13 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 [Netlyfy](https://www.netlify.com/)
 
+[REVYN az oldal](https://revyn.netlify.app/login.html)
+
 
 [Git hub](https://github.com/)
+
+
+[Git hub frontend ](https://github.com/veca20/revyn_frontend)
 
 
 [Font Awesome](https://fontawesome.com/)
