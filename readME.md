@@ -182,11 +182,19 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 
 # Az oldalon használt segítő oldalak
 
-    - [Netlyfy](https://www.netlify.com/)
-    - [Git hub](https://github.com/)
-    - [Font Awesome](https://fontawesome.com/)
-    - [Chat GPT](https://chatgpt.com/)
-    - [DeepSeek](https://chat.deepseek.com/)
+[Netlyfy](https://www.netlify.com/)
+
+
+[Git hub](https://github.com/)
+
+
+[Font Awesome](https://fontawesome.com/)
+
+
+[Chat GPT](https://chatgpt.com/)
+
+
+[DeepSeek](https://chat.deepseek.com/)
 
 
 
