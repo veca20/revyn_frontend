@@ -180,7 +180,7 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     - Reszponzív design implementálása minden képernyőmérethez
     - Többnyelvű támogatás hozzáadása
 
-# Az oldalon használt  oldalak
+# Az oldalon használt hivatkozások
 
 [Netlyfy](https://www.netlify.com/)
 
