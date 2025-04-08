@@ -1,28 +1,27 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // 🔸 Hamburger menü működtetése
-    const hamburger = document.querySelector(".hamburger-menu");
-    const navMenu = document.querySelector("nav ul");
+document.addEventListener('DOMContentLoaded', function () {
+    
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navMenu = document.querySelector('nav ul');
 
+    // Hamburger menü működtetése
     if (hamburger && navMenu) {
-        hamburger.addEventListener("click", function () {
-            hamburger.classList.toggle("active");
-            navMenu.classList.toggle("show");
-        });
+    hamburger.addEventListener('click', function () {
+        this.classList.toggle('active'); // Animációhoz
+        navMenu.classList.toggle('show');
+    });
+    } else {
+        console.error('Hamburger vagy navMenu nem található.');
     }
 
-    // 🔸 Termék betöltése URL-ből
+    // Termék betöltése URL-ből
     const params = new URLSearchParams(window.location.search);
     const productId = params.get('id');
-
-    if (!productId) {
-        console.warn("Hiányzik a termék ID az URL-ből.");
-        return;
-    }
-
+    if (!productId) return;
     console.log(`HTML query-ből a productId: ${productId}`);
+    
     loadProduct(productId);
 
-    // 🔸 Kijelentkezés
+    // Kijelentkezés kezelése
     const logoutButton = document.getElementById('logout-button');
     if (logoutButton) {
         logoutButton.addEventListener('click', async function () {
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 🔸 Kosár ikon dropdown
+    // Kosár ikon kattintás
     const cartIcon = document.querySelector('.cart-icon');
     if (cartIcon) {
         cartIcon.addEventListener('click', function () {
@@ -45,29 +44,28 @@ document.addEventListener("DOMContentLoaded", function () {
             if (cartDropdown) cartDropdown.classList.toggle('active');
         });
     }
-
-    // 🔸 Kosár frissítése oldalbetöltéskor
-    updateCart();
 });
 
-// 🔧 Termék betöltése szerverről
+// Termék betöltése és megjelenítése
 async function loadProduct(productId) {
     try {
+        console.log(productId);
+        
         const response = await fetch(`/api/product/${productId}`, {
             method: 'GET',
             credentials: 'include'
         });
-
         if (!response.ok) throw new Error('Hiba a termék betöltésekor');
-
         const product = await response.json();
-        console.log('Termék adatok:', product);
+        console.log('termékről az infók:');
+        console.log(product);
 
         document.getElementById('product_name').textContent = product.product_name;
-        document.getElementById('product_price').textContent = `Ár: ${product.product_price} Ft`;
-        document.getElementById('product_image').src = `/uploads/${product.product_image}`;
+        document.getElementById('product_price').textContent = `Ár: $${product.product_price}`;
+        document.getElementById('product_image').src = product.product_image;
         document.getElementById('product_description').textContent = product.product_description;
 
+        // Kosárhoz adás gomb
         const addToCartButton = document.getElementById('add-to-cart');
         if (addToCartButton) {
             addToCartButton.addEventListener('click', () => {
@@ -82,11 +80,11 @@ async function loadProduct(productId) {
     }
 }
 
-// 💾 Kosár: hozzáadás
+// Termék hozzáadása a kosárhoz (localStorage)
 function addToCart(product) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingItem = cart.find(item => item.id === product.id);
-
+    
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
@@ -98,11 +96,10 @@ function addToCart(product) {
             quantity: 1
         });
     }
-
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-// 🔄 Kosár frissítése
+// Kosár frissítése (ikon és dropdown)
 function updateCart() {
     const cartItemsList = document.getElementById('cart-items-list');
     const cartCount = document.getElementById('cart-count');
@@ -118,7 +115,7 @@ function updateCart() {
         const li = document.createElement('li');
         li.innerHTML = `
             <img src="${item.image}" alt="${item.name}" style="width: 40px; height: 40px; margin-right: 10px;">
-            ${item.name} - ${item.price} Ft (x${item.quantity})
+            ${item.name} - $${item.price.toFixed(2)} (x${item.quantity})
             <button class="decrease-quantity" data-index="${index}">➖</button>
             <button class="increase-quantity" data-index="${index}">➕</button>
             <button class="remove-item" data-index="${index}">❌</button>
@@ -129,7 +126,7 @@ function updateCart() {
     cartCount.textContent = totalItems;
     checkoutButton.style.display = cart.length > 0 ? 'block' : 'none';
 
-    // Mennyiség módosítás
+    // Mennyiség módosító gombok eseményei
     document.querySelectorAll('.decrease-quantity').forEach(button => {
         button.addEventListener('click', () => modifyQuantity(button.dataset.index, -1));
     });
@@ -141,7 +138,7 @@ function updateCart() {
     });
 }
 
-// ➖➕❌ Kosár műveletek
+// Segédfüggvények a kosárhoz
 function modifyQuantity(index, change) {
     const cart = JSON.parse(localStorage.getItem('cart'));
     cart[index].quantity += change;
