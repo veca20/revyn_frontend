@@ -26,7 +26,6 @@ async function getOrders() {
                     <th>Name</th>
                     <th>Address</th>
                     <th>Phone</th>
-
                     <th>Total</th>
 
                 </tr>
