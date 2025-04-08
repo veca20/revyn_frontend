@@ -167,3 +167,5 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     - Keresési funkció hozzáadása termékekhez
     - Reszponzív design implementálása minden képernyőmérethez
     - Többnyelvű támogatás hozzáadása
+
+![Mobil Nézete a fő oldalnak](kepek/fooldal.png)
