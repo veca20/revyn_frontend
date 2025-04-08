@@ -180,6 +180,16 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
     - Reszponzív design implementálása minden képernyőmérethez
     - Többnyelvű támogatás hozzáadása
 
+# Az oldalon használt segítő oldalak
+
+[Netlyfy](https://www.netlify.com/)
+[Git hub](https://github.com/)
+[Font Awesome](https://fontawesome.com/)
+[Chat GPT](https://chatgpt.com/)
+[DeepSeek](https://chat.deepseek.com/)
+
+
+
 
 
 
