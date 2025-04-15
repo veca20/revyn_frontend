@@ -211,7 +211,11 @@ Ezen az oldalon térképen jelenik meg, hogy hol lehet a Revyn termékeket besze
 [DeepSeek](https://chat.deepseek.com/)
 
 
+BEJELENTKEZÉS: 
 
+nagyjuli@mail.com
+
+123456
 
 
 
